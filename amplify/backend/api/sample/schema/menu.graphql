@@ -1,0 +1,27 @@
+type Menu
+  @model
+  @auth(
+    rules: [
+      { allow: groups, groups: ["Administrator"] }
+      { allow: private, provider: iam, operations: [read] }
+      { allow: public, provider: iam, operations: [read] }
+    ]
+  ) {
+  id: ID!
+    @index(
+      name: "menusByOrdinal"
+      queryField: "menusByOrdinal"
+      sortKeyFields: ["ordinal"]
+    )
+  name: String!
+  ordinal: Int!
+  parentId: ID @index(name: "byParent", sortKeyFields: ["ordinal"])
+  parent: Menu @belongsTo(fields: ["parentId"])
+  children: [Menu!]! @hasMany(indexName: "byParent", fields: ["parentId"])
+  products: [Product!]! @hasMany(indexName: "byMenu", fields: ["id"])
+  asset: MenuAssetUri
+}
+
+type MenuAssetUri {
+  uri: String
+}

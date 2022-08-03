@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "sample",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/Users/leijendary/Codes/android/flutter_sample/amplify/backend/api/sample/schema.graphql",
+    "defaultAuthType": {
+      "mode": "AWS_IAM"
+    },
+    "conflictResolution": {
+      "defaultResolutionStrategy": {
+        "type": "AUTOMERGE"
+      }
+    },
+    "additionalAuthTypes": [
+      {
+        "mode": "AMAZON_COGNITO_USER_POOLS",
+        "cognitoUserPoolId": "authsamplef4267fce"
+      }
+    ]
+  }
+}

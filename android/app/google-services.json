@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "293600011807",
+    "project_id": "sample-1f232",
+    "storage_bucket": "sample-1f232.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293600011807:android:cd09e6deebbf6b3c9b172a",
+        "android_client_info": {
+          "package_name": "com.leijendary.flutter.flutter_sample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "293600011807-h3ck65mlf2j5ttlpdeb0befd7grjbpna.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMx7HPAd0np8Scxj6IoaP7kxgMSBxkq9E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "293600011807-h3ck65mlf2j5ttlpdeb0befd7grjbpna.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "293600011807-s454h79onn8n3f27ik2libeuc1dlnv3t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.leijendary.flutter.flutterSample"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293600011807:android:31e75be7deaf54679b172a",
+        "android_client_info": {
+          "package_name": "com.leijendary.sample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "293600011807-esu3hmgbejnt3ho8rtgiecdt2tp4re2h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.leijendary.sample",
+            "certificate_hash": "5a8726ccebcda5b9cbfc692633fc36b00fed12d2"
+          }
+        },
+        {
+          "client_id": "293600011807-h3ck65mlf2j5ttlpdeb0befd7grjbpna.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMx7HPAd0np8Scxj6IoaP7kxgMSBxkq9E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "293600011807-h3ck65mlf2j5ttlpdeb0befd7grjbpna.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "293600011807-s454h79onn8n3f27ik2libeuc1dlnv3t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.leijendary.flutter.flutterSample"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

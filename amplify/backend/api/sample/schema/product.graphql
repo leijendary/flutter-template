@@ -1,0 +1,40 @@
+type Product
+  @model
+  @auth(
+    rules: [
+      { allow: groups, groups: ["Administrator"] }
+      { allow: private, provider: iam, operations: [read] }
+      { allow: public, provider: iam, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  name: String!
+  code: Int!
+  ordinal: Int!
+  menuId: ID! @index(name: "byMenu", sortKeyFields: ["ordinal"])
+  type: ProductType!
+  availability: ProductAvailability!
+  asset: ProductAsset!
+  sizes: [String!]!
+}
+
+enum ProductType {
+  Beverage
+  Food
+  Coffee
+}
+
+enum ProductAvailability {
+  Available
+  NotAvailable
+}
+
+type ProductAsset {
+  thumbnail: ProductAssetUri!
+  full: ProductAssetUri!
+  master: ProductAssetUri!
+}
+
+type ProductAssetUri {
+  uri: String
+}

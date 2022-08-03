@@ -1,0 +1,4 @@
+type ETag @model @auth(rules: [{ allow: groups, groups: ["Administrator"] }]) {
+  name: String! @primaryKey
+  value: String
+}

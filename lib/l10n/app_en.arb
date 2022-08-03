@@ -1,0 +1,6 @@
+{
+  "requiredField": "Required Field",
+  "phoneNumberMinimum": "Should be at least 9 characters",
+  "invalidCredentials": "Your phone number or PIN are wrong",
+  "noAccount": "Your account was not found"
+}
