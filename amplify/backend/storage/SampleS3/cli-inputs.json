@@ -1,6 +1,6 @@
 {
-  "resourceName": "s3",
-  "policyUUID": "ddf4d50f",
+  "resourceName": "SampleS3",
+  "policyUUID": "48d1bc81",
   "bucketName": "sample",
   "storageAccess": "authAndGuest",
   "guestAccess": [
@@ -8,13 +8,14 @@
   ],
   "authAccess": [
     "CREATE_AND_UPDATE",
-    "READ",
-    "DELETE"
+    "READ"
   ],
   "triggerFunction": "NONE",
   "groupAccess": {
     "Customer": [
-      "READ"
+      "CREATE_AND_UPDATE",
+      "READ",
+      "DELETE"
     ]
   }
 }

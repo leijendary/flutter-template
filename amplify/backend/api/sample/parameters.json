@@ -1,12 +1,12 @@
 {
-  "AppSyncApiName": "sample",
+  "AppSyncApiName": "Sample",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false,
-  "AuthModeLastUpdated": "2022-07-31T00:34:53.169Z",
   "AuthCognitoUserPoolId": {
     "Fn::GetAtt": [
-      "authsamplef4267fce",
+      "authSampleAuth",
       "Outputs.UserPoolId"
     ]
-  }
+  },
+  "AuthModeLastUpdated": "2022-08-03T04:37:10.333Z"
 }

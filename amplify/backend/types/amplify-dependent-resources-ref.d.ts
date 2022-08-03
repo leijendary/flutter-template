@@ -1,14 +1,9 @@
 export type AmplifyDependentResourcesAttributes = {
-    "function": {
-        "samplef4267fcePostConfirmation": {
-            "Name": "string",
-            "Arn": "string",
-            "LambdaExecutionRole": "string",
-            "Region": "string"
-        }
-    },
     "auth": {
-        "samplef4267fce": {
+        "userPoolGroups": {
+            "CustomerGroupRole": "string"
+        },
+        "SampleAuth": {
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
             "UserPoolId": "string",
@@ -17,9 +12,14 @@ export type AmplifyDependentResourcesAttributes = {
             "AppClientIDWeb": "string",
             "AppClientID": "string",
             "CreatedSNSRole": "string"
-        },
-        "userPoolGroups": {
-            "CustomerGroupRole": "string"
+        }
+    },
+    "function": {
+        "SampleAuthPostConfirmation": {
+            "Name": "string",
+            "Arn": "string",
+            "LambdaExecutionRole": "string",
+            "Region": "string"
         }
     },
     "api": {
@@ -29,7 +29,7 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "storage": {
-        "s3": {
+        "SampleS3": {
             "BucketName": "string",
             "Region": "string"
         }

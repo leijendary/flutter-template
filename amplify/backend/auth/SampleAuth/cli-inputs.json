@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "samplef4267fce_identitypool_f4267fce",
+    "identityPoolName": "SampleIdentityPool",
     "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "samplef4267fce",
-    "userPoolName": "samplef4267fce_userpool_f4267fce",
+    "resourceNameTruncated": "sampleb64b1a44",
+    "userPoolName": "SampleUserPool",
     "autoVerifiedAttributes": [
       "phone_number"
     ],
@@ -13,10 +13,10 @@
       "SMS Text Message"
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
-    "smsVerificationMessage": "Your sample app verification code is {####}",
+    "smsVerificationMessage": "Sample code {####}",
     "emailVerificationSubject": "Your verification code",
     "emailVerificationMessage": "Your verification code is {####}",
-    "defaultPasswordPolicy": false,
+    "defaultPasswordPolicy": true,
     "passwordPolicyMinLength": "6",
     "passwordPolicyCharacters": [
       "Requires Numbers"
@@ -24,39 +24,51 @@
     "requiredAttributes": [
       "family_name",
       "given_name",
-      "phone_number",
-      "preferred_username"
+      "phone_number"
     ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
+      "birthdate",
       "email",
+      "gender",
+      "locale",
+      "nickname",
+      "picture",
       "family_name",
       "given_name",
-      "phone_number",
-      "preferred_username",
-      "custom:country_code"
+      "phone_number"
     ],
     "userpoolClientReadAttributes": [
+      "birthdate",
       "email",
       "family_name",
+      "gender",
+      "locale",
       "given_name",
+      "nickname",
       "phone_number",
-      "picture",
-      "custom:country_code"
+      "picture"
     ],
-    "userpoolClientLambdaRole": "samplef4267fce_userpoolclient_lambda_role",
-    "userpoolClientSetAttributes": false,
-    "sharedId": "f4267fce",
-    "resourceName": "samplef4267fce",
+    "userpoolClientLambdaRole": "Sampleb64b1a44_userpoolclient_lambda_role",
+    "userpoolClientSetAttributes": true,
+    "sharedId": "b64b1a44",
+    "resourceName": "SampleAuth",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "manual",
+    "thirdPartyAuth": false,
+    "usernameAttributes": [
+      "email, phone_number"
+    ],
+    "userPoolGroups": false,
+    "adminQueries": false,
     "triggers": {
       "PostConfirmation": [
         "add-to-group"
       ]
     },
+    "hostedUI": false,
     "userPoolGroupList": [
       "Customer"
     ],
@@ -79,7 +91,7 @@
     "dependsOn": [
       {
         "category": "function",
-        "resourceName": "samplef4267fcePostConfirmation",
+        "resourceName": "SampleAuthPostConfirmation",
         "triggerProvider": "Cognito",
         "attributes": [
           "Arn",
@@ -90,14 +102,10 @@
     "permissions": [
       "{\n  \"policyName\": \"AddToGroupCognito\",\n  \"trigger\": \"PostConfirmation\",\n  \"effect\": \"Allow\",\n  \"actions\": [\n    \"cognito-idp:AdminAddUserToGroup\",\n    \"cognito-idp:GetGroup\",\n    \"cognito-idp:CreateGroup\"\n  ],\n  \"resource\": {\n    \"paramType\": \"!GetAtt\",\n    \"keys\": [\n      \"UserPool\",\n      \"Arn\"\n    ]\n  }\n}"
     ],
-    "thirdPartyAuth": false,
-    "userPoolGroups": false,
-    "adminQueries": false,
-    "hostedUI": false,
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"SampleAuthPostConfirmation\"\n  }\n]",
     "authProviders": [],
     "parentStack": {
       "Ref": "AWS::StackId"
-    },
-    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"samplef4267fcePostConfirmation\"\n  }\n]"
+    }
   }
 }

@@ -1,19 +1,28 @@
 {
-  "function": {
-    "samplef4267fcePostConfirmation": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    }
-  },
   "auth": {
-    "samplef4267fce": {
+    "userPoolGroups": {
+      "service": "Cognito-UserPool-Groups",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "SampleAuth",
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID",
+            "IdentityPoolId"
+          ]
+        }
+      ]
+    },
+    "SampleAuth": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "samplef4267fcePostConfirmation",
+          "resourceName": "SampleAuthPostConfirmation",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -24,12 +33,14 @@
       "customAuth": false,
       "frontendAuthConfig": {
         "socialProviders": [],
-        "usernameAttributes": [],
+        "usernameAttributes": [
+          "EMAIL",
+          "PHONE_NUMBER"
+        ],
         "signupAttributes": [
           "FAMILY_NAME",
           "GIVEN_NAME",
-          "PHONE_NUMBER",
-          "PREFERRED_USERNAME"
+          "PHONE_NUMBER"
         ],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": "6",
@@ -45,22 +56,13 @@
           "PHONE_NUMBER"
         ]
       }
-    },
-    "userPoolGroups": {
-      "service": "Cognito-UserPool-Groups",
+    }
+  },
+  "function": {
+    "SampleAuthPostConfirmation": {
+      "build": true,
       "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "samplef4267fce",
-          "attributes": [
-            "UserPoolId",
-            "AppClientIDWeb",
-            "AppClientID",
-            "IdentityPoolId"
-          ]
-        }
-      ]
+      "service": "Lambda"
     }
   },
   "api": {
@@ -70,7 +72,7 @@
       "dependsOn": [
         {
           "category": "auth",
-          "resourceName": "samplef4267fce",
+          "resourceName": "SampleAuth",
           "attributes": [
             "UserPoolId"
           ]
@@ -85,7 +87,7 @@
             {
               "authenticationType": "AMAZON_COGNITO_USER_POOLS",
               "userPoolConfig": {
-                "userPoolId": "authsamplef4267fce"
+                "userPoolId": "authSampleAuth"
               }
             }
           ]
@@ -94,13 +96,13 @@
     }
   },
   "storage": {
-    "s3": {
+    "SampleS3": {
       "service": "S3",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "auth",
-          "resourceName": "samplef4267fce",
+          "resourceName": "SampleAuth",
           "attributes": [
             "UserPoolId"
           ]
