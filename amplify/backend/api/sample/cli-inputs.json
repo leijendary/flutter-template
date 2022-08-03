@@ -1,21 +1,21 @@
 {
   "version": 1,
   "serviceConfiguration": {
-    "apiName": "Sample",
+    "apiName": "sample",
     "serviceName": "AppSync",
     "defaultAuthType": {
       "mode": "AWS_IAM"
     },
+    "additionalAuthTypes": [
+      {
+        "mode": "AMAZON_COGNITO_USER_POOLS",
+        "cognitoUserPoolId": "authsample"
+      }
+    ],
     "conflictResolution": {
       "defaultResolutionStrategy": {
         "type": "AUTOMERGE"
       }
-    },
-    "additionalAuthTypes": [
-      {
-        "mode": "AMAZON_COGNITO_USER_POOLS",
-        "cognitoUserPoolId": "authSampleAuth"
-      }
-    ]
+    }
   }
 }

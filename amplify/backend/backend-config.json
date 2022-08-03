@@ -6,7 +6,7 @@
       "dependsOn": [
         {
           "category": "auth",
-          "resourceName": "SampleAuth",
+          "resourceName": "sample",
           "attributes": [
             "UserPoolId",
             "AppClientIDWeb",
@@ -16,13 +16,13 @@
         }
       ]
     },
-    "SampleAuth": {
+    "sample": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "SampleAuthPostConfirmation",
+          "resourceName": "samplePostConfirmation",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -59,10 +59,32 @@
     }
   },
   "function": {
-    "SampleAuthPostConfirmation": {
+    "samplePostConfirmation": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    }
+  },
+  "storage": {
+    "sample": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "sample",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "userPoolGroups",
+          "attributes": [
+            "CustomerGroupRole"
+          ]
+        }
+      ]
     }
   },
   "api": {
@@ -72,7 +94,7 @@
       "dependsOn": [
         {
           "category": "auth",
-          "resourceName": "SampleAuth",
+          "resourceName": "sample",
           "attributes": [
             "UserPoolId"
           ]
@@ -87,34 +109,12 @@
             {
               "authenticationType": "AMAZON_COGNITO_USER_POOLS",
               "userPoolConfig": {
-                "userPoolId": "authSampleAuth"
+                "userPoolId": "authsample"
               }
             }
           ]
         }
       }
-    }
-  },
-  "storage": {
-    "SampleS3": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "SampleAuth",
-          "attributes": [
-            "UserPoolId"
-          ]
-        },
-        {
-          "category": "auth",
-          "resourceName": "userPoolGroups",
-          "attributes": [
-            "CustomerGroupRole"
-          ]
-        }
-      ]
     }
   }
 }

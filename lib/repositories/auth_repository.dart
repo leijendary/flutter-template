@@ -1,4 +1,6 @@
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:flutter_sample/models/auth.dart';
 import 'package:flutter_sample/models/session.dart';
 import 'package:flutter_sample/utils/constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -6,10 +8,35 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 final authRepository = Provider.autoDispose((_) => AuthRepository());
 
 class AuthRepository {
-  Future<SignInResult> signIn(String username, String password) async =>
-      await Amplify.Auth.signIn(
+  Future<SignUpResult> signUp(SignUpForm signUpForm) async {
+    final userAttributes = <CognitoUserAttributeKey, String>{
+      CognitoUserAttributeKey.givenName: signUpForm.givenName!,
+      CognitoUserAttributeKey.familyName: signUpForm.familyName!,
+      AwsAttributes.countryCode: signUpForm.countryCode!,
+      CognitoUserAttributeKey.phoneNumber: signUpForm.username,
+    };
+    final options = CognitoSignUpOptions(userAttributes: userAttributes);
+
+    return await Amplify.Auth.signUp(
+      username: signUpForm.username,
+      password: signUpForm.pin!,
+      options: options,
+    );
+  }
+
+  Future<SignUpResult> confirmSignUp(
+    String username,
+    String confirmationCode,
+  ) async =>
+      await Amplify.Auth.confirmSignUp(
         username: username,
-        password: password,
+        confirmationCode: confirmationCode,
+      );
+
+  Future<SignInResult> signIn(SignInForm signInForm) async =>
+      await Amplify.Auth.signIn(
+        username: signInForm.username,
+        password: signInForm.pin,
       );
 
   Future<void> signOut() async => await Amplify.Auth.signOut();

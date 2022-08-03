@@ -20,13 +20,11 @@ class AuthProvider extends StateNotifier<AsyncValue<AuthState>> {
   void signIn(BuildContext context, SignInForm signInForm) async {
     state = const AsyncLoading();
 
-    final username = signInForm.username;
-    final password = signInForm.pin!;
     final localizations = context.localizations;
     final SignInResult result;
 
     try {
-      result = await ref.read(authRepository).signIn(username, password);
+      result = await ref.read(authRepository).signIn(signInForm);
 
       if (result.nextStep?.signInStep == "CONFIRM_SIGN_UP") {
         state = AsyncData(AuthState(shouldConfirm: true));

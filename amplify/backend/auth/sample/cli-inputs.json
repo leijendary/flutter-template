@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "SampleIdentityPool",
+    "identityPoolName": "sample",
     "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "sampleb64b1a44",
-    "userPoolName": "SampleUserPool",
+    "resourceNameTruncated": "sample4779065f",
+    "userPoolName": "sample",
     "autoVerifiedAttributes": [
       "phone_number"
     ],
@@ -30,6 +30,7 @@
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
+      "address",
       "birthdate",
       "email",
       "gender",
@@ -38,9 +39,11 @@
       "picture",
       "family_name",
       "given_name",
-      "phone_number"
+      "phone_number",
+      "custom:country_code"
     ],
     "userpoolClientReadAttributes": [
+      "address",
       "birthdate",
       "email",
       "family_name",
@@ -49,19 +52,20 @@
       "given_name",
       "nickname",
       "phone_number",
-      "picture"
+      "picture",
+      "custom:country_code"
     ],
-    "userpoolClientLambdaRole": "Sampleb64b1a44_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "sample4779065f_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": true,
-    "sharedId": "b64b1a44",
-    "resourceName": "SampleAuth",
+    "sharedId": "4779065f",
+    "resourceName": "sample",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "manual",
     "thirdPartyAuth": false,
     "usernameAttributes": [
       "email, phone_number"
     ],
-    "userPoolGroups": false,
+    "userPoolGroups": true,
     "adminQueries": false,
     "triggers": {
       "PostConfirmation": [
@@ -74,38 +78,6 @@
     ],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
-    "useEnabledMfas": true,
-    "authRoleArn": {
-      "Fn::GetAtt": [
-        "AuthRole",
-        "Arn"
-      ]
-    },
-    "unauthRoleArn": {
-      "Fn::GetAtt": [
-        "UnauthRole",
-        "Arn"
-      ]
-    },
-    "breakCircularDependency": true,
-    "dependsOn": [
-      {
-        "category": "function",
-        "resourceName": "SampleAuthPostConfirmation",
-        "triggerProvider": "Cognito",
-        "attributes": [
-          "Arn",
-          "Name"
-        ]
-      }
-    ],
-    "permissions": [
-      "{\n  \"policyName\": \"AddToGroupCognito\",\n  \"trigger\": \"PostConfirmation\",\n  \"effect\": \"Allow\",\n  \"actions\": [\n    \"cognito-idp:AdminAddUserToGroup\",\n    \"cognito-idp:GetGroup\",\n    \"cognito-idp:CreateGroup\"\n  ],\n  \"resource\": {\n    \"paramType\": \"!GetAtt\",\n    \"keys\": [\n      \"UserPool\",\n      \"Arn\"\n    ]\n  }\n}"
-    ],
-    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"SampleAuthPostConfirmation\"\n  }\n]",
-    "authProviders": [],
-    "parentStack": {
-      "Ref": "AWS::StackId"
-    }
+    "useEnabledMfas": true
   }
 }

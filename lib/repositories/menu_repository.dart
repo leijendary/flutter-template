@@ -87,7 +87,7 @@ class MenuRepository {
     required int index,
     String? parentId,
   }) async {
-    final response = await create(menu);
+    await create(menu);
 
     if (parentId == null) {
       await _menuDatabase.add(

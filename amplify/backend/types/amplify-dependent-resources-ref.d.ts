@@ -3,7 +3,7 @@ export type AmplifyDependentResourcesAttributes = {
         "userPoolGroups": {
             "CustomerGroupRole": "string"
         },
-        "SampleAuth": {
+        "sample": {
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
             "UserPoolId": "string",
@@ -15,10 +15,16 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "function": {
-        "SampleAuthPostConfirmation": {
+        "samplePostConfirmation": {
             "Name": "string",
             "Arn": "string",
             "LambdaExecutionRole": "string",
+            "Region": "string"
+        }
+    },
+    "storage": {
+        "sample": {
+            "BucketName": "string",
             "Region": "string"
         }
     },
@@ -26,12 +32,6 @@ export type AmplifyDependentResourcesAttributes = {
         "sample": {
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
-        }
-    },
-    "storage": {
-        "SampleS3": {
-            "BucketName": "string",
-            "Region": "string"
         }
     }
 }
