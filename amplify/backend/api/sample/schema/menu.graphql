@@ -8,20 +8,15 @@ type Menu
     ]
   ) {
   id: ID!
-    @index(
-      name: "menusByOrdinal"
-      queryField: "menusByOrdinal"
-      sortKeyFields: ["ordinal"]
-    )
   name: String!
   ordinal: Int!
-  parentId: ID @index(name: "byParent", sortKeyFields: ["ordinal"])
+  parentId: ID
+    @index(
+      name: "byParent"
+      sortKeyFields: ["ordinal"]
+      queryField: "listMenusByParent"
+    )
   parent: Menu @belongsTo(fields: ["parentId"])
   children: [Menu!]! @hasMany(indexName: "byParent", fields: ["parentId"])
   products: [Product!]! @hasMany(indexName: "byMenu", fields: ["id"])
-  asset: MenuAssetUri
-}
-
-type MenuAssetUri {
-  uri: String
 }

@@ -1,5 +1,6 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter_sample/models/ModelProvider.dart';
 
 class ETagRepository {
@@ -7,24 +8,25 @@ class ETagRepository {
     return getETag(Menu.schema.name);
   }
 
-  void setMenuETag(ETag? eTag, String? value) {
-    // GraphQLRequest<ETag> mutation;
+  Future<void> setMenuETag(ETag? eTag, String? value) async {
+    return setETag(eTag, Menu.schema.name, value);
+  }
 
-    // if (eTag != null) {
-    //   mutation = ModelMutations.update(eTag);
-    // } else {
-    //   eTag = ETag(
-    //     name: Menu.schema.name,
-    //     value: value,
-    //   );
-    //   mutation = ModelMutations.create(eTag);
-    // }
-    eTag ??= ETag(
-      name: Menu.schema.name,
-      value: value,
-    );
+  Future<void> setETag(ETag? eTag, String name, String? value) async {
+    GraphQLRequest<ETag> mutation;
 
-    final mutation = ModelMutations.update(eTag);
+    if (eTag != null) {
+      eTag = eTag.copyWith(value: value);
+      mutation = ModelMutations.update(eTag);
+    } else {
+      // Reuse the old ETag object if any
+      eTag = ETag(
+        name: name,
+        value: value,
+      );
+      mutation = ModelMutations.create(eTag);
+    }
+
     final request = GraphQLRequest<ETag>(
       document: mutation.document,
       decodePath: mutation.decodePath,
@@ -33,30 +35,33 @@ class ETagRepository {
       apiName: "sample_cognito",
     );
 
-    Amplify.API.mutate(request: request);
+    await Amplify.API.mutate(request: request).response;
   }
 
   Future<ETag?> getETag(String name) async {
-    const getETag = "getETag";
+    const getETagByName = "getETagByName";
     const query = """
       query (\$name: String!) {
-        $getETag(name: \$name) {
-          name
-          value
+        $getETagByName(name: \$name) {
+          items {
+            id
+            name
+            value
+          }
         }
       }
     """;
-    final request = GraphQLRequest<ETag>(
+    final request = GraphQLRequest<PaginatedResult<ETag>>(
       document: query,
-      modelType: ETag.classType,
+      modelType: const PaginatedModelType(ETag.classType),
       variables: <String, dynamic>{
         "name": name,
       },
-      decodePath: getETag,
+      decodePath: getETagByName,
       apiName: "sample_cognito",
     );
     final response = await Amplify.API.query(request: request).response;
 
-    return response.data;
+    return response.data?.items.firstOrNull;
   }
 }

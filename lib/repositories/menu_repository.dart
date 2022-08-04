@@ -6,14 +6,15 @@ import 'package:flutter_sample/apis/menu_api.dart';
 import 'package:flutter_sample/databases/menu_database.dart';
 import 'package:flutter_sample/databases/product_database.dart';
 import 'package:flutter_sample/models/Menu.dart';
+import 'package:flutter_sample/models/Product.dart';
 
 class MenuRepository {
   final _menuDatabase = MenuDatabase();
   final _productDatabase = ProductDatabase();
-  final _api = MenuApi();
+  final _menuApi = MenuApi();
 
   Future<String?> refill(String? currentETag) async {
-    final apiETag = await _api.eTag();
+    final apiETag = await _menuApi.eTag();
 
     if (currentETag != null && apiETag == currentETag) {
       return apiETag;
@@ -22,7 +23,7 @@ class MenuRepository {
     _menuDatabase.clear();
     _productDatabase.clear();
 
-    final menus = await _api.all();
+    final menus = await _menuApi.all();
 
     for (var i = 0; i < menus.length; i++) {
       var menu = menus[i];
@@ -82,6 +83,24 @@ class MenuRepository {
     return await Amplify.API.mutate(request: request).response;
   }
 
+  Future<GraphQLResponse<Product>> createProduct(
+    Menu menu,
+    Product product,
+  ) async {
+    product = product.copyWith(menuId: menu.id);
+
+    final mutation = ModelMutations.create(product);
+    final request = GraphQLRequest<Product>(
+      document: mutation.document,
+      decodePath: mutation.decodePath,
+      modelType: mutation.modelType,
+      variables: mutation.variables,
+      apiName: "sample_cognito",
+    );
+
+    return await Amplify.API.mutate(request: request).response;
+  }
+
   Future<void> _addMenus({
     required Menu menu,
     required int index,
@@ -123,6 +142,8 @@ class MenuRepository {
   }) async {
     for (var i = 0; i < menu.products.length; i++) {
       final product = menu.products[i];
+
+      await createProduct(menu, product);
 
       await _productDatabase.add(
         product: product,

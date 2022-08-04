@@ -1,3 +1,6 @@
 #!/bin/sh
 
-amplify push --y && amplify codegen models
+amplify push \
+    --y \
+    --allow-destructive-graphql-schema-updates \
+amplify codegen models

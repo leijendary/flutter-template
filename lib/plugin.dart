@@ -1,6 +1,7 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,8 @@ Future<void> firebase() async {
 Future<void> amplify() async {
   final auth = AmplifyAuthCognito();
   final api = AmplifyAPI(modelProvider: ModelProvider.instance);
-  await Amplify.addPlugins([auth, api]);
+  final storage = AmplifyStorageS3();
+  await Amplify.addPlugins([auth, api, storage]);
   await Amplify.configure(amplifyconfig);
 }
 
@@ -41,7 +43,6 @@ Future<void> database() async {
   final apiETag = await menuRepository.refill(eTag?.value);
 
   if (eTag?.value != apiETag) {
-    // Reuse the old ETag object if any
-    eTagRepository.setMenuETag(eTag, apiETag);
+    await eTagRepository.setMenuETag(eTag, apiETag);
   }
 }
