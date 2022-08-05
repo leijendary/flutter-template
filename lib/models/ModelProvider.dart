@@ -23,13 +23,11 @@ import 'package:amplify_core/amplify_core.dart';
 import 'ETag.dart';
 import 'Menu.dart';
 import 'Product.dart';
-import 'MenuAssetUri.dart';
 import 'ProductAsset.dart';
 import 'ProductAssetUri.dart';
 
 export 'ETag.dart';
 export 'Menu.dart';
-export 'MenuAssetUri.dart';
 export 'Product.dart';
 export 'ProductAsset.dart';
 export 'ProductAssetUri.dart';
@@ -38,12 +36,12 @@ export 'ProductType.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "0ef7f95e86be26af96b65edb2300ac11";
+  String version = "7cce0c8b16049dff9e88cf3ed9431717";
   @override
   List<ModelSchema> modelSchemas = [ETag.schema, Menu.schema, Product.schema];
   static final ModelProvider _instance = ModelProvider();
   @override
-  List<ModelSchema> customTypeSchemas = [MenuAssetUri.schema, ProductAsset.schema, ProductAssetUri.schema];
+  List<ModelSchema> customTypeSchemas = [ProductAsset.schema, ProductAssetUri.schema];
 
   static ModelProvider get instance => _instance;
   

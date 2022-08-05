@@ -2,5 +2,5 @@
 
 amplify push \
     --y \
-    --allow-destructive-graphql-schema-updates \
+    --allow-destructive-graphql-schema-updates
 amplify codegen models

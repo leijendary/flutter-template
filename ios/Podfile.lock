@@ -1,6 +1,7 @@
 PODS:
   - Amplify (1.25.0):
     - Amplify/Default (= 1.25.0)
+  - Amplify/Default (1.25.0)
   - amplify_api_ios (0.0.1):
     - Amplify (= 1.25.0)
     - amplify_core
@@ -26,6 +27,11 @@ PODS:
     - Flutter
     - SwiftFormat/CLI
     - SwiftLint
+  - amplify_storage_s3_ios (0.0.1):
+    - Amplify (= 1.25.0)
+    - amplify_core
+    - AmplifyPlugins/AWSS3StoragePlugin (= 1.25.0)
+    - Flutter
   - AmplifyPlugins/AWSAPIPlugin (1.25.0):
     - AppSyncRealTimeClient (~> 1.8)
     - AWSCore (~> 2.27.0)
@@ -37,6 +43,10 @@ PODS:
     - AWSCore (~> 2.27.0)
     - AWSMobileClient (~> 2.27.0)
     - AWSPluginsCore (= 1.25.0)
+  - AmplifyPlugins/AWSS3StoragePlugin (1.25.0):
+    - AWSCore (~> 2.27.0)
+    - AWSPluginsCore (= 1.25.0)
+    - AWSS3 (~> 2.27.0)
   - AppSyncRealTimeClient (1.10.0):
     - Starscream (~> 4.0.4)
   - AWSAuthCore (2.27.13):
@@ -55,6 +65,8 @@ PODS:
   - AWSPluginsCore (1.25.0):
     - Amplify (= 1.25.0)
     - AWSCore (~> 2.27.0)
+  - AWSS3 (2.27.13):
+    - AWSCore (= 2.27.13)
   - Firebase/CoreOnly (9.3.0):
     - FirebaseCore (= 9.3.0)
   - Firebase/Crashlytics (9.3.0):
@@ -92,6 +104,11 @@ PODS:
     - GoogleUtilities/UserDefaults (~> 7.7)
     - PromisesObjC (~> 2.1)
   - Flutter (1.0.0)
+  - flutter_image_compress (1.0.0):
+    - Flutter
+    - Mantle
+    - SDWebImage
+    - SDWebImageWebPCoder
   - GoogleDataTransport (9.2.0):
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
@@ -105,6 +122,18 @@ PODS:
     - GoogleUtilities/Logger
   - integration_test (0.0.1):
     - Flutter
+  - libwebp (1.2.3):
+    - libwebp/demux (= 1.2.3)
+    - libwebp/mux (= 1.2.3)
+    - libwebp/webp (= 1.2.3)
+  - libwebp/demux (1.2.3):
+    - libwebp/webp
+  - libwebp/mux (1.2.3):
+    - libwebp/demux
+  - libwebp/webp (1.2.3)
+  - Mantle (2.2.0):
+    - Mantle/extobjc (= 2.2.0)
+  - Mantle/extobjc (2.2.0)
   - nanopb (2.30909.0):
     - nanopb/decode (= 2.30909.0)
     - nanopb/encode (= 2.30909.0)
@@ -114,6 +143,12 @@ PODS:
   - path_provider_ios (0.0.1):
     - Flutter
   - PromisesObjC (2.1.1)
+  - SDWebImage (5.13.2):
+    - SDWebImage/Core (= 5.13.2)
+  - SDWebImage/Core (5.13.2)
+  - SDWebImageWebPCoder (0.9.0):
+    - libwebp (~> 1.0)
+    - SDWebImage/Core (~> 5.13)
   - Starscream (4.0.4)
   - SwiftFormat/CLI (0.49.13)
   - SwiftLint (0.47.1)
@@ -123,9 +158,11 @@ DEPENDENCIES:
   - amplify_auth_cognito_ios (from `.symlinks/plugins/amplify_auth_cognito_ios/ios`)
   - amplify_core (from `.symlinks/plugins/amplify_core/ios`)
   - amplify_flutter_ios (from `.symlinks/plugins/amplify_flutter_ios/ios`)
+  - amplify_storage_s3_ios (from `.symlinks/plugins/amplify_storage_s3_ios/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_crashlytics (from `.symlinks/plugins/firebase_crashlytics/ios`)
   - Flutter (from `Flutter`)
+  - flutter_image_compress (from `.symlinks/plugins/flutter_image_compress/ios`)
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
   - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
 
@@ -140,6 +177,7 @@ SPEC REPOS:
     - AWSCore
     - AWSMobileClient
     - AWSPluginsCore
+    - AWSS3
     - Firebase
     - FirebaseCore
     - FirebaseCoreDiagnostics
@@ -148,9 +186,13 @@ SPEC REPOS:
     - FirebaseInstallations
     - GoogleDataTransport
     - GoogleUtilities
+    - libwebp
+    - Mantle
     - nanopb
     - ObjectMapper
     - PromisesObjC
+    - SDWebImage
+    - SDWebImageWebPCoder
     - Starscream
     - SwiftFormat
     - SwiftLint
@@ -164,12 +206,16 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/amplify_core/ios"
   amplify_flutter_ios:
     :path: ".symlinks/plugins/amplify_flutter_ios/ios"
+  amplify_storage_s3_ios:
+    :path: ".symlinks/plugins/amplify_storage_s3_ios/ios"
   firebase_core:
     :path: ".symlinks/plugins/firebase_core/ios"
   firebase_crashlytics:
     :path: ".symlinks/plugins/firebase_crashlytics/ios"
   Flutter:
     :path: Flutter
+  flutter_image_compress:
+    :path: ".symlinks/plugins/flutter_image_compress/ios"
   integration_test:
     :path: ".symlinks/plugins/integration_test/ios"
   path_provider_ios:
@@ -181,6 +227,7 @@ SPEC CHECKSUMS:
   amplify_auth_cognito_ios: 8a014f5d5e085265e13a270dc03fbe0818bb1f54
   amplify_core: e67fe0c53845db08aced670bfc7370b1329d2798
   amplify_flutter_ios: 59c43b6b6ff6ccfc59e18eef279d9d6b8fef8cca
+  amplify_storage_s3_ios: 958f4989117718621340d7405d792b957adcf764
   AmplifyPlugins: 110388250aeaf45eaf3008991616be84b2c605f7
   AppSyncRealTimeClient: 656ab4215e05f6ca47fe6d8c73f416d9984a8aac
   AWSAuthCore: 9898614783bd6375742b58a1df38c6a8b8276eda
@@ -189,6 +236,7 @@ SPEC CHECKSUMS:
   AWSCore: 05edadb5f3d0b92a50ea8c66b06f1a10477878da
   AWSMobileClient: a49361347ff5c0cff946b3f777936c0fdf9c190d
   AWSPluginsCore: c29c4b91c4ecd7376b85288615bb482f409a0b73
+  AWSS3: 0ce6101e04b1c8a72eec165155e2f1da43d7229b
   Firebase: ef75abb1cdbc746d5a38f4e26c422c807b189b8c
   firebase_core: 96214f90497b808a2cf2a24517084c5f6de37b53
   firebase_crashlytics: cdba3f556462dd5ee25cc7d28790ff2de2c0edcf
@@ -198,17 +246,22 @@ SPEC CHECKSUMS:
   FirebaseCrashlytics: 65a5b349e664e986e6c7486b0a9b5ed8c11d0491
   FirebaseInstallations: 54b40022cb06e462740c9f2b9fbe38b5e78a825a
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  flutter_image_compress: 5a5e9aee05b6553048b8df1c3bc456d0afaac433
   GoogleDataTransport: 1c8145da7117bd68bbbed00cf304edb6a24de00f
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   integration_test: a1e7d09bd98eca2fc37aefd79d4f41ad37bdbbe5
+  libwebp: 60305b2e989864154bd9be3d772730f08fc6a59c
+  Mantle: c5aa8794a29a022dfbbfc9799af95f477a69b62d
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
+  SDWebImage: 72f86271a6f3139cc7e4a89220946489d4b9a866
+  SDWebImageWebPCoder: 3dc350894112feab5375cfba9ce0986544a66a69
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   SwiftFormat: 53864d9acbae3a954eb413736729500fe7051435
   SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
 
-PODFILE CHECKSUM: a75497545d4391e2d394c3668e20cfb1c2bbd4aa
+PODFILE CHECKSUM: 4e8f8b2be68aeea4c0d5beb6ff1e79fface1d048
 
 COCOAPODS: 1.11.3

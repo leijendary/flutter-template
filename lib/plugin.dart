@@ -37,12 +37,13 @@ Future<void> database() async {
     await Hive.openBox(box);
   }
 
-  final eTagRepository = ETagRepository();
-  final menuRepository = MenuRepository();
-  final eTag = await eTagRepository.getMenuETag();
-  final apiETag = await menuRepository.refill(eTag?.value);
+  // Uncomment if you want to fill up some data
+  // final eTagRepository = ETagRepository();
+  // final menuRepository = MenuRepository();
+  // final eTag = await eTagRepository.getMenuETag();
+  // final apiETag = await menuRepository.refill(eTag?.value);
 
-  if (eTag?.value != apiETag) {
-    await eTagRepository.setMenuETag(eTag, apiETag);
-  }
+  // if (eTag?.value != apiETag) {
+  //   await eTagRepository.setMenuETag(eTag, apiETag);
+  // }
 }

@@ -7,17 +7,15 @@ import 'package:http/http.dart' as http;
 final _url = Uri.parse(dotenv.env["MENU_API_URL"]!);
 
 class MenuApi {
-  final _client = http.Client();
-
   Future<String?> eTag() async {
-    final response = await _client.head(_url);
+    final response = await http.head(_url);
     final headers = response.headers;
 
     return headers["etag"];
   }
 
   Future<List<Menu>> all() async {
-    final response = await _client.get(_url);
+    final response = await http.get(_url);
     final menus = <Menu>[];
 
     json
@@ -35,7 +33,6 @@ class MenuApi {
       parent: parent,
       products: const [],
       children: const [],
-      asset: MenuAssetUri(uri: null),
     );
 
     final children = <Menu>[];
