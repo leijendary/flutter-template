@@ -23,6 +23,8 @@ class ProductDatabase {
     return Product.fromJson(json);
   }
 
+  int size() => _box.length;
+
   Future<void> clear() => _box.clear();
 
   String _getKey(String menuId, int index) => "$menuId.$index";

@@ -7,16 +7,12 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_sample/apis/file_api.dart';
 import 'package:flutter_sample/apis/menu_api.dart';
-import 'package:flutter_sample/databases/menu_database.dart';
-import 'package:flutter_sample/databases/product_database.dart';
 import 'package:flutter_sample/models/ModelProvider.dart';
 import 'package:flutter_sample/utils/files.dart';
 import 'package:intl/intl.dart';
 import 'package:path/path.dart' as path;
 
 class MenuRepository {
-  final _menuDatabase = MenuDatabase();
-  final _productDatabase = ProductDatabase();
   final _menuApi = MenuApi();
   final _fileApi = FileApi();
   final _dateTimeFormat = DateFormat("yyyyMMddHms");
@@ -27,9 +23,6 @@ class MenuRepository {
     if (currentETag != null && apiETag == currentETag) {
       return apiETag;
     }
-
-    _menuDatabase.clear();
-    _productDatabase.clear();
 
     final menus = await _menuApi.all();
 
@@ -122,21 +115,8 @@ class MenuRepository {
       FirebaseCrashlytics.instance.recordError(exception, null);
     }
 
-    if (parentId == null) {
-      await _menuDatabase.add(
-        menu: menu,
-        index: index,
-      );
-    }
-
     for (var i = 0; i < menu.children.length; i++) {
       final child = menu.children[i];
-
-      await _menuDatabase.add(
-        menu: child,
-        index: i,
-        parentId: parentId,
-      );
 
       await _addMenus(
         menu: child,
@@ -156,7 +136,7 @@ class MenuRepository {
   }) async {
     for (var i = 0; i < menu.products.length; i++) {
       var product = menu.products[i];
-      final asset = await _downloadAndUploadAsset(product.asset);
+      final asset = await _uploadAsset(product.asset);
       product = product.copyWith(asset: asset);
 
       final result = await createProduct(menu, product);
@@ -166,18 +146,10 @@ class MenuRepository {
 
         FirebaseCrashlytics.instance.recordError(exception, null);
       }
-
-      await _productDatabase.add(
-        product: product,
-        index: i,
-        menuId: menu.id,
-      );
     }
   }
 
-  Future<ProductAsset> _downloadAndUploadAsset(
-    ProductAsset productAsset,
-  ) async {
+  Future<ProductAsset> _uploadAsset(ProductAsset productAsset) async {
     final thumbnail = _uploadToS3(productAsset.thumbnail);
     final full = _uploadToS3(productAsset.full);
     final master = _uploadToS3(productAsset.master);
