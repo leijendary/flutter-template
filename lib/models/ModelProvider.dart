@@ -38,7 +38,7 @@ export 'SetMenuTypeResult.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "7914c7b26b11aa4925a67b925ccfdd38";
+  String version = "f86da550b00b608115ea0a3bd5c74036";
   @override
   List<ModelSchema> modelSchemas = [ETag.schema, Menu.schema, Product.schema];
   static final ModelProvider _instance = ModelProvider();
