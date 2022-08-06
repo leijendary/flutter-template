@@ -35,6 +35,7 @@ class Menu extends Model {
   final Menu? _parent;
   final List<Menu>? _children;
   final List<Product>? _products;
+  final String? _type;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -102,6 +103,19 @@ class Menu extends Model {
     }
   }
   
+  String get type {
+    try {
+      return _type!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
+  
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
@@ -110,16 +124,17 @@ class Menu extends Model {
     return _updatedAt;
   }
   
-  const Menu._internal({required this.id, required name, required ordinal, parent, required children, required products, createdAt, updatedAt}): _name = name, _ordinal = ordinal, _parent = parent, _children = children, _products = products, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Menu._internal({required this.id, required name, required ordinal, parent, required children, required products, required type, createdAt, updatedAt}): _name = name, _ordinal = ordinal, _parent = parent, _children = children, _products = products, _type = type, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Menu({String? id, required String name, required int ordinal, Menu? parent, required List<Menu> children, required List<Product> products}) {
+  factory Menu({String? id, required String name, required int ordinal, Menu? parent, required List<Menu> children, required List<Product> products, required String type}) {
     return Menu._internal(
       id: id == null ? UUID.getUUID() : id,
       name: name,
       ordinal: ordinal,
       parent: parent,
       children: children != null ? List<Menu>.unmodifiable(children) : children,
-      products: products != null ? List<Product>.unmodifiable(products) : products);
+      products: products != null ? List<Product>.unmodifiable(products) : products,
+      type: type);
   }
   
   bool equals(Object other) {
@@ -135,7 +150,8 @@ class Menu extends Model {
       _ordinal == other._ordinal &&
       _parent == other._parent &&
       DeepCollectionEquality().equals(_children, other._children) &&
-      DeepCollectionEquality().equals(_products, other._products);
+      DeepCollectionEquality().equals(_products, other._products) &&
+      _type == other._type;
   }
   
   @override
@@ -150,6 +166,7 @@ class Menu extends Model {
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("ordinal=" + (_ordinal != null ? _ordinal!.toString() : "null") + ", ");
     buffer.write("parent=" + (_parent != null ? _parent!.toString() : "null") + ", ");
+    buffer.write("type=" + "$_type" + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -157,14 +174,15 @@ class Menu extends Model {
     return buffer.toString();
   }
   
-  Menu copyWith({String? id, String? name, int? ordinal, Menu? parent, List<Menu>? children, List<Product>? products}) {
+  Menu copyWith({String? id, String? name, int? ordinal, Menu? parent, List<Menu>? children, List<Product>? products, String? type}) {
     return Menu._internal(
       id: id ?? this.id,
       name: name ?? this.name,
       ordinal: ordinal ?? this.ordinal,
       parent: parent ?? this.parent,
       children: children ?? this.children,
-      products: products ?? this.products);
+      products: products ?? this.products,
+      type: type ?? this.type);
   }
   
   Menu.fromJson(Map<String, dynamic> json)  
@@ -186,11 +204,12 @@ class Menu extends Model {
           .map((e) => Product.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
           .toList()
         : null,
+      _type = json['type'],
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'name': _name, 'ordinal': _ordinal, 'parent': _parent?.toJson(), 'children': _children?.map((Menu? e) => e?.toJson()).toList(), 'products': _products?.map((Product? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'name': _name, 'ordinal': _ordinal, 'parent': _parent?.toJson(), 'children': _children?.map((Menu? e) => e?.toJson()).toList(), 'products': _products?.map((Product? e) => e?.toJson()).toList(), 'type': _type, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
 
   static final QueryField ID = QueryField(fieldName: "id");
@@ -205,6 +224,7 @@ class Menu extends Model {
   static final QueryField PRODUCTS = QueryField(
     fieldName: "products",
     fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: (Product).toString()));
+  static final QueryField TYPE = QueryField(fieldName: "type");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Menu";
     modelSchemaDefinition.pluralName = "Menus";
@@ -268,6 +288,12 @@ class Menu extends Model {
       isRequired: true,
       ofModelName: (Product).toString(),
       associatedKey: Product.MENUID
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: Menu.TYPE,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(

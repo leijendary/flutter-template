@@ -19,4 +19,11 @@ type Menu
   parent: Menu @belongsTo(fields: ["parentId"])
   children: [Menu!]! @hasMany(indexName: "byParent", fields: ["parentId"])
   products: [Product!]! @hasMany(indexName: "byMenu", fields: ["id"])
+  type: String!
+    @default(value: "Menu")
+    @index(
+      name: "sortedByOrdinal"
+      queryField: "listMenusSortedByOrdinal"
+      sortKeyFields: ["ordinal"]
+    )
 }

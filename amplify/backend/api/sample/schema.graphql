@@ -1,0 +1,3 @@
+type Mutation {
+  setMenuType(type: String!): Int @function(name: "sampleUpdateMenuType-${env}")
+}

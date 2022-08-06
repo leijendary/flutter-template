@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "storage": {
+      "Menu:@model(appsync)": [
+        "read",
+        "update"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}
