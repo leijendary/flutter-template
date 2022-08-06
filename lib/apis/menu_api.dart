@@ -33,6 +33,7 @@ class MenuApi {
       parent: parent,
       products: const [],
       children: const [],
+      type: Menu.schema.name,
     );
 
     final children = <Menu>[];
