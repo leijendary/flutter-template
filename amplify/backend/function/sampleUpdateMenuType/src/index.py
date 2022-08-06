@@ -14,21 +14,29 @@ def handler(event, context):
 
     data = table.scan()
     count = 0
+    result = []
 
-    for item in data:
-        table.update_item(
+    for item in data['Items']:
+        item = table.update_item(
             Key={
-                "pkey": item.id
+                "id": item["id"],
             },
-            AttributeUpdates={
-                "type": event.arguments.type
-            }
+            UpdateExpression="set #t = :newType",
+            ExpressionAttributeNames={
+                "#t": "type"
+            },
+            ExpressionAttributeValues={
+                ':newType': event["type"],
+            },
+            ReturnValues="UPDATED_NEW"
         )
 
         count = count + 1
+        result.append(item["Attributes"])
 
     return {
         "body": {
-            "count": count
+            "count": count,
+            "result": result
         }
     }

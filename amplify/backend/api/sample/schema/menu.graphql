@@ -27,3 +27,13 @@ type Menu
       sortKeyFields: ["ordinal"]
     )
 }
+
+type Mutation {
+  setMenuType(type: String!): SetMenuTypeResult
+    @function(name: "sampleUpdateMenuType-${env}")
+}
+
+type SetMenuTypeResult {
+  count: Int!
+  result: [Menu!]!
+}
