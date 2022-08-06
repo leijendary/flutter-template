@@ -5,7 +5,7 @@ const amplifyMeta = JSON.parse(
 );
 const resourceName = "sample";
 const accountId =
-  amplifyMeta.providers.awscloudformation.AuthRoleName.split(":")[4];
+  amplifyMeta.providers.awscloudformation.AuthRoleArn.split(":")[4];
 const region = amplifyMeta.providers.awscloudformation.Region;
 const content = `export const ApiContext = {
   "environment": "${parameters.data.amplify.environment.envName}",
