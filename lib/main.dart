@@ -25,7 +25,7 @@ final _theme = ThemeData(
   appBarTheme: const AppBarTheme(
     elevation: 0,
   ),
-  fontFamily: 'Montserrat',
+  fontFamily: "Montserrat",
 );
 
 Future<void> main() async {

@@ -3,6 +3,7 @@ class SessionUser {
     this.id,
     this.givenName,
     this.familyName,
+    this.nickname,
     this.countryCode,
     this.phoneNumber,
     this.languageCode = "en",
@@ -12,6 +13,7 @@ class SessionUser {
   String? id;
   String? givenName;
   String? familyName;
+  String? nickname;
   String? countryCode;
   String? phoneNumber;
   String languageCode;
@@ -25,6 +27,7 @@ class GuestUser extends SessionUser {
       : super(
           givenName: "Guest",
           familyName: "User",
+          nickname: "Guest",
           languageCode: "nl",
           isGuest: true,
         );

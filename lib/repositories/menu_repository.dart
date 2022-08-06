@@ -40,18 +40,21 @@ class MenuRepository {
 
   Future<GraphQLResponse<PaginatedResult<Menu>>> list({
     required int limit,
+    required String menuId,
     String? nextToken,
   }) async {
-    const listMenus = "listMenus";
+    const listProductsByMenu = "listProductsByMenu";
     const query = """
       query (\$limit: Int!, \$nextToken: String) {
-        $listMenus(limit: \$limit, nextToken: \$nextToken) {
+        $listProductsByMenu(limit: \$limit, nextToken: \$nextToken) {
           items {
             id
             name
-            description
-            image
-            price
+            code
+            ordinal
+            sizes
+            availability
+            type
           }
           nextToken
         }
@@ -64,7 +67,7 @@ class MenuRepository {
         "limit": limit,
         "nextToken": nextToken,
       },
-      decodePath: listMenus,
+      decodePath: listProductsByMenu,
       apiName: "sample",
     );
 

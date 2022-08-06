@@ -3,9 +3,6 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_sample/models/auth.dart';
 import 'package:flutter_sample/models/session.dart';
 import 'package:flutter_sample/utils/constants.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-final authRepository = Provider.autoDispose((_) => AuthRepository());
 
 class AuthRepository {
   Future<SignUpResult> signUp(SignUpForm signUpForm) async {
@@ -47,11 +44,12 @@ class AuthRepository {
     final currentUser = await Amplify.Auth.getCurrentUser();
     final userAttributes = await Amplify.Auth.fetchUserAttributes();
     final attributeMap = {
-      for (var element in userAttributes)
-        element.userAttributeKey.key: element.value
+      for (var attribute in userAttributes)
+        attribute.userAttributeKey.key: attribute.value
     };
     final givenName = attributeMap[CognitoUserAttributeKey.givenName.key];
     final familyName = attributeMap[CognitoUserAttributeKey.familyName.key];
+    final nickname = attributeMap[CognitoUserAttributeKey.nickname.key];
     final countryCode = attributeMap[AwsAttributes.countryCode.key];
     final phoneNumber = attributeMap[CognitoUserAttributeKey.phoneNumber.key]!
         .replaceFirst(countryCode!, "");
@@ -60,6 +58,7 @@ class AuthRepository {
       id: currentUser.userId,
       givenName: givenName,
       familyName: familyName,
+      nickname: nickname,
       countryCode: countryCode,
       phoneNumber: phoneNumber,
     );
