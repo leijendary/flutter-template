@@ -13,6 +13,7 @@ const content = `export const ApiContext = {
   "account_id": "${accountId}",
   "region": "${region}"
 }`;
+
 try {
   fs.writeFileSync(
     `amplify/backend/api/${resourceName}/override.config.ts`,
