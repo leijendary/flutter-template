@@ -44,8 +44,11 @@ func HandleRequest(ctx context.Context, typeName TypeNameEvent) (map[string]int,
 			ExpressionAttributeValues: map[string]types.AttributeValue{
 				":tn": &types.AttributeValueMemberS{Value: typeName.TypeName},
 			},
+			ExpressionAttributeNames: map[string]string{
+				"#t": "type",
+			},
 			ReturnValues:     types.ReturnValueUpdatedNew,
-			UpdateExpression: aws.String("SET typeName = :tn REMOVE type"),
+			UpdateExpression: aws.String("SET typeName = :tn REMOVE #t"),
 		}
 
 		_, err := svc.UpdateItem(context.TODO(), input)
