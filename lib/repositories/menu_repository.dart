@@ -91,7 +91,7 @@ class MenuRepository {
     Menu menu,
     Product product,
   ) async {
-    product = product.copyWith(menuId: menu.id);
+    product = product.copyWith(menu: menu);
 
     final mutation = ModelMutations.create(product);
     final request = GraphQLRequest<Product>(

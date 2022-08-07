@@ -44,7 +44,7 @@ class MenuApi {
         .forEach((child) => children.add(child));
 
     json["products"]
-        .map((product) => _toProduct(menu.id, product))
+        .map((product) => _toProduct(menu, product))
         .forEach((product) => products.add(product));
 
     return menu.copyWith(
@@ -53,7 +53,7 @@ class MenuApi {
     );
   }
 
-  Product _toProduct(String menuId, Map<String, dynamic> json) {
+  Product _toProduct(Menu menu, Map<String, dynamic> json) {
     ProductType type;
 
     switch (json["productType"]) {
@@ -99,7 +99,7 @@ class MenuApi {
       availability: availability,
       asset: _toAsset(json["assets"]),
       sizes: sizes,
-      menuId: menuId,
+      menu: menu,
       typeName: Product.schema.name,
     );
   }
