@@ -8,8 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sample/amplifyconfiguration.dart';
 import 'package:flutter_sample/firebase_options.dart';
 import 'package:flutter_sample/models/ModelProvider.dart';
-import 'package:flutter_sample/repositories/etag_repository.dart';
-import 'package:flutter_sample/repositories/menu_repository.dart';
 import 'package:flutter_sample/utils/constants.dart';
 import 'package:hive_flutter/adapters.dart';
 
