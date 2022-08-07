@@ -38,6 +38,7 @@ class Product extends Model {
   final ProductAvailability? _availability;
   final ProductAsset? _asset;
   final List<String>? _sizes;
+  final String? _typeName;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -153,6 +154,19 @@ class Product extends Model {
     }
   }
   
+  String get typeName {
+    try {
+      return _typeName!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
+  
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
@@ -161,9 +175,9 @@ class Product extends Model {
     return _updatedAt;
   }
   
-  const Product._internal({required this.id, required name, required code, required ordinal, required menuId, required type, required availability, required asset, required sizes, createdAt, updatedAt}): _name = name, _code = code, _ordinal = ordinal, _menuId = menuId, _type = type, _availability = availability, _asset = asset, _sizes = sizes, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Product._internal({required this.id, required name, required code, required ordinal, required menuId, required type, required availability, required asset, required sizes, required typeName, createdAt, updatedAt}): _name = name, _code = code, _ordinal = ordinal, _menuId = menuId, _type = type, _availability = availability, _asset = asset, _sizes = sizes, _typeName = typeName, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Product({String? id, required String name, required int code, required int ordinal, required String menuId, required ProductType type, required ProductAvailability availability, required ProductAsset asset, required List<String> sizes}) {
+  factory Product({String? id, required String name, required int code, required int ordinal, required String menuId, required ProductType type, required ProductAvailability availability, required ProductAsset asset, required List<String> sizes, required String typeName}) {
     return Product._internal(
       id: id == null ? UUID.getUUID() : id,
       name: name,
@@ -173,7 +187,8 @@ class Product extends Model {
       type: type,
       availability: availability,
       asset: asset,
-      sizes: sizes != null ? List<String>.unmodifiable(sizes) : sizes);
+      sizes: sizes != null ? List<String>.unmodifiable(sizes) : sizes,
+      typeName: typeName);
   }
   
   bool equals(Object other) {
@@ -192,7 +207,8 @@ class Product extends Model {
       _type == other._type &&
       _availability == other._availability &&
       _asset == other._asset &&
-      DeepCollectionEquality().equals(_sizes, other._sizes);
+      DeepCollectionEquality().equals(_sizes, other._sizes) &&
+      _typeName == other._typeName;
   }
   
   @override
@@ -212,6 +228,7 @@ class Product extends Model {
     buffer.write("availability=" + (_availability != null ? enumToString(_availability)! : "null") + ", ");
     buffer.write("asset=" + (_asset != null ? _asset!.toString() : "null") + ", ");
     buffer.write("sizes=" + (_sizes != null ? _sizes!.toString() : "null") + ", ");
+    buffer.write("typeName=" + "$_typeName" + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -219,7 +236,7 @@ class Product extends Model {
     return buffer.toString();
   }
   
-  Product copyWith({String? id, String? name, int? code, int? ordinal, String? menuId, ProductType? type, ProductAvailability? availability, ProductAsset? asset, List<String>? sizes}) {
+  Product copyWith({String? id, String? name, int? code, int? ordinal, String? menuId, ProductType? type, ProductAvailability? availability, ProductAsset? asset, List<String>? sizes, String? typeName}) {
     return Product._internal(
       id: id ?? this.id,
       name: name ?? this.name,
@@ -229,7 +246,8 @@ class Product extends Model {
       type: type ?? this.type,
       availability: availability ?? this.availability,
       asset: asset ?? this.asset,
-      sizes: sizes ?? this.sizes);
+      sizes: sizes ?? this.sizes,
+      typeName: typeName ?? this.typeName);
   }
   
   Product.fromJson(Map<String, dynamic> json)  
@@ -244,11 +262,12 @@ class Product extends Model {
         ? ProductAsset.fromJson(new Map<String, dynamic>.from(json['asset']['serializedData']))
         : null,
       _sizes = json['sizes']?.cast<String>(),
+      _typeName = json['typeName'],
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'name': _name, 'code': _code, 'ordinal': _ordinal, 'menuId': _menuId, 'type': enumToString(_type), 'availability': enumToString(_availability), 'asset': _asset?.toJson(), 'sizes': _sizes, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'name': _name, 'code': _code, 'ordinal': _ordinal, 'menuId': _menuId, 'type': enumToString(_type), 'availability': enumToString(_availability), 'asset': _asset?.toJson(), 'sizes': _sizes, 'typeName': _typeName, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
 
   static final QueryField ID = QueryField(fieldName: "id");
@@ -260,6 +279,7 @@ class Product extends Model {
   static final QueryField AVAILABILITY = QueryField(fieldName: "availability");
   static final QueryField ASSET = QueryField(fieldName: "asset");
   static final QueryField SIZES = QueryField(fieldName: "sizes");
+  static final QueryField TYPENAME = QueryField(fieldName: "typeName");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Product";
     modelSchemaDefinition.pluralName = "Products";
@@ -339,6 +359,12 @@ class Product extends Model {
       isRequired: true,
       isArray: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.collection, ofModelName: describeEnum(ModelFieldTypeEnum.string))
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: Product.TYPENAME,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(

@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "storage": {
+      "Product:@model(appsync)": [
+        "read",
+        "update"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

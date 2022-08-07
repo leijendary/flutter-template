@@ -3,3 +3,4 @@ type ETag @model @auth(rules: [{ allow: groups, groups: ["Administrator"] }]) {
   name: String! @index(name: "byName", queryField: "getETagByName")
   value: String
 }
+  

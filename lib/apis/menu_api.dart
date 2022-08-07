@@ -33,7 +33,7 @@ class MenuApi {
       parent: parent,
       products: const [],
       children: const [],
-      type: Menu.schema.name,
+      typeName: Menu.schema.name,
     );
 
     final children = <Menu>[];
@@ -100,6 +100,7 @@ class MenuApi {
       asset: _toAsset(json["assets"]),
       sizes: sizes,
       menuId: menuId,
+      typeName: Product.schema.name,
     );
   }
 

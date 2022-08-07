@@ -1,0 +1,16 @@
+type Mutation {
+  setMenuTypeName(typeName: String!): SetMenuTypeNameResult
+    @function(name: "updateMenuTypeName-${env}")
+  setProductTypeName(typeName: String!): SetProductTypeNameResult
+    @function(name: "updateProductTypeName-${env}")
+}
+
+type SetMenuTypeNameResult {
+  count: Int!
+  result: [Menu!]!
+}
+
+type SetProductTypeNameResult {
+  count: Int!
+  result: [Product!]!
+}

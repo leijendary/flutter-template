@@ -1,17 +1,13 @@
-import json
 import os
 
 import boto3
 
-table_name = os.environ.get("API_SAMPLE_MENUTABLE_NAME")
+table_name = os.environ.get("API_SAMPLE_PRODUCTTABLE_NAME")
 region = os.environ.get("REGION")
 table = boto3.resource("dynamodb", region_name=region).Table(table_name)
 
 
 def handler(event, context):
-    print('received event:')
-    print(event)
-
     data = table.scan()
     count = 0
     result = []
@@ -21,12 +17,12 @@ def handler(event, context):
             Key={
                 "id": item["id"],
             },
-            UpdateExpression="set #t = :newType",
+            UpdateExpression="set #tn = :newTypeName",
             ExpressionAttributeNames={
-                "#t": "type"
+                "#tn": "typeName"
             },
             ExpressionAttributeValues={
-                ':newType': event["type"],
+                ':newTypeName': event["typeName"],
             },
             ReturnValues="UPDATED_NEW"
         )

@@ -51,12 +51,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "sampleUpdateMenuType",
+            "updateMenuTypeName",
             {
               "Fn::Join": [
                 "",
                 [
-                  "sampleUpdateMenuType",
+                  "updateMenuTypeName",
                   "-",
                   {
                     "Ref": "env"
@@ -122,12 +122,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "sampleLambdaRole799fef12",
+            "sampleLambdaRolee2462642",
             {
               "Fn::Join": [
                 "",
                 [
-                  "sampleLambdaRole799fef12",
+                  "sampleLambdaRolee2462642",
                   "-",
                   {
                     "Ref": "env"

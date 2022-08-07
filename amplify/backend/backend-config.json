@@ -64,7 +64,21 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "sampleUpdateMenuType": {
+    "updateMenuTypeName": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "api",
+          "resourceName": "sample",
+          "attributes": [
+            "GraphQLAPIIdOutput"
+          ]
+        }
+      ]
+    },
+    "updateProductTypeName": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",

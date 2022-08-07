@@ -23,7 +23,13 @@ export type AmplifyDependentResourcesAttributes = {
             "LambdaExecutionRole": "string",
             "Region": "string"
         },
-        "sampleUpdateMenuType": {
+        "updateMenuTypeName": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
+        },
+        "updateProductTypeName": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",
