@@ -17,6 +17,7 @@ type Product
       sortKeyFields: ["ordinal"]
       queryField: "listProductsByMenu"
     )
+  menu: Menu! @belongsTo(fields: ["menuId"])
   type: ProductType!
   availability: ProductAvailability!
   asset: ProductAsset!

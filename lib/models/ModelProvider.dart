@@ -40,7 +40,7 @@ export 'SetProductTypeNameResult.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "e89b1cdfb7a2b703eff529845103187d";
+  String version = "70f90eddd3bb1b86c1edd7cbc780ac6b";
   @override
   List<ModelSchema> modelSchemas = [ETag.schema, Menu.schema, Product.schema];
   static final ModelProvider _instance = ModelProvider();

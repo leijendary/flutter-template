@@ -287,7 +287,7 @@ class Menu extends Model {
       key: Menu.PRODUCTS,
       isRequired: true,
       ofModelName: (Product).toString(),
-      associatedKey: Product.MENUID
+      associatedKey: Product.MENU
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
