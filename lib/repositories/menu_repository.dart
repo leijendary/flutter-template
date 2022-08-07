@@ -40,7 +40,6 @@ class MenuRepository {
 
   Future<GraphQLResponse<PaginatedResult<Menu>>> list({
     required int limit,
-    required String menuId,
     String? nextToken,
   }) async {
     const listProductsByMenu = "listProductsByMenu";
