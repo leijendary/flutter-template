@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"9.2.0\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
+  "Description": "Lambda Function resource stack creation using Amplify CLI",
   "Parameters": {
     "CloudWatchRule": {
       "Type": "String",
@@ -47,7 +47,7 @@
             "Ref": "s3Key"
           }
         },
-        "Handler": "index.handler",
+        "Handler": "main",
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
@@ -111,7 +111,7 @@
             "Arn"
           ]
         },
-        "Runtime": "python3.8",
+        "Runtime": "go1.x",
         "Layers": [],
         "Timeout": 25
       }
@@ -122,12 +122,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "sampleLambdaRolee05092ca",
+            "sampleLambdaRole2503d740",
             {
               "Fn::Join": [
                 "",
                 [
-                  "sampleLambdaRolee05092ca",
+                  "sampleLambdaRole2503d740",
                   "-",
                   {
                     "Ref": "env"

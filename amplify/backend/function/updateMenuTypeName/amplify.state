@@ -1,6 +1,6 @@
 {
-  "pluginId": "amplify-python-function-runtime-provider",
-  "functionRuntime": "python",
+  "pluginId": "amplify-go-function-runtime-provider",
+  "functionRuntime": "go1.x",
   "useLegacyBuild": false,
-  "defaultEditorFile": "src/index.py"
+  "defaultEditorFile": "src/main.go"
 }
