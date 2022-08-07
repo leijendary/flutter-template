@@ -1,9 +1,9 @@
 import { AmplifyApiGraphQlResourceStackTemplate } from '@aws-amplify/cli-extensibility-helper';
-import { ApiContext } from './override.config';
+import { AWSContext } from "./override.config";
 
 export function override(resources: AmplifyApiGraphQlResourceStackTemplate) {
   resources.api.GraphQLAPI.logConfig = {
-    cloudWatchLogsRoleArn: `arn:aws:iam::${ApiContext.account_id}:role/service-role/appsync-graphqlapi-logs-${ApiContext.region}`,
+    cloudWatchLogsRoleArn: `arn:aws:iam::${AWSContext.accountId}:role/service-role/appsync-graphqlapi-logs-${AWSContext.region}`,
     fieldLogLevel: "ERROR",
     excludeVerboseContent: false,
   }

@@ -1,5 +1,5 @@
 import { AmplifyAuthCognitoStackTemplate } from '@aws-amplify/cli-extensibility-helper';
-import { AuthContext } from './override.config';
+import { AWSContext } from "./override.config";
 
 export function override(resources: AmplifyAuthCognitoStackTemplate) {
   const countryCode = {
@@ -17,7 +17,7 @@ export function override(resources: AmplifyAuthCognitoStackTemplate) {
     countryCode,
   ]
 
-  if (AuthContext.environment === "dev") {
+  if (AWSContext.environment === "dev") {
     resources.userPoolClient.accessTokenValidity = 1;
     resources.userPoolClient.idTokenValidity = 1;
     resources.userPoolClient.tokenValidityUnits = {

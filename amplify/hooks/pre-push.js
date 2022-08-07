@@ -6,32 +6,17 @@ const amplifyMeta = JSON.parse(
 const accountId =
   amplifyMeta.providers.awscloudformation.AuthRoleArn.split(":")[4];
 const region = amplifyMeta.providers.awscloudformation.Region;
-const apiResourceName = "sample";
-const apiContextContent = `export const ApiContext = {
+const resources = ["api/sample", "auth/sample", "storage/sample"];
+const content = `export const AWSContext = {
   "environment": "${parameters.data.amplify.environment.envName}",
-  "resource_name": "${apiResourceName}",
-  "account_id": "${accountId}",
+  "accountId": "${accountId}",
   "region": "${region}"
 }`;
-const authResourceName = "sample";
-const authContextContent = `export const AuthContext = {
-  "environment": "${parameters.data.amplify.environment.envName}",
-  "resource_name": "${authResourceName}",
-  "account_id": "${accountId}",
-  "region": "${region}"
-}`;
-const prefix = "amplify/backend";
-const suffix = "override.config.ts";
 
 try {
-  fs.writeFileSync(
-    `${prefix}/api/${apiResourceName}/${suffix}`,
-    apiContextContent
-  );
-  fs.writeFileSync(
-    `${prefix}/auth/${authResourceName}/${suffix}`,
-    authContextContent
-  );
+  for (const resource of resources) {
+    fs.writeFileSync(`amplify/backend/${resource}/override.config.ts`, content);
+  }
 
   process.exit(0);
 } catch (err) {
