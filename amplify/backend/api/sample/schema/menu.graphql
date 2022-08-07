@@ -19,7 +19,7 @@ type Menu
   parent: Menu @belongsTo(fields: ["parentId"])
   children: [Menu!]! @hasMany(indexName: "byParent", fields: ["id"])
   products: [Product!]! @hasMany(indexName: "byMenu", fields: ["id"])
-  type: String!
+  typeName: String!
     @default(value: "Menu")
     @index(
       name: "sortedByOrdinal"

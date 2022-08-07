@@ -21,6 +21,13 @@ type Product
   availability: ProductAvailability!
   asset: ProductAsset!
   sizes: [String!]!
+  typeName: String!
+    @default(value: "Product")
+    @index(
+      name: "sortedByOrdinal"
+      queryField: "listProductsSortedByOrdinal"
+      sortKeyFields: ["ordinal"]
+    )
 }
 
 enum ProductType {
