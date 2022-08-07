@@ -13,8 +13,6 @@ import 'package:flutter_sample/repositories/menu_repository.dart';
 import 'package:flutter_sample/utils/constants.dart';
 import 'package:hive_flutter/adapters.dart';
 
-late final BoxCollection collection;
-
 Future<void> firebase() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
