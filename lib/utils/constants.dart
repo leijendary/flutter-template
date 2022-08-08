@@ -17,15 +17,21 @@ class AwsAttributes {
 class Spacings {
   Spacings._();
 
-  static const padding = 16.0;
-  static const paddingStandard = 16.0;
+  static const standardPadding = 16.0;
   static const appBarHeight = 56.0;
 }
 
 class Boxes {
   Boxes._();
 
-  static const all = {menu, product};
+  static const all = {session, menu, product};
+  static const session = "session";
   static const menu = "menu";
   static const product = "product";
+}
+
+class DatabaseKeys {
+  DatabaseKeys._();
+
+  static const user = "user";
 }

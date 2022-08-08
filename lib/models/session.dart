@@ -20,6 +20,28 @@ class SessionUser {
   bool isGuest;
 
   String get fullName => "$givenName $familyName";
+
+  Map toJson() => {
+        "id": id,
+        "givenName": givenName,
+        "familyName": familyName,
+        "nickname": nickname,
+        "countryCode": countryCode,
+        "phoneNumber": phoneNumber,
+        "languageCode": languageCode,
+        "isGuest": isGuest,
+      };
+
+  static SessionUser fromJson(dynamic json) => SessionUser(
+        id: json["id"],
+        givenName: json["givenName"],
+        familyName: json["familyName"],
+        nickname: json["nickname"],
+        countryCode: json["countryCode"],
+        phoneNumber: json["phoneNumber"],
+        languageCode: json["languageCode"],
+        isGuest: json["isGuest"],
+      );
 }
 
 class GuestUser extends SessionUser {

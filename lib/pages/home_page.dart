@@ -20,7 +20,7 @@ class HomePage extends HookConsumerWidget {
           delegate: _HomePageHeader(),
         ),
         SliverPadding(
-          padding: const EdgeInsets.all(Spacings.padding),
+          padding: const EdgeInsets.all(Spacings.standardPadding),
           sliver: SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
@@ -64,7 +64,7 @@ class _HomePageHeader extends SliverPersistentHeaderDelegate {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: Spacings.paddingStandard,
+                  horizontal: Spacings.standardPadding,
                 ),
                 child: _HomePageHeaderContent(
                   shrinkOffset: shrinkOffset,

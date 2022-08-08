@@ -35,8 +35,8 @@ Future<void> main() async {
   await firebase();
   await dotenv.load();
   await amplify();
-  await session();
   await database();
+  await session();
 
   runApp(const ProviderScope(child: App()));
 }

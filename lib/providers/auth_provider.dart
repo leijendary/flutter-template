@@ -8,13 +8,17 @@ import 'package:flutter_sample/utils/extensions.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final authProvider = StateNotifierProvider.autoDispose<AuthProvider, AuthState>(
-  (_) => AuthProvider(),
+  (ref) {
+    final repository = ref.read(authRepository);
+
+    return AuthProvider(repository);
+  },
 );
 
 class AuthProvider extends StateNotifier<AuthState> {
-  AuthProvider() : super(AuthState());
+  AuthProvider(this._authRepository) : super(AuthState());
 
-  final _authRepository = AuthRepository();
+  final AuthRepository _authRepository;
 
   void signIn(BuildContext context, SignInForm signInForm) async {
     state = AuthState(isLoading: true);

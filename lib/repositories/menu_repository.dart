@@ -9,8 +9,11 @@ import 'package:flutter_sample/apis/file_api.dart';
 import 'package:flutter_sample/apis/menu_api.dart';
 import 'package:flutter_sample/models/ModelProvider.dart';
 import 'package:flutter_sample/utils/files.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:path/path.dart' as path;
+
+final menuRepository = Provider((_) => MenuRepository());
 
 class MenuRepository {
   final _menuApi = MenuApi();
