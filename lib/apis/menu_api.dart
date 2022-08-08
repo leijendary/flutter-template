@@ -5,7 +5,7 @@ import 'package:flutter_sample/models/ModelProvider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 
-final menuApi = Provider((_) => MenuApi());
+final menuApiProvider = Provider((_) => MenuApi());
 
 class MenuApi {
   final _url = Uri.parse(dotenv.env["MENU_API_URL"]!);
@@ -57,20 +57,22 @@ class MenuApi {
   }
 
   Product _toProduct(Menu menu, Map<String, dynamic> json) {
-    ProductType type;
+    ProductCategory category;
 
     switch (json["productType"]) {
       case "Beverage":
-        type = ProductType.Beverage;
+        category = ProductCategory.Beverage;
         break;
       case "Food":
-        type = ProductType.Food;
+        category = ProductCategory.Food;
         break;
       case "Coffee":
-        type = ProductType.Coffee;
+        category = ProductCategory.Coffee;
         break;
       default:
-        throw Exception("Invalid value ${json['productType']} for ProductType");
+        throw Exception(
+          "Invalid value ${json['productType']} for ProductCategory",
+        );
     }
 
     ProductAvailability availability;
@@ -98,7 +100,7 @@ class MenuApi {
       name: json["name"],
       code: json["productNumber"],
       ordinal: json["displayOrder"],
-      type: type,
+      category: category,
       availability: availability,
       asset: _toAsset(json["assets"]),
       sizes: sizes,

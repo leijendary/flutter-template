@@ -7,21 +7,25 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_sample/apis/file_api.dart';
 import 'package:flutter_sample/apis/menu_api.dart';
+import 'package:flutter_sample/errors/graphql_exception.dart';
 import 'package:flutter_sample/models/ModelProvider.dart';
 import 'package:flutter_sample/utils/files.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:path/path.dart' as path;
 
-final menuRepository = Provider((ref) {
-  final menu = ref.read(menuApi);
-  final file = ref.read(fileApi);
+final menuRepositoryProvider = Provider((ref) {
+  final menuApi = ref.read(menuApiProvider);
+  final fileApi = ref.read(fileApiProvider);
 
-  return MenuRepository(menu, file);
+  return MenuRepository(menuApi, fileApi);
 });
 
 class MenuRepository {
-  MenuRepository(this._menuApi, this._fileApi);
+  MenuRepository(
+    this._menuApi,
+    this._fileApi,
+  );
 
   final MenuApi _menuApi;
   final FileApi _fileApi;
@@ -48,24 +52,35 @@ class MenuRepository {
     return apiETag;
   }
 
-  Future<GraphQLResponse<PaginatedResult<Menu>>> list({
-    required int limit,
-    String? nextToken,
-  }) async {
-    const listProductsByMenu = "listProductsByMenu";
+  Future<PaginatedResult<Menu>> list() async {
+    const listMenusSortedByOrdinal = "listMenusSortedByOrdinal";
     const query = """
-      query (\$limit: Int!, \$nextToken: String) {
-        $listProductsByMenu(limit: \$limit, nextToken: \$nextToken) {
+      query (\$typeName: String!) {
+        $listMenusSortedByOrdinal(typeName: \$typeName) {
           items {
             id
             name
-            code
             ordinal
-            sizes
-            availability
-            type
+            products {
+              items {
+                id
+                name
+                availability
+                sizes
+                asset {
+                  full {
+                    uri
+                  }
+                  master {
+                    uri
+                  }
+                  thumbnail {
+                    uri
+                  }
+                }
+              }
+            }
           }
-          nextToken
         }
       }
     """;
@@ -73,14 +88,18 @@ class MenuRepository {
       document: query,
       modelType: const PaginatedModelType(Menu.classType),
       variables: <String, dynamic>{
-        "limit": limit,
-        "nextToken": nextToken,
+        "typeName": Menu.schema.name,
       },
-      decodePath: listProductsByMenu,
+      decodePath: listMenusSortedByOrdinal,
       apiName: "sample",
     );
+    final response = await Amplify.API.query(request: request).response;
 
-    return await Amplify.API.query(request: request).response;
+    if (response.errors.isNotEmpty) {
+      throw GraphQLResponseException(response.errors);
+    }
+
+    return response.data!;
   }
 
   Future<GraphQLResponse<Menu>> create(Menu menu) async {

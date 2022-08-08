@@ -1,5 +1,0 @@
-type ETag @model @auth(rules: [{ allow: groups, groups: ["Administrator"] }]) {
-  id: ID!
-  name: String! @index(name: "byName", queryField: "getETagByName")
-  value: String
-}

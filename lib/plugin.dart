@@ -34,21 +34,10 @@ Future<void> database() async {
   for (var box in Boxes.all) {
     await Hive.openBox(box);
   }
-
-  // Uncomment if you want to fill up some data
-  // final eTagRepository = ETagRepository();
-  // final menuRepository = MenuRepository();
-  // final eTag = await eTagRepository.getMenuETag();
-  // final apiETag = await menuRepository.refill(eTag?.value);
-
-  // if (eTag?.value != apiETag) {
-  //   await eTagRepository.setMenuETag(eTag, apiETag);
-  // }
 }
 
 Future<void> session() async {
   final container = ProviderContainer();
-  final session = container.read(sessionProvider.notifier);
 
-  await session.initialize();
+  await container.read(sessionProvider.notifier).initialize();
 }

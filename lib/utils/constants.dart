@@ -18,7 +18,13 @@ class Spacings {
   Spacings._();
 
   static const standardPadding = 16.0;
+}
+
+class Sizes {
+  Sizes._();
+
   static const appBarHeight = 56.0;
+  static const listImageSize = 56.0;
 }
 
 class Boxes {
@@ -34,4 +40,10 @@ class DatabaseKeys {
   DatabaseKeys._();
 
   static const user = "user";
+}
+
+class Assets {
+  Assets._();
+
+  static const thumbnailDefault = "assets/images/thumbnail_default.png";
 }

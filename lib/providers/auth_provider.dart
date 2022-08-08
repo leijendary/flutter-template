@@ -9,9 +9,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final authProvider = StateNotifierProvider.autoDispose<AuthProvider, AuthState>(
   (ref) {
-    final repository = ref.read(authRepository);
+    final authRepository = ref.read(authRepositoryProvider);
 
-    return AuthProvider(repository);
+    return AuthProvider(authRepository);
   },
 );
 

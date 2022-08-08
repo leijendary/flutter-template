@@ -243,7 +243,7 @@ class Menu extends Model {
         ]),
       AuthRule(
         authStrategy: AuthStrategy.PRIVATE,
-        provider: AuthRuleProvider.IAM,
+        provider: AuthRuleProvider.USERPOOLS,
         operations: [
           ModelOperation.READ
         ]),

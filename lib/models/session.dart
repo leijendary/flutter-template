@@ -32,7 +32,7 @@ class SessionUser {
         "isGuest": isGuest,
       };
 
-  static SessionUser fromJson(dynamic json) => SessionUser(
+  static SessionUser fromJson(Map json) => SessionUser(
         id: json["id"],
         givenName: json["givenName"],
         familyName: json["familyName"],

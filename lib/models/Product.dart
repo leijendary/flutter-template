@@ -34,7 +34,7 @@ class Product extends Model {
   final int? _code;
   final int? _ordinal;
   final Menu? _menu;
-  final ProductType? _type;
+  final ProductCategory? _category;
   final ProductAvailability? _availability;
   final ProductAsset? _asset;
   final List<String>? _sizes;
@@ -102,17 +102,8 @@ class Product extends Model {
     }
   }
   
-  ProductType get type {
-    try {
-      return _type!;
-    } catch(e) {
-      throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
-    }
+  ProductCategory? get category {
+    return _category;
   }
   
   ProductAvailability get availability {
@@ -175,16 +166,16 @@ class Product extends Model {
     return _updatedAt;
   }
   
-  const Product._internal({required this.id, required name, required code, required ordinal, required menu, required type, required availability, required asset, required sizes, required typeName, createdAt, updatedAt}): _name = name, _code = code, _ordinal = ordinal, _menu = menu, _type = type, _availability = availability, _asset = asset, _sizes = sizes, _typeName = typeName, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Product._internal({required this.id, required name, required code, required ordinal, required menu, category, required availability, required asset, required sizes, required typeName, createdAt, updatedAt}): _name = name, _code = code, _ordinal = ordinal, _menu = menu, _category = category, _availability = availability, _asset = asset, _sizes = sizes, _typeName = typeName, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Product({String? id, required String name, required int code, required int ordinal, required Menu menu, required ProductType type, required ProductAvailability availability, required ProductAsset asset, required List<String> sizes, required String typeName}) {
+  factory Product({String? id, required String name, required int code, required int ordinal, required Menu menu, ProductCategory? category, required ProductAvailability availability, required ProductAsset asset, required List<String> sizes, required String typeName}) {
     return Product._internal(
       id: id == null ? UUID.getUUID() : id,
       name: name,
       code: code,
       ordinal: ordinal,
       menu: menu,
-      type: type,
+      category: category,
       availability: availability,
       asset: asset,
       sizes: sizes != null ? List<String>.unmodifiable(sizes) : sizes,
@@ -204,7 +195,7 @@ class Product extends Model {
       _code == other._code &&
       _ordinal == other._ordinal &&
       _menu == other._menu &&
-      _type == other._type &&
+      _category == other._category &&
       _availability == other._availability &&
       _asset == other._asset &&
       DeepCollectionEquality().equals(_sizes, other._sizes) &&
@@ -224,7 +215,7 @@ class Product extends Model {
     buffer.write("code=" + (_code != null ? _code!.toString() : "null") + ", ");
     buffer.write("ordinal=" + (_ordinal != null ? _ordinal!.toString() : "null") + ", ");
     buffer.write("menu=" + (_menu != null ? _menu!.toString() : "null") + ", ");
-    buffer.write("type=" + (_type != null ? enumToString(_type)! : "null") + ", ");
+    buffer.write("category=" + (_category != null ? enumToString(_category)! : "null") + ", ");
     buffer.write("availability=" + (_availability != null ? enumToString(_availability)! : "null") + ", ");
     buffer.write("asset=" + (_asset != null ? _asset!.toString() : "null") + ", ");
     buffer.write("sizes=" + (_sizes != null ? _sizes!.toString() : "null") + ", ");
@@ -236,14 +227,14 @@ class Product extends Model {
     return buffer.toString();
   }
   
-  Product copyWith({String? id, String? name, int? code, int? ordinal, Menu? menu, ProductType? type, ProductAvailability? availability, ProductAsset? asset, List<String>? sizes, String? typeName}) {
+  Product copyWith({String? id, String? name, int? code, int? ordinal, Menu? menu, ProductCategory? category, ProductAvailability? availability, ProductAsset? asset, List<String>? sizes, String? typeName}) {
     return Product._internal(
       id: id ?? this.id,
       name: name ?? this.name,
       code: code ?? this.code,
       ordinal: ordinal ?? this.ordinal,
       menu: menu ?? this.menu,
-      type: type ?? this.type,
+      category: category ?? this.category,
       availability: availability ?? this.availability,
       asset: asset ?? this.asset,
       sizes: sizes ?? this.sizes,
@@ -258,7 +249,7 @@ class Product extends Model {
       _menu = json['menu']?['serializedData'] != null
         ? Menu.fromJson(new Map<String, dynamic>.from(json['menu']['serializedData']))
         : null,
-      _type = enumFromString<ProductType>(json['type'], ProductType.values),
+      _category = enumFromString<ProductCategory>(json['category'], ProductCategory.values),
       _availability = enumFromString<ProductAvailability>(json['availability'], ProductAvailability.values),
       _asset = json['asset']?['serializedData'] != null
         ? ProductAsset.fromJson(new Map<String, dynamic>.from(json['asset']['serializedData']))
@@ -269,7 +260,7 @@ class Product extends Model {
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'name': _name, 'code': _code, 'ordinal': _ordinal, 'menu': _menu?.toJson(), 'type': enumToString(_type), 'availability': enumToString(_availability), 'asset': _asset?.toJson(), 'sizes': _sizes, 'typeName': _typeName, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'name': _name, 'code': _code, 'ordinal': _ordinal, 'menu': _menu?.toJson(), 'category': enumToString(_category), 'availability': enumToString(_availability), 'asset': _asset?.toJson(), 'sizes': _sizes, 'typeName': _typeName, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
 
   static final QueryField ID = QueryField(fieldName: "id");
@@ -279,7 +270,7 @@ class Product extends Model {
   static final QueryField MENU = QueryField(
     fieldName: "menu",
     fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: (Menu).toString()));
-  static final QueryField TYPE = QueryField(fieldName: "type");
+  static final QueryField CATEGORY = QueryField(fieldName: "category");
   static final QueryField AVAILABILITY = QueryField(fieldName: "availability");
   static final QueryField ASSET = QueryField(fieldName: "asset");
   static final QueryField SIZES = QueryField(fieldName: "sizes");
@@ -302,7 +293,7 @@ class Product extends Model {
         ]),
       AuthRule(
         authStrategy: AuthStrategy.PRIVATE,
-        provider: AuthRuleProvider.IAM,
+        provider: AuthRuleProvider.USERPOOLS,
         operations: [
           ModelOperation.READ
         ]),
@@ -342,8 +333,8 @@ class Product extends Model {
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Product.TYPE,
-      isRequired: true,
+      key: Product.CATEGORY,
+      isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.enumeration)
     ));
     

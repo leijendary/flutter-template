@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as path;
 
-final fileApi = Provider((_) => FileApi());
+final fileApiProvider = Provider((_) => FileApi());
 
 class FileApi {
   Future<File> download(String uri) async {

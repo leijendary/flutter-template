@@ -3,7 +3,7 @@ import 'package:flutter_sample/utils/constants.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final sessionDatabase = Provider((_) {
+final sessionDatabaseProvider = Provider((_) {
   final box = Hive.box(Boxes.session);
 
   return SessionDatabase(box);
@@ -14,17 +14,15 @@ class SessionDatabase {
 
   final Box _box;
 
-  SessionUser getUser() {
+  SessionUser? getUser() {
     final json = _box.get(DatabaseKeys.user);
 
-    return SessionUser.fromJson(json);
+    return json != null ? SessionUser.fromJson(json) : null;
   }
 
   Future<void> saveUser(SessionUser user) async {
     await _box.put(DatabaseKeys.user, user.toJson());
   }
 
-  Future<void> removeUser() async {
-    await _box.delete(DatabaseKeys.user);
-  }
+  Future<void> removeUser() async => _box.delete(DatabaseKeys.user);
 }

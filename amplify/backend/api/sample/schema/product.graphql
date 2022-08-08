@@ -3,7 +3,7 @@ type Product
   @auth(
     rules: [
       { allow: groups, groups: ["Administrator"] }
-      { allow: private, provider: iam, operations: [read] }
+      { allow: private, provider: userPools, operations: [read] }
       { allow: public, provider: iam, operations: [read] }
     ]
   ) {
@@ -18,7 +18,7 @@ type Product
       queryField: "listProductsByMenu"
     )
   menu: Menu! @belongsTo(fields: ["menuId"])
-  type: ProductType!
+  category: ProductCategory
   availability: ProductAvailability!
   asset: ProductAsset!
   sizes: [String!]!
@@ -31,7 +31,7 @@ type Product
     )
 }
 
-enum ProductType {
+enum ProductCategory {
   Beverage
   Food
   Coffee

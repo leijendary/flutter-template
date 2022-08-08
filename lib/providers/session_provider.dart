@@ -7,14 +7,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final sessionProvider = StateNotifierProvider<SessionProvider, SessionState>(
   (ref) {
-    final auth = ref.read(authRepository);
-    final session = ref.read(sessionRepository);
-    final user = session.getUser();
+    final authRepository = ref.read(authRepositoryProvider);
+    final sessionRepository = ref.read(sessionRepositoryProvider);
+    final user = sessionRepository.getUser() ?? GuestUser();
     final sessionState = SessionState(user: user);
 
     return SessionProvider(
-      auth,
-      session,
+      authRepository,
+      sessionRepository,
       sessionState: sessionState,
     );
   },
