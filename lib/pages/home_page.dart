@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_sample/models/Menu.dart';
+import 'package:flutter_sample/models/Product.dart';
 import 'package:flutter_sample/pages/sign_in_page.dart';
 import 'package:flutter_sample/providers/menu_provider.dart';
 import 'package:flutter_sample/providers/session_provider.dart';
@@ -165,7 +166,11 @@ class _MenuGroup extends StatelessWidget {
       ),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
-          (context, i) => _ProductTile(_menu, i),
+          (context, i) {
+            final product = _menu.products[i];
+
+            return _ProductTile(product);
+          },
           childCount: _menu.products.length,
         ),
       ),
@@ -174,19 +179,17 @@ class _MenuGroup extends StatelessWidget {
 }
 
 class _ProductTile extends HookWidget {
-  const _ProductTile(this._menu, this._index);
+  const _ProductTile(this._product);
 
-  final Menu _menu;
-  final int _index;
+  final Product _product;
 
   @override
   Widget build(BuildContext context) {
-    final product = _menu.products[_index];
-    final thumbnailUri = product.asset.thumbnail.uri;
+    final thumbnailUri = _product.asset.thumbnail.uri;
     final thumbnail = useMemoized(() {
       final defaultImage = Image.asset(
         Assets.thumbnailDefault,
-        semanticLabel: product.name,
+        semanticLabel: _product.name,
       );
 
       if (thumbnailUri == null) {
@@ -194,7 +197,7 @@ class _ProductTile extends HookWidget {
       }
 
       return CachedNetworkImage(
-        key: Key(product.id),
+        key: Key(_product.id),
         imageUrl: thumbnailUri,
         placeholder: (context, url) => defaultImage,
         errorWidget: (context, url, error) => defaultImage,
@@ -209,7 +212,7 @@ class _ProductTile extends HookWidget {
         ),
         child: thumbnail,
       ),
-      title: Text(product.name),
+      title: Text(_product.name),
       onTap: () => context.router.pushNamed(SignInPage.name),
     );
   }
