@@ -21,6 +21,7 @@ final _theme = ThemeData(
     error: Colors.redAccent,
     onError: Colors.white,
   ),
+  scaffoldBackgroundColor: Colors.white,
   applyElevationOverlayColor: false,
   appBarTheme: const AppBarTheme(
     elevation: 0,

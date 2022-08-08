@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_sample/models/Menu.dart';
 import 'package:flutter_sample/models/Product.dart';
-import 'package:flutter_sample/pages/sign_in_page.dart';
 import 'package:flutter_sample/providers/menu_provider.dart';
 import 'package:flutter_sample/providers/session_provider.dart';
 import 'package:flutter_sample/utils/constants.dart';
@@ -13,6 +12,7 @@ import 'package:flutter_sample/utils/extensions.dart';
 import 'package:flutter_sample/widgets/top_bar_widget.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends HookConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -185,35 +185,80 @@ class _ProductTile extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final thumbnailUri = _product.asset.thumbnail.uri;
+    final uri = _product.asset.thumbnail.uri ??
+        _product.asset.full.uri ??
+        _product.asset.master.uri;
     final thumbnail = useMemoized(() {
       final defaultImage = Image.asset(
         Assets.thumbnailDefault,
         semanticLabel: _product.name,
       );
 
-      if (thumbnailUri == null) {
+      if (uri == null) {
         return defaultImage;
       }
 
       return CachedNetworkImage(
-        key: Key(_product.id),
-        imageUrl: thumbnailUri,
+        cacheKey: _product.id,
+        imageUrl: uri,
         placeholder: (context, url) => defaultImage,
         errorWidget: (context, url, error) => defaultImage,
       );
-    }, [thumbnailUri]);
+    }, [uri]);
+    // TODO: Replace with actual price
+    const originalPrice = 5.95;
+    final price = useMemoized(() {
+      final format = NumberFormat.simpleCurrency(
+        locale: context.locale.toString(),
+      );
 
-    return ListTile(
-      leading: ConstrainedBox(
-        constraints: const BoxConstraints.expand(
-          height: Sizes.listImageSize,
-          width: Sizes.listImageSize,
-        ),
-        child: thumbnail,
+      return format.format(originalPrice);
+    }, [originalPrice]);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: Spacings.listTilePadding,
+        horizontal: Spacings.standardPadding,
       ),
-      title: Text(_product.name),
-      onTap: () => context.router.pushNamed(SignInPage.name),
+      child: ListTile(
+        tileColor: Colors.grey[100],
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: Spacings.listTilePadding,
+          horizontal: Spacings.standardPadding,
+        ),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(Shapes.borderRadius),
+          ),
+        ),
+        leading: ConstrainedBox(
+          constraints: const BoxConstraints.expand(
+            height: Sizes.listImageSize,
+            width: Sizes.listImageSize,
+          ),
+          child: thumbnail,
+        ),
+        title: Text(_product.name),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(bottom: Spacings.standardPadding),
+              child: Text("Double espresso, steamed milk"),
+            ),
+            Row(
+              children: [
+                const Expanded(
+                  child: Text("Star 5.0"),
+                ),
+                Text(price),
+              ],
+            )
+          ],
+        ),
+        isThreeLine: true,
+        onTap: () => {},
+      ),
     );
   }
 }

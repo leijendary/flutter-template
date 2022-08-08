@@ -18,6 +18,7 @@ class Spacings {
   Spacings._();
 
   static const standardPadding = 16.0;
+  static const listTilePadding = standardPadding / 2;
 }
 
 class Sizes {
@@ -25,6 +26,12 @@ class Sizes {
 
   static const appBarHeight = 56.0;
   static const listImageSize = 56.0;
+}
+
+class Shapes {
+  Shapes._();
+
+  static const borderRadius = 5.0;
 }
 
 class Boxes {

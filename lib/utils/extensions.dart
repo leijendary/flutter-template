@@ -7,6 +7,8 @@ extension BuildContextHelper on BuildContext {
 
   AppLocalizations get localizations => AppLocalizations.of(this)!;
 
+  Locale get locale => Localizations.localeOf(this);
+
   ScaffoldMessengerState get scaffoldMessenger => ScaffoldMessenger.of(this);
 
   NavigatorState get navigator => Navigator.of(this);
