@@ -1,9 +1,18 @@
 import 'package:flutter_sample/models/ModelProvider.dart';
 import 'package:flutter_sample/utils/constants.dart';
 import 'package:hive/hive.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+final productDatabase = Provider((_) {
+  final box = Hive.box(Boxes.product);
+
+  return ProductDatabase(box);
+});
 
 class ProductDatabase {
-  final _box = Hive.box(Boxes.product);
+  ProductDatabase(this._box);
+
+  final Box _box;
 
   Future<void> add({
     required Product product,

@@ -1,9 +1,18 @@
 import 'package:flutter_sample/models/Menu.dart';
 import 'package:flutter_sample/utils/constants.dart';
 import 'package:hive/hive.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+final menuDatabase = Provider((_) {
+  final box = Hive.box(Boxes.menu);
+
+  return MenuDatabase(box);
+});
 
 class MenuDatabase {
-  final _box = Hive.box(Boxes.menu);
+  MenuDatabase(this._box);
+
+  final Box _box;
 
   Future<void> add({
     required Menu menu,

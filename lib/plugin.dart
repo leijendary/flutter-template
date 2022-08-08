@@ -8,8 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sample/amplifyconfiguration.dart';
 import 'package:flutter_sample/firebase_options.dart';
 import 'package:flutter_sample/models/ModelProvider.dart';
+import 'package:flutter_sample/providers/session_provider.dart';
 import 'package:flutter_sample/utils/constants.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 Future<void> firebase() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -42,4 +44,11 @@ Future<void> database() async {
   // if (eTag?.value != apiETag) {
   //   await eTagRepository.setMenuETag(eTag, apiETag);
   // }
+}
+
+Future<void> session() async {
+  final container = ProviderContainer();
+  final session = container.read(sessionProvider.notifier);
+
+  await session.initialize();
 }

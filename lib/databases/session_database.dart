@@ -1,9 +1,18 @@
 import 'package:flutter_sample/models/session.dart';
 import 'package:flutter_sample/utils/constants.dart';
 import 'package:hive/hive.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+final sessionDatabase = Provider((_) {
+  final box = Hive.box(Boxes.session);
+
+  return SessionDatabase(box);
+});
 
 class SessionDatabase {
-  final _box = Hive.box(Boxes.session);
+  SessionDatabase(this._box);
+
+  final Box _box;
 
   SessionUser getUser() {
     final json = _box.get(DatabaseKeys.user);

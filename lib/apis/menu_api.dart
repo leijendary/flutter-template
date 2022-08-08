@@ -2,11 +2,14 @@ import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_sample/models/ModelProvider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 
-final _url = Uri.parse(dotenv.env["MENU_API_URL"]!);
+final menuApi = Provider((_) => MenuApi());
 
 class MenuApi {
+  final _url = Uri.parse(dotenv.env["MENU_API_URL"]!);
+
   Future<String?> eTag() async {
     final response = await http.head(_url);
     final headers = response.headers;

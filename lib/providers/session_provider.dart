@@ -7,12 +7,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final sessionProvider = StateNotifierProvider<SessionProvider, SessionState>(
   (ref) {
-    final repository = ref.read(sessionRepository);
-    final user = repository.getUser();
+    final auth = ref.read(authRepository);
+    final session = ref.read(sessionRepository);
+    final user = session.getUser();
     final sessionState = SessionState(user: user);
 
     return SessionProvider(
-      repository,
+      auth,
+      session,
       sessionState: sessionState,
     );
   },
@@ -20,22 +22,30 @@ final sessionProvider = StateNotifierProvider<SessionProvider, SessionState>(
 
 class SessionProvider extends StateNotifier<SessionState> {
   SessionProvider(
+    this._authRepository,
     this._sessionRepository, {
     required SessionState sessionState,
   }) : super(sessionState) {
     Amplify.Hub.listen([HubChannel.Auth], _authListener);
   }
 
+  final AuthRepository _authRepository;
   final SessionRepository _sessionRepository;
+
+  Future<void> initialize() async {
+    final session = await _authRepository.session();
+    final isSignedIn = session.isSignedIn;
+    final user = isSignedIn ? await _authRepository.user() : GuestUser();
+
+    await _sessionRepository.saveUser(user);
+
+    state = SessionState(user: user);
+  }
 
   Future<void> _authListener(HubEvent event) async {
     switch (event.eventName) {
       case "SIGNED_IN":
-        final user = await _getUser();
-
-        await _sessionRepository.saveUser(user);
-
-        state = SessionState(user: user);
+        await initialize();
 
         break;
       case "SIGNED_OUT":
@@ -48,23 +58,4 @@ class SessionProvider extends StateNotifier<SessionState> {
         break;
     }
   }
-}
-
-Future<void> session() async {
-  final user = await _getUser();
-  final sessionRepository = SessionRepository();
-
-  await sessionRepository.saveUser(user);
-}
-
-Future<SessionUser> _getUser() async {
-  final authRepository = AuthRepository();
-  final session = await authRepository.session();
-  final isSignedIn = session.isSignedIn;
-
-  if (!isSignedIn) {
-    return GuestUser();
-  }
-
-  return await authRepository.user();
 }

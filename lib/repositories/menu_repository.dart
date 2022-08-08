@@ -13,11 +13,18 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:path/path.dart' as path;
 
-final menuRepository = Provider((_) => MenuRepository());
+final menuRepository = Provider((ref) {
+  final menu = ref.read(menuApi);
+  final file = ref.read(fileApi);
+
+  return MenuRepository(menu, file);
+});
 
 class MenuRepository {
-  final _menuApi = MenuApi();
-  final _fileApi = FileApi();
+  MenuRepository(this._menuApi, this._fileApi);
+
+  final MenuApi _menuApi;
+  final FileApi _fileApi;
   final _dateTimeFormat = DateFormat("yyyyMMddHms");
 
   Future<String?> refill(String? currentETag) async {
