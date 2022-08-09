@@ -35,7 +35,10 @@ class AuthProvider extends StateNotifier<AuthState> {
         return;
       }
 
-      state = AuthState(isSignedIn: true);
+      state = AuthState(
+        isSignedIn: true,
+        isLoading: true,
+      );
 
       return;
     } on UserNotFoundException catch (_) {

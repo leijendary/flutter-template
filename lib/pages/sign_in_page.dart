@@ -4,11 +4,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_sample/models/auth.dart';
 import 'package:flutter_sample/pages/main_page.dart';
 import 'package:flutter_sample/providers/auth_provider.dart';
-import 'package:flutter_sample/states/auth_state.dart';
+import 'package:flutter_sample/providers/session_provider.dart';
+import 'package:flutter_sample/states/session_state.dart';
 import 'package:flutter_sample/utils/constants.dart';
 import 'package:flutter_sample/utils/extensions.dart';
 import 'package:flutter_sample/utils/validators.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SignInPage extends HookConsumerWidget {
@@ -22,15 +22,13 @@ class SignInPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final signInForm = useState(SignInForm());
-    final error = useState(<Key, String>{});
-    final isLoading = useState(false);
+    final auth = ref.watch(authProvider);
+    final error = useState(auth.error);
+    final isLoading = useState(auth.isLoading);
 
-    ref.listen<AuthState>(authProvider, (previous, next) {
-      isLoading.value = next.isLoading;
-      error.value = next.error;
-
-      if (next.isSignedIn) {
-        context.goNamed(MainPage.name);
+    ref.listen<SessionState>(sessionProvider, (previous, next) {
+      if (!next.user.isGuest) {
+        context.router.goNamed(MainPage.name);
       }
     });
 
@@ -84,7 +82,7 @@ class SignInPage extends HookConsumerWidget {
     BuildContext context,
     WidgetRef ref,
   ) {
-    errors.value.clear();
+    errors.value = {};
 
     if (!_formKey.currentState!.validate()) {
       return;

@@ -169,7 +169,7 @@ class _MenuGroup extends StatelessWidget {
           (context, i) {
             final product = _menu.products[i];
 
-            return _ProductTile(product);
+            return _ProductListTile(product);
           },
           childCount: _menu.products.length,
         ),
@@ -178,8 +178,8 @@ class _MenuGroup extends StatelessWidget {
   }
 }
 
-class _ProductTile extends HookWidget {
-  const _ProductTile(this._product);
+class _ProductListTile extends HookWidget {
+  const _ProductListTile(this._product);
 
   final Product _product;
 
@@ -200,11 +200,65 @@ class _ProductTile extends HookWidget {
 
       return CachedNetworkImage(
         cacheKey: _product.id,
+        height: Sizes.listImageSize,
+        width: Sizes.listImageSize,
         imageUrl: uri,
         placeholder: (context, url) => defaultImage,
         errorWidget: (context, url, error) => defaultImage,
+        fadeInDuration: Durations.fadeDuration,
       );
     }, [uri]);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: Spacings.tileOuterPadding,
+        horizontal: Spacings.standardPadding,
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey[100],
+          borderRadius: BorderRadius.circular(Shapes.borderRadius),
+        ),
+        height: Sizes.listTileHeight,
+        child: Material(
+          type: MaterialType.transparency,
+          child: InkWell(
+            child: Padding(
+              padding: const EdgeInsets.all(Spacings.standardPadding),
+              child: Row(
+                children: [
+                  Flexible(
+                    flex: 0,
+                    child: thumbnail,
+                  ),
+                  const Flexible(
+                    flex: 0,
+                    child: SizedBox(
+                      width: Spacings.tileInnerPadding,
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: _ProductDetail(_product),
+                  )
+                ],
+              ),
+            ),
+            onTap: () {},
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ProductDetail extends HookWidget {
+  const _ProductDetail(this._product);
+
+  final Product _product;
+
+  @override
+  Widget build(BuildContext context) {
     // TODO: Replace with actual price
     const originalPrice = 5.95;
     final price = useMemoized(() {
@@ -215,50 +269,49 @@ class _ProductTile extends HookWidget {
       return format.format(originalPrice);
     }, [originalPrice]);
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: Spacings.listTilePadding,
-        horizontal: Spacings.standardPadding,
-      ),
-      child: ListTile(
-        tileColor: Colors.grey[100],
-        contentPadding: const EdgeInsets.symmetric(
-          vertical: Spacings.listTilePadding,
-          horizontal: Spacings.standardPadding,
-        ),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(Shapes.borderRadius),
-          ),
-        ),
-        leading: ConstrainedBox(
-          constraints: const BoxConstraints.expand(
-            height: Sizes.listImageSize,
-            width: Sizes.listImageSize,
-          ),
-          child: thumbnail,
-        ),
-        title: Text(_product.name),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(bottom: Spacings.standardPadding),
-              child: Text("Double espresso, steamed milk"),
-            ),
-            Row(
-              children: [
-                const Expanded(
-                  child: Text("Star 5.0"),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Flexible(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                _product.name,
+                style: context.theme.textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
                 ),
-                Text(price),
-              ],
-            )
-          ],
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  bottom: Spacings.textPadding,
+                ),
+                child: Text(
+                  "Double espresso, steamed milk with white chocolate mocha, caramel macchiato, pomegranate pearls",
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: context.theme.textTheme.bodySmall,
+                ),
+              ),
+            ],
+          ),
         ),
-        isThreeLine: true,
-        onTap: () => {},
-      ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text("⭐️ 5.0"),
+            Text(
+              price,
+              style: context.theme.textTheme.labelMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        )
+      ],
     );
   }
 }
