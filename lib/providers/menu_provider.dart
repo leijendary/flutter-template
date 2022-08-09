@@ -12,6 +12,9 @@ final menuProvider = StateNotifierProvider.autoDispose<MenuProvider, MenuState>(
     return MenuProvider(menuRepository);
   },
 );
+final menuUrlProvider = FutureProvider.family.autoDispose<String, String>(
+  (ref, key) async => ref.read(menuProvider.notifier).getStorageUrl(key),
+);
 
 class MenuProvider extends StateNotifier<MenuState> {
   MenuProvider(this._menuRepository) : super(MenuState()) {
@@ -29,11 +32,10 @@ class MenuProvider extends StateNotifier<MenuState> {
 
     try {
       final response = await _menuRepository.list();
-      final filtered = response.items
+      final menus = response.items
           .whereType<Menu>()
-          .where((menu) => menu.products.isNotEmpty);
-      final mapper = filtered.map((menu) async => await _setAssetUris(menu));
-      final menus = await Future.wait(mapper);
+          .where((menu) => menu.products.isNotEmpty)
+          .toList();
 
       state = MenuState(
         menus: menus,
@@ -52,50 +54,7 @@ class MenuProvider extends StateNotifier<MenuState> {
     }
   }
 
-  Future<Menu> _setAssetUris(Menu menu) async {
-    final mapper = menu.products.map((product) async {
-      var asset = product.asset;
-      final full = await _setAssetUri(asset.full);
-      final thumbnail = await _setAssetUri(asset.thumbnail);
-      final master = await _setAssetUri(asset.master);
-
-      asset = asset.copyWith(
-        full: full,
-        thumbnail: thumbnail,
-        master: master,
-      );
-
-      return product.copyWith(
-        code: 0,
-        ordinal: 0,
-        category: ProductCategory.Beverage,
-        asset: asset,
-        menu: menu,
-        typeName: Product.schema.name,
-      );
-    });
-    final products = await Future.wait(mapper);
-
-    return menu.copyWith(
-      children: const [],
-      products: products,
-      typeName: Menu.schema.name,
-    );
-  }
-
-  Future<ProductAssetUri> _setAssetUri(ProductAssetUri asset) async {
-    var uri = asset.uri;
-
-    if (uri == null) {
-      return asset;
-    }
-
-    uri = await _getStorageUrl(uri);
-
-    return asset.copyWith(uri: uri);
-  }
-
-  Future<String> _getStorageUrl(String key) async {
+  Future<String> getStorageUrl(String key) async {
     final result = await Amplify.Storage.getUrl(
       key: key,
       options: GetUrlOptions(

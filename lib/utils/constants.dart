@@ -29,6 +29,7 @@ class Sizes {
   static const appBarHeight = 56.0;
   static const listImageSize = 56.0;
   static const listTileHeight = 110.0;
+  static const labelSmallIcon = 16.0;
 }
 
 class Shapes {

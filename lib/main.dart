@@ -7,23 +7,42 @@ import 'package:flutter_sample/providers/session_provider.dart';
 import 'package:flutter_sample/router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final _theme = ThemeData(
-  colorScheme: const ColorScheme(
-    background: Colors.white,
-    onBackground: Colors.black,
-    brightness: Brightness.light,
-    surface: Colors.white,
-    onSurface: Colors.black,
-    primary: Color(0xffd9d9d9),
-    onPrimary: Colors.black,
-    secondary: Color(0xffd9d9d9),
-    onSecondary: Colors.black,
-    error: Colors.redAccent,
-    onError: Colors.white,
+const _colorScheme = ColorScheme(
+  brightness: Brightness.light,
+  primary: Color(0xff4f3328),
+  onPrimary: Colors.white,
+  secondary: Color(0xffd07600),
+  onSecondary: Colors.white,
+  tertiary: Color(0xffba782c),
+  onTertiary: Colors.white,
+  background: Colors.white,
+  onBackground: Color(0xff040404),
+  surface: Color(0xfff5f5f5),
+  onSurface: Color(0xff040404),
+  error: Colors.redAccent,
+  onError: Colors.white,
+);
+final _textTheme = TextTheme(
+  titleLarge: TextStyle(
+    color: _colorScheme.primary,
+    fontFamily: "Pacifico",
+    fontSize: 20.0,
   ),
+  labelSmall: const TextStyle(
+    color: Color(0xff989797),
+    fontFamily: "Montserrat",
+    fontSize: 10,
+    fontWeight: FontWeight.normal,
+  ),
+);
+final _theme = ThemeData(
+  colorScheme: _colorScheme,
+  textTheme: _textTheme,
   scaffoldBackgroundColor: Colors.white,
   applyElevationOverlayColor: false,
-  appBarTheme: const AppBarTheme(
+  appBarTheme: AppBarTheme(
+    color: _colorScheme.onPrimary,
+    foregroundColor: _colorScheme.onSurface,
     elevation: 0,
   ),
   fontFamily: "Montserrat",
