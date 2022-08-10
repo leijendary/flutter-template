@@ -35,6 +35,91 @@ class MenuRepository {
   final MenuDatabase _menuDatabase;
   final _dateTimeFormat = DateFormat("yyyyMMddHms");
 
+  Future<List<Menu>> synced() async {
+    final timestamp = DateTime.now().millisecondsSinceEpoch;
+    final syncTimestamp = _menuDatabase.getSyncTimestamp();
+    final result = await lastSyncedAt(syncTimestamp);
+
+    if (result.items.isNotEmpty) {
+      final menusToSync = result.items
+          .whereType<Menu>()
+          .where((menu) => menu.products.isNotEmpty);
+
+      await Future.forEach<Menu>(menusToSync, (menu) async {
+        await _menuDatabase.put(menu);
+      });
+
+      await _menuDatabase.setSyncTimestamp(timestamp);
+    }
+
+    final menus = _menuDatabase.all();
+    menus.sort((a, b) => a.ordinal.compareTo(b.ordinal));
+
+    for (var menu in menus) {
+      menu.products.sort((a, b) => a.ordinal.compareTo(b.ordinal));
+    }
+
+    return menus;
+  }
+
+  Future<PaginatedResult<Menu>> lastSyncedAt(int timestamp) async {
+    const syncMenus = "syncMenus";
+    const query = """
+      query (\$lastSync: AWSTimestamp!) {
+        $syncMenus(
+          lastSync: \$lastSync,
+          filter: {
+            parentId: {
+              attributeExists: true
+            }
+          }
+        ) {
+          items {
+            id
+            name
+            ordinal
+            products {
+              items {
+                id
+                name
+                ordinal
+                availability
+                sizes
+                asset {
+                  full {
+                    uri
+                  }
+                  master {
+                    uri
+                  }
+                  thumbnail {
+                    uri
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    """;
+    final request = GraphQLRequest<PaginatedResult<Menu>>(
+      document: query,
+      modelType: const PaginatedModelType(Menu.classType),
+      variables: <String, dynamic>{
+        "lastSync": timestamp,
+      },
+      decodePath: syncMenus,
+      apiName: "sample",
+    );
+    final response = await Amplify.API.query(request: request).response;
+
+    if (response.errors.isNotEmpty) {
+      throw GraphQLResponseException(response.errors);
+    }
+
+    return response.data!;
+  }
+
   Future<String?> refill(String? currentETag) async {
     final apiETag = await _menuApi.eTag();
 
@@ -54,106 +139,6 @@ class MenuRepository {
     }
 
     return apiETag;
-  }
-
-  Future<PaginatedResult<Menu>> list() async {
-    const listMenusSortedByOrdinal = "listMenusSortedByOrdinal";
-    const query = """
-      query (\$typeName: String!) {
-        $listMenusSortedByOrdinal(typeName: \$typeName) {
-          items {
-            id
-            name
-            ordinal
-            products {
-              items {
-                id
-                name
-                availability
-                sizes
-                asset {
-                  full {
-                    uri
-                  }
-                  master {
-                    uri
-                  }
-                  thumbnail {
-                    uri
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    """;
-    final request = GraphQLRequest<PaginatedResult<Menu>>(
-      document: query,
-      modelType: const PaginatedModelType(Menu.classType),
-      variables: <String, dynamic>{
-        "typeName": Menu.schema.name,
-      },
-      decodePath: listMenusSortedByOrdinal,
-      apiName: "sample",
-    );
-    final response = await Amplify.API.query(request: request).response;
-
-    if (response.errors.isNotEmpty) {
-      throw GraphQLResponseException(response.errors);
-    }
-
-    return response.data!;
-  }
-
-  Future<PaginatedResult<Menu>> lastSyncedAt(int timestamp) async {
-    const listMenusSortedByOrdinal = "listMenusSortedByOrdinal";
-    const query = """
-      query (\$typeName: String!) {
-        $listMenusSortedByOrdinal(typeName: \$typeName) {
-          items {
-            id
-            name
-            ordinal
-            products {
-              items {
-                id
-                name
-                availability
-                sizes
-                asset {
-                  full {
-                    uri
-                  }
-                  master {
-                    uri
-                  }
-                  thumbnail {
-                    uri
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    """;
-    final request = GraphQLRequest<PaginatedResult<Menu>>(
-      document: query,
-      modelType: const PaginatedModelType(Menu.classType),
-      variables: <String, dynamic>{
-        "typeName": Menu.schema.name,
-      },
-      decodePath: listMenusSortedByOrdinal,
-      apiName: "sample",
-    );
-    final response = await Amplify.API.query(request: request).response;
-
-    if (response.errors.isNotEmpty) {
-      throw GraphQLResponseException(response.errors);
-    }
-
-    return response.data!;
   }
 
   Future<GraphQLResponse<Menu>> create(Menu menu) async {
@@ -186,8 +171,6 @@ class MenuRepository {
 
     return await Amplify.API.mutate(request: request).response;
   }
-
-  int syncTimestamp() => _menuDatabase.getSyncTimestamp();
 
   Future<void> _addMenus({
     required Menu menu,

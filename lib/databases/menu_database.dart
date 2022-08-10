@@ -1,5 +1,6 @@
 import 'package:flutter_sample/models/Menu.dart';
 import 'package:flutter_sample/utils/constants.dart';
+import 'package:flutter_sample/utils/extensions.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -22,13 +23,15 @@ class MenuDatabase {
     map.removeWhere((key, value) => excludedKeys.contains(key));
 
     return map.entries
-        .map(
-          (entry) => Menu.fromJson(entry.value),
-        )
+        .map((entry) => MenuHelper.fromJson(entry.value))
         .toList();
   }
 
-  Future<void> put(Menu menu) async => await _box.put(menu.id, menu.toJson());
+  Future<void> put(Menu menu) async {
+    final json = menu.toJson();
+
+    await _box.put(menu.id, json);
+  }
 
   int getSyncTimestamp() => _box.get(
         DatabaseKeys.sync_timestamp,

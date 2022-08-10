@@ -1,6 +1,5 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter_sample/models/ModelProvider.dart';
 import 'package:flutter_sample/repositories/menu_repository.dart';
 import 'package:flutter_sample/states/menu_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -31,11 +30,7 @@ class MenuProvider extends StateNotifier<MenuState> {
     );
 
     try {
-      final response = await _menuRepository.list();
-      final menus = response.items
-          .whereType<Menu>()
-          .where((menu) => menu.products.isNotEmpty)
-          .toList();
+      final menus = await _menuRepository.synced();
 
       state = MenuState(
         menus: menus,
