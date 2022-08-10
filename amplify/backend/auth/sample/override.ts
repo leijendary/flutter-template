@@ -25,6 +25,7 @@ export function override(resources: AmplifyAuthCognitoStackTemplate) {
       idToken: "days",
       refreshToken: "days",
     }
+    resources.userPoolClient.allowedOAuthFlowsUserPoolClient = true
     resources.userPoolClient.allowedOAuthFlows = ["implicit"]
     resources.userPoolClient.callbackUrLs = [
       "http://localhost:3000/login/redirect/"
