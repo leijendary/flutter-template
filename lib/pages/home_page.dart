@@ -91,15 +91,6 @@ class _HomePageHeaderContent extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final headerStyle = useMemoized(() {
-      return context.theme.textTheme.titleLarge!.copyWith(
-        fontWeight: FontWeight.w800,
-        fontSize: _computeFontSize(
-          context.theme.textTheme.titleLarge!.fontSize!,
-        ),
-      );
-    }, [shrinkOffset]);
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.max,
@@ -112,13 +103,6 @@ class _HomePageHeaderContent extends HookConsumerWidget {
         ),
       ],
     );
-  }
-
-  double _computeFontSize(double original) {
-    var limit = maxExtent - minExtent;
-    var computed = min(limit, shrinkOffset) / minExtent;
-
-    return original - (computed * _fontMultiplier);
   }
 }
 
