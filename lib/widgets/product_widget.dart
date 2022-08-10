@@ -36,6 +36,7 @@ class ProductListTile extends HookConsumerWidget {
         child: Material(
           type: MaterialType.transparency,
           child: InkWell(
+            borderRadius: BorderRadius.circular(Shapes.borderRadius),
             child: Padding(
               padding: const EdgeInsets.all(Spacings.standardPadding),
               child: Row(
