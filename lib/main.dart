@@ -67,9 +67,15 @@ Future<void> main() async {
 
   // Firebase first to catch errors that can happen on the next lines.
   await firebase();
-  await dotenv.load();
-  await amplify();
-  await database();
+
+  // These can be loaded asynchronously
+  await Future.wait([
+    dotenv.load(),
+    amplify(),
+    database(),
+  ]);
+
+  // Session requires the database to be open
   await session();
 
   runApp(const ProviderScope(child: App()));
