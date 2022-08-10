@@ -52,7 +52,7 @@ class _HomePageHeader extends SliverPersistentHeaderDelegate {
       heightFactor: 1,
       widthFactor: 1,
       child: Container(
-        color: context.theme.colorScheme.primary,
+        color: context.theme.colorScheme.background,
         child: Column(
           children: [
             const TopBar(title: "Aegyo"),
@@ -105,28 +105,10 @@ class _HomePageHeaderContent extends HookConsumerWidget {
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Consumer(
-          builder: (context, ref, child) {
-            final user = ref.watch(sessionProvider).user;
-            String greeting;
-
-            if (user.isGuest) {
-              greeting = "Hello!";
-            } else {
-              greeting = "Hello ${user.givenName},";
-            }
-
-            return Text(
-              greeting,
-              style: headerStyle.copyWith(
-                fontWeight: FontWeight.w400,
-              ),
-            );
-          },
-        ),
+        _Greeting(),
         Text(
           _subHeader,
-          style: headerStyle,
+          style: context.theme.textTheme.headlineMedium,
         ),
       ],
     );
@@ -137,5 +119,35 @@ class _HomePageHeaderContent extends HookConsumerWidget {
     var computed = min(limit, shrinkOffset) / minExtent;
 
     return original - (computed * _fontMultiplier);
+  }
+}
+
+class _Greeting extends HookConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final hour = TimeOfDay.now().hour;
+    final user = ref.watch(sessionProvider).user;
+    final greeting = useMemoized(() {
+      String starting;
+
+      if (hour >= 0 && hour < 12) {
+        starting = "Good morning";
+      } else if (hour >= 12 && hour < 18) {
+        starting = "Good afternoon";
+      } else {
+        starting = "Good evening";
+      }
+
+      if (user.isGuest) {
+        return "$starting, Angel.";
+      }
+
+      return "$starting, ${user.givenName}.";
+    }, [hour]);
+
+    return Text(
+      greeting,
+      style: context.theme.textTheme.headlineLarge,
+    );
   }
 }

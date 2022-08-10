@@ -7,6 +7,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_sample/apis/file_api.dart';
 import 'package:flutter_sample/apis/menu_api.dart';
+import 'package:flutter_sample/databases/menu_database.dart';
 import 'package:flutter_sample/errors/graphql_exception.dart';
 import 'package:flutter_sample/models/ModelProvider.dart';
 import 'package:flutter_sample/utils/files.dart';
@@ -17,18 +18,21 @@ import 'package:path/path.dart' as path;
 final menuRepositoryProvider = Provider((ref) {
   final menuApi = ref.read(menuApiProvider);
   final fileApi = ref.read(fileApiProvider);
+  final menuDatabase = ref.read(menuDatabaseProvider);
 
-  return MenuRepository(menuApi, fileApi);
+  return MenuRepository(menuApi, fileApi, menuDatabase);
 });
 
 class MenuRepository {
   MenuRepository(
     this._menuApi,
     this._fileApi,
+    this._menuDatabase,
   );
 
   final MenuApi _menuApi;
   final FileApi _fileApi;
+  final MenuDatabase _menuDatabase;
   final _dateTimeFormat = DateFormat("yyyyMMddHms");
 
   Future<String?> refill(String? currentETag) async {
@@ -53,6 +57,56 @@ class MenuRepository {
   }
 
   Future<PaginatedResult<Menu>> list() async {
+    const listMenusSortedByOrdinal = "listMenusSortedByOrdinal";
+    const query = """
+      query (\$typeName: String!) {
+        $listMenusSortedByOrdinal(typeName: \$typeName) {
+          items {
+            id
+            name
+            ordinal
+            products {
+              items {
+                id
+                name
+                availability
+                sizes
+                asset {
+                  full {
+                    uri
+                  }
+                  master {
+                    uri
+                  }
+                  thumbnail {
+                    uri
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    """;
+    final request = GraphQLRequest<PaginatedResult<Menu>>(
+      document: query,
+      modelType: const PaginatedModelType(Menu.classType),
+      variables: <String, dynamic>{
+        "typeName": Menu.schema.name,
+      },
+      decodePath: listMenusSortedByOrdinal,
+      apiName: "sample",
+    );
+    final response = await Amplify.API.query(request: request).response;
+
+    if (response.errors.isNotEmpty) {
+      throw GraphQLResponseException(response.errors);
+    }
+
+    return response.data!;
+  }
+
+  Future<PaginatedResult<Menu>> lastSyncedAt(int timestamp) async {
     const listMenusSortedByOrdinal = "listMenusSortedByOrdinal";
     const query = """
       query (\$typeName: String!) {
@@ -132,6 +186,8 @@ class MenuRepository {
 
     return await Amplify.API.mutate(request: request).response;
   }
+
+  int syncTimestamp() => _menuDatabase.getSyncTimestamp();
 
   Future<void> _addMenus({
     required Menu menu,

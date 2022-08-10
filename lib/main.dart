@@ -24,15 +24,29 @@ const _colorScheme = ColorScheme(
 );
 final _textTheme = TextTheme(
   titleLarge: TextStyle(
+    inherit: false,
     color: _colorScheme.primary,
     fontFamily: "Pacifico",
-    fontSize: 20.0,
+    fontSize: 24.0,
   ),
   labelSmall: const TextStyle(
+    inherit: false,
     color: Color(0xff989797),
     fontFamily: "Montserrat",
-    fontSize: 10,
-    fontWeight: FontWeight.normal,
+    fontSize: 12,
+  ),
+  headlineLarge: TextStyle(
+    inherit: false,
+    color: _colorScheme.primary,
+    fontFamily: "Montserrat",
+    fontSize: 22.0,
+    fontWeight: FontWeight.bold,
+  ),
+  headlineMedium: TextStyle(
+    inherit: false,
+    color: _colorScheme.primary,
+    fontFamily: "Montserrat",
+    fontSize: 18.0,
   ),
 );
 final _theme = ThemeData(

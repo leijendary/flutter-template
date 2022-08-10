@@ -29,7 +29,7 @@ class Sizes {
   static const appBarHeight = 56.0;
   static const listImageSize = 56.0;
   static const listTileHeight = 110.0;
-  static const labelSmallIcon = 16.0;
+  static const labelSmallIcon = 18.0;
 }
 
 class Shapes {
@@ -47,16 +47,16 @@ class Durations {
 class Boxes {
   Boxes._();
 
-  static const all = {session, menu, product};
+  static const all = {session, menu};
   static const session = "session";
   static const menu = "menu";
-  static const product = "product";
 }
 
 class DatabaseKeys {
   DatabaseKeys._();
 
   static const user = "user";
+  static const sync_timestamp = "sync_timestamp";
 }
 
 class Assets {
