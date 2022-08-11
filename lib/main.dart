@@ -29,6 +29,13 @@ final _textTheme = TextTheme(
     fontFamily: "Pacifico",
     fontSize: 24.0,
   ),
+  titleMedium: TextStyle(
+    inherit: false,
+    color: _colorScheme.primary,
+    fontFamily: "Montserrat",
+    fontSize: 18.0,
+    fontWeight: FontWeight.bold,
+  ),
   labelSmall: const TextStyle(
     inherit: false,
     color: Color(0xff989797),
@@ -58,6 +65,9 @@ final _theme = ThemeData(
     color: _colorScheme.onPrimary,
     foregroundColor: _colorScheme.onSurface,
     elevation: 0,
+    iconTheme: IconThemeData(
+      color: _colorScheme.primary,
+    ),
   ),
   fontFamily: "Montserrat",
 );
@@ -82,7 +92,7 @@ Future<void> main() async {
 }
 
 class App extends HookConsumerWidget {
-  const App({Key? key}) : super(key: key);
+  const App({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

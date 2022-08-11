@@ -16,9 +16,12 @@ final _defaultImage = Image.asset(
 );
 
 class ProductListTile extends HookConsumerWidget {
-  const ProductListTile(this._product, {Key? key}) : super(key: key);
+  const ProductListTile({
+    super.key,
+    required this.product,
+  });
 
-  final Product _product;
+  final Product product;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -43,7 +46,7 @@ class ProductListTile extends HookConsumerWidget {
                 children: [
                   Flexible(
                     flex: 0,
-                    child: ProductThumbnail(_product),
+                    child: ProductThumbnail(product: product),
                   ),
                   const Flexible(
                     flex: 0,
@@ -53,7 +56,7 @@ class ProductListTile extends HookConsumerWidget {
                   ),
                   Flexible(
                     flex: 1,
-                    child: ProductDetail(_product),
+                    child: ProductDetail(product: product),
                   )
                 ],
               ),
@@ -67,15 +70,18 @@ class ProductListTile extends HookConsumerWidget {
 }
 
 class ProductThumbnail extends HookConsumerWidget {
-  const ProductThumbnail(this._product, {Key? key}) : super(key: key);
+  const ProductThumbnail({
+    super.key,
+    required this.product,
+  });
 
-  final Product _product;
+  final Product product;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final uri = _product.asset.thumbnail.uri ??
-        _product.asset.full.uri ??
-        _product.asset.master.uri;
+    final uri = product.asset.thumbnail.uri ??
+        product.asset.full.uri ??
+        product.asset.master.uri;
 
     if (uri == null) {
       return _defaultImage;
@@ -85,7 +91,7 @@ class ProductThumbnail extends HookConsumerWidget {
 
     return urlWatch.when(
       data: (data) => CachedNetworkImage(
-        cacheKey: _product.id,
+        cacheKey: product.id,
         height: Sizes.listImageSize,
         width: Sizes.listImageSize,
         imageUrl: data,
@@ -104,9 +110,12 @@ class ProductThumbnail extends HookConsumerWidget {
 }
 
 class ProductDetail extends HookWidget {
-  const ProductDetail(this._product, {Key? key}) : super(key: key);
+  const ProductDetail({
+    super.key,
+    required this.product,
+  });
 
-  final Product _product;
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +138,7 @@ class ProductDetail extends HookWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                _product.name,
+                product.name,
                 style: context.theme.textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),

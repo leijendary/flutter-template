@@ -12,7 +12,7 @@ import 'package:flutter_sample/utils/validators.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SignInPage extends HookConsumerWidget {
-  SignInPage({Key? key}) : super(key: key);
+  SignInPage({super.key});
 
   final _formKey = GlobalKey<FormState>();
 

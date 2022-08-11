@@ -6,9 +6,9 @@ import 'package:flutter_sample/widgets/product_widget.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
 class MenuGroup extends StatelessWidget {
-  const MenuGroup(this._menu, {Key? key}) : super(key: key);
+  const MenuGroup({super.key, required this.menu});
 
-  final Menu _menu;
+  final Menu menu;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class MenuGroup extends StatelessWidget {
           padding: const EdgeInsets.all(Spacings.standardPadding),
           alignment: Alignment.centerLeft,
           child: Text(
-            _menu.name,
+            menu.name,
             style: const TextStyle(color: Colors.black),
           ),
         ),
@@ -28,11 +28,11 @@ class MenuGroup extends StatelessWidget {
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
           (context, i) {
-            final product = _menu.products[i];
+            final product = menu.products[i];
 
-            return ProductListTile(product);
+            return ProductListTile(product: product);
           },
-          childCount: _menu.products.length,
+          childCount: menu.products.length,
         ),
       ),
     );

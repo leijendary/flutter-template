@@ -9,7 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AppDrawer extends HookConsumerWidget {
-  const AppDrawer({Key? key}) : super(key: key);
+  const AppDrawer({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

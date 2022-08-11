@@ -2,5 +2,9 @@
   "requiredField": "Required Field",
   "phoneNumberMinimum": "Should be at least 9 characters",
   "invalidCredentials": "Your phone number or PIN are wrong",
-  "noAccount": "Your account was not found"
+  "noAccount": "Your account was not found",
+  "goodMorning": "Good morning",
+  "goodAfternoon": "Good afternoon",
+  "goodEvening": "Good evening",
+  "goodDayForCoffee": "It's a good day for coffee."
 }

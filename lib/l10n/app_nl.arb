@@ -2,5 +2,9 @@
   "requiredField": "Verplicht veld",
   "phoneNumberMinimum": "Moet minimaal 9 tekens bevatten",
   "invalidCredentials": "Uw telefoonnummer of pincode is verkeerd",
-  "noAccount": "Uw account is niet gevonden"
+  "noAccount": "Uw account is niet gevonden",
+  "goodMorning": "Goedemorgen",
+  "goodAfternoon": "Goedemiddag",
+  "goodEvening": "Goedenavond",
+  "goodDayForCoffee": "Het is een goede dag voor koffie."
 }

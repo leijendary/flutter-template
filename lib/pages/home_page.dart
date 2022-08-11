@@ -9,7 +9,7 @@ import 'package:flutter_sample/widgets/top_bar_widget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HomePage extends HookConsumerWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,7 +22,7 @@ class HomePage extends HookConsumerWidget {
           pinned: true,
           delegate: _HomePageHeader(),
         ),
-        for (var menu in menuState.menus) MenuGroup(menu),
+        for (var menu in menuState.menus) MenuGroup(menu: menu),
       ],
     );
   }
@@ -53,17 +53,17 @@ class _HomePageHeader extends SliverPersistentHeaderDelegate {
         color: context.theme.colorScheme.background,
         child: Column(
           children: [
-            const TopBar(title: "Aegyo"),
+            const TopBar(
+              title: "Aegyo",
+              fancy: true,
+              center: true,
+            ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: Spacings.standardPadding,
                 ),
-                child: _HomePageHeaderContent(
-                  shrinkOffset: shrinkOffset,
-                  minExtent: minExtent,
-                  maxExtent: maxExtent,
-                ),
+                child: _HomePageHeaderContent(),
               ),
             ),
           ],
@@ -74,18 +74,6 @@ class _HomePageHeader extends SliverPersistentHeaderDelegate {
 }
 
 class _HomePageHeaderContent extends HookConsumerWidget {
-  const _HomePageHeaderContent({
-    required this.shrinkOffset,
-    required this.minExtent,
-    required this.maxExtent,
-  });
-
-  final double shrinkOffset;
-  final double minExtent;
-  final double maxExtent;
-
-  static const _subHeader = "It's a good day for coffee.";
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
@@ -95,7 +83,7 @@ class _HomePageHeaderContent extends HookConsumerWidget {
       children: [
         _Greeting(),
         Text(
-          _subHeader,
+          context.localizations.goodDayForCoffee,
           style: context.theme.textTheme.headlineMedium,
         ),
       ],
@@ -112,15 +100,15 @@ class _Greeting extends HookConsumerWidget {
       String starting;
 
       if (hour >= 0 && hour < 12) {
-        starting = "Good morning";
+        starting = context.localizations.goodMorning;
       } else if (hour >= 12 && hour < 18) {
-        starting = "Good afternoon";
+        starting = context.localizations.goodAfternoon;
       } else {
-        starting = "Good evening";
+        starting = context.localizations.goodEvening;
       }
 
       if (user.isGuest) {
-        return "$starting, Angel.";
+        return "$starting.";
       }
 
       return "$starting, ${user.givenName}.";
