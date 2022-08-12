@@ -36,12 +36,14 @@ class Sizes {
   static const labelSmallIcon = 18.0;
   static const inputHeight = 40.0;
   static const inputIconHeight = 26.0;
+  static const promotionHeight = 180.0;
 }
 
 class Shapes {
   Shapes._();
 
   static const borderRadius = 8.0;
+  static const imageRadius = 32.0;
 }
 
 class Durations {

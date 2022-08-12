@@ -36,6 +36,14 @@ final _textTheme = TextTheme(
     fontSize: 18.0,
     fontWeight: FontWeight.bold,
   ),
+  labelLarge: TextStyle(
+    inherit: false,
+    color: _colorScheme.onSurface,
+    fontFamily: "Montserrat",
+    fontSize: 16.0,
+    fontWeight: FontWeight.bold,
+    textBaseline: TextBaseline.alphabetic,
+  ),
   labelMedium: const TextStyle(
     inherit: false,
     color: Color(0xff000000),

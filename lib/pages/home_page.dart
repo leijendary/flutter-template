@@ -5,6 +5,7 @@ import 'package:flutter_sample/providers/session_provider.dart';
 import 'package:flutter_sample/utils/constants.dart';
 import 'package:flutter_sample/utils/extensions.dart';
 import 'package:flutter_sample/widgets/drawer_widget.dart';
+import 'package:flutter_sample/widgets/image_widget.dart';
 import 'package:flutter_sample/widgets/input_widget.dart';
 import 'package:flutter_sample/widgets/menu_widget.dart';
 import 'package:flutter_sample/widgets/top_bar_widget.dart';
@@ -35,6 +36,17 @@ class HomePage extends HookConsumerWidget {
             SliverPersistentHeader(
               floating: true,
               delegate: _PersistentSearchHeader(),
+            ),
+            const SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.all(Spacings.regularPadding),
+                child: StorageImage(
+                  uri: "promotion.png",
+                  radius: Shapes.imageRadius,
+                  height: Sizes.promotionHeight,
+                  width: double.infinity,
+                ),
+              ),
             ),
             for (var menu in menuState.menus) MenuGroup(menu: menu),
           ],
@@ -97,10 +109,10 @@ class _Greeting extends StatelessWidget {
 
 class _PersistentSearchHeader extends SliverPersistentHeaderDelegate {
   @override
-  double get maxExtent => 80;
+  double get maxExtent => 64;
 
   @override
-  double get minExtent => 80;
+  double get minExtent => 64;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
@@ -116,7 +128,11 @@ class _PersistentSearchHeader extends SliverPersistentHeaderDelegate {
     return Container(
       color: context.theme.colorScheme.background,
       child: Padding(
-        padding: const EdgeInsets.all(Spacings.regularPadding),
+        padding: const EdgeInsets.only(
+          left: Spacings.regularPadding,
+          top: Spacings.regularPadding,
+          right: Spacings.regularPadding,
+        ),
         child: _SearchRow(),
       ),
     );
