@@ -4,6 +4,8 @@ import 'package:flutter_sample/providers/menu_provider.dart';
 import 'package:flutter_sample/providers/session_provider.dart';
 import 'package:flutter_sample/utils/constants.dart';
 import 'package:flutter_sample/utils/extensions.dart';
+import 'package:flutter_sample/widgets/drawer_widget.dart';
+import 'package:flutter_sample/widgets/input_widget.dart';
 import 'package:flutter_sample/widgets/menu_widget.dart';
 import 'package:flutter_sample/widgets/top_bar_widget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -15,25 +17,90 @@ class HomePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final menuState = ref.watch(menuProvider);
 
-    return CustomScrollView(
-      semanticChildCount: menuState.count,
-      slivers: [
-        SliverPersistentHeader(
-          pinned: true,
-          delegate: _HomePageHeader(),
+    return GestureDetector(
+      onTap: () => context.focusScope.unfocus(),
+      child: Scaffold(
+        drawer: const AppDrawer(),
+        appBar: const AppTopBar(
+          title: "Aegyo",
+          fancy: true,
+          center: true,
         ),
-        for (var menu in menuState.menus) MenuGroup(menu: menu),
-      ],
+        body: CustomScrollView(
+          semanticChildCount: menuState.count,
+          slivers: [
+            SliverToBoxAdapter(
+              child: _Greeting(),
+            ),
+            SliverPersistentHeader(
+              floating: true,
+              delegate: _PersistentSearchHeader(),
+            ),
+            for (var menu in menuState.menus) MenuGroup(menu: menu),
+          ],
+        ),
+      ),
     );
   }
 }
 
-class _HomePageHeader extends SliverPersistentHeaderDelegate {
+class _Greeting extends StatelessWidget {
   @override
-  double get maxExtent => 250;
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: Spacings.regularPadding,
+        top: Spacings.largePadding,
+        right: Spacings.regularPadding,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Consumer(
+            builder: (context, ref, child) {
+              final hour = TimeOfDay.now().hour;
+              final user = ref.watch(sessionProvider).user;
+              final String greeting;
+              final String starting;
+
+              if (hour >= 0 && hour < 12) {
+                starting = context.localizations.goodMorning;
+              } else if (hour >= 12 && hour < 18) {
+                starting = context.localizations.goodAfternoon;
+              } else {
+                starting = context.localizations.goodEvening;
+              }
+
+              if (user.isGuest) {
+                greeting = "$starting, Angel.";
+              } else {
+                greeting = "$starting, ${user.givenName}.";
+              }
+
+              return Text(
+                greeting,
+                style: context.theme.textTheme.headlineLarge,
+              );
+            },
+          ),
+          Text(
+            context.localizations.goodDayForCoffee,
+            style: context.theme.textTheme.headlineMedium,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _PersistentSearchHeader extends SliverPersistentHeaderDelegate {
+  @override
+  double get maxExtent => 80;
 
   @override
-  double get minExtent => 150;
+  double get minExtent => 80;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
@@ -46,77 +113,57 @@ class _HomePageHeader extends SliverPersistentHeaderDelegate {
     double shrinkOffset,
     bool overlapsContent,
   ) {
-    return FractionallySizedBox(
-      heightFactor: 1,
-      widthFactor: 1,
-      child: Container(
-        color: context.theme.colorScheme.background,
-        child: Column(
-          children: [
-            const TopBar(
-              title: "Aegyo",
-              fancy: true,
-              center: true,
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: Spacings.standardPadding,
-                ),
-                child: _HomePageHeaderContent(),
-              ),
-            ),
-          ],
-        ),
+    return Container(
+      color: context.theme.colorScheme.background,
+      child: Padding(
+        padding: const EdgeInsets.all(Spacings.regularPadding),
+        child: _SearchRow(),
       ),
     );
   }
 }
 
-class _HomePageHeaderContent extends HookConsumerWidget {
+class _SearchRow extends HookWidget {
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+  Widget build(BuildContext context) {
+    final controller = useTextEditingController();
+    final focusNode = useFocusNode();
+
+    return Row(
       children: [
-        _Greeting(),
-        Text(
-          context.localizations.goodDayForCoffee,
-          style: context.theme.textTheme.headlineMedium,
+        Flexible(
+          flex: 1,
+          child: AppTextField(
+            controller: controller,
+            focusNode: focusNode,
+            hintText: context.localizations.enterDishOrDrink,
+            suffixIcon: IconButton(
+              iconSize: Sizes.inputIconHeight,
+              color: context.theme.hintColor,
+              icon: const Icon(Icons.mic),
+              onPressed: () => print("pressed"),
+            ),
+          ),
+        ),
+        Flexible(
+          flex: 0,
+          child: Padding(
+            padding: const EdgeInsets.only(left: Spacings.smallPadding),
+            child: AspectRatio(
+              aspectRatio: 1 / 1,
+              child: Material(
+                color: context.theme.colorScheme.primary,
+                borderRadius: BorderRadius.circular(Shapes.borderRadius),
+                child: IconButton(
+                  color: context.theme.colorScheme.onPrimary,
+                  icon: const Icon(Icons.tune),
+                  onPressed: () => print("Pressed equalizer"),
+                ),
+              ),
+            ),
+          ),
         ),
       ],
-    );
-  }
-}
-
-class _Greeting extends HookConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final hour = TimeOfDay.now().hour;
-    final user = ref.watch(sessionProvider).user;
-    final greeting = useMemoized(() {
-      String starting;
-
-      if (hour >= 0 && hour < 12) {
-        starting = context.localizations.goodMorning;
-      } else if (hour >= 12 && hour < 18) {
-        starting = context.localizations.goodAfternoon;
-      } else {
-        starting = context.localizations.goodEvening;
-      }
-
-      if (user.isGuest) {
-        return "$starting.";
-      }
-
-      return "$starting, ${user.givenName}.";
-    }, [hour]);
-
-    return Text(
-      greeting,
-      style: context.theme.textTheme.headlineLarge,
     );
   }
 }

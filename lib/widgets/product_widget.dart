@@ -28,7 +28,7 @@ class ProductListTile extends HookConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: Spacings.tileOuterPadding,
-        horizontal: Spacings.standardPadding,
+        horizontal: Spacings.regularPadding,
       ),
       child: Container(
         decoration: BoxDecoration(
@@ -41,7 +41,7 @@ class ProductListTile extends HookConsumerWidget {
           child: InkWell(
             borderRadius: BorderRadius.circular(Shapes.borderRadius),
             child: Padding(
-              padding: const EdgeInsets.all(Spacings.standardPadding),
+              padding: const EdgeInsets.all(Spacings.regularPadding),
               child: Row(
                 children: [
                   Flexible(

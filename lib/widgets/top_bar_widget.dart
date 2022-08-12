@@ -5,8 +5,8 @@ import 'package:flutter_sample/utils/constants.dart';
 import 'package:flutter_sample/utils/extensions.dart';
 import 'package:go_router/go_router.dart';
 
-class TopBar extends StatelessWidget implements PreferredSizeWidget {
-  const TopBar({
+class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
+  const AppTopBar({
     super.key,
     required this.title,
     this.fancy = false,

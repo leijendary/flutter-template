@@ -13,16 +13,14 @@ class MenuGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverStickyHeader(
-      header: GestureDetector(
-        child: Container(
-          color: context.theme.colorScheme.background,
-          height: Sizes.appBarHeight,
-          padding: const EdgeInsets.all(Spacings.standardPadding),
-          alignment: Alignment.centerLeft,
-          child: Text(
-            menu.name,
-            style: const TextStyle(color: Colors.black),
-          ),
+      header: Container(
+        color: context.theme.colorScheme.background,
+        height: Sizes.appBarHeight,
+        padding: const EdgeInsets.all(Spacings.regularPadding),
+        alignment: Alignment.centerLeft,
+        child: Text(
+          menu.name,
+          style: const TextStyle(color: Colors.black),
         ),
       ),
       sliver: SliverList(

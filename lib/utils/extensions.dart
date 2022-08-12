@@ -20,6 +20,8 @@ extension BuildContextHelper on BuildContext {
   NavigatorState get navigator => Navigator.of(this);
 
   GoRouter get router => GoRouter.of(this);
+
+  FocusScopeNode get focusScope => FocusScope.of(this);
 }
 
 extension MenuHelper on Menu {

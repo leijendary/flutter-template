@@ -36,24 +36,32 @@ final _textTheme = TextTheme(
     fontSize: 18.0,
     fontWeight: FontWeight.bold,
   ),
+  labelMedium: const TextStyle(
+    inherit: false,
+    color: Color(0xff000000),
+    fontFamily: "Montserrat",
+    fontSize: 14.0,
+    textBaseline: TextBaseline.alphabetic,
+  ),
   labelSmall: const TextStyle(
     inherit: false,
     color: Color(0xff989797),
     fontFamily: "Montserrat",
-    fontSize: 12,
+    fontSize: 12.0,
+    textBaseline: TextBaseline.alphabetic,
   ),
   headlineLarge: TextStyle(
     inherit: false,
     color: _colorScheme.primary,
     fontFamily: "Montserrat",
-    fontSize: 22.0,
+    fontSize: 18.0,
     fontWeight: FontWeight.bold,
   ),
   headlineMedium: TextStyle(
     inherit: false,
     color: _colorScheme.primary,
     fontFamily: "Montserrat",
-    fontSize: 18.0,
+    fontSize: 15.0,
   ),
 );
 final _theme = ThemeData(
@@ -70,6 +78,7 @@ final _theme = ThemeData(
     ),
   ),
   fontFamily: "Montserrat",
+  hintColor: const Color(0xff515151),
 );
 
 Future<void> main() async {

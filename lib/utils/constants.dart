@@ -17,10 +17,14 @@ class AwsAttributes {
 class Spacings {
   Spacings._();
 
-  static const standardPadding = 16.0;
-  static const tileOuterPadding = standardPadding / 2;
+  static const smallPadding = 12.0;
+  static const regularPadding = 16.0;
+  static const mediumPadding = 20.0;
+  static const largePadding = 24.0;
+  static const tileOuterPadding = regularPadding / 2;
   static const tileInnerPadding = 24.0;
   static const textPadding = 4.0;
+  static const fieldPadding = mediumPadding - 2;
 }
 
 class Sizes {
@@ -30,6 +34,8 @@ class Sizes {
   static const listImageSize = 56.0;
   static const listTileHeight = 110.0;
   static const labelSmallIcon = 18.0;
+  static const inputHeight = 40.0;
+  static const inputIconHeight = 26.0;
 }
 
 class Shapes {

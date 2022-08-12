@@ -6,5 +6,6 @@
   "goodMorning": "Good morning",
   "goodAfternoon": "Good afternoon",
   "goodEvening": "Good evening",
-  "goodDayForCoffee": "It's a good day for coffee."
+  "goodDayForCoffee": "It's a good day for coffee.",
+  "enterDishOrDrink": "Enter a dish name or drink"
 }

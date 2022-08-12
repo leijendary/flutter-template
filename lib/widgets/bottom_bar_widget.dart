@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sample/utils/extensions.dart';
 
-class BottomBar extends StatelessWidget {
-  const BottomBar({
+class AppBottomBar extends StatelessWidget {
+  const AppBottomBar({
     super.key,
     required this.index,
     required this.onIndexChange,
