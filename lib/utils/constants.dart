@@ -56,7 +56,7 @@ class DatabaseKeys {
   DatabaseKeys._();
 
   static const user = "user";
-  static const sync_timestamp = "sync_timestamp";
+  static const syncTimestamp = "sync_timestamp";
 }
 
 class Assets {

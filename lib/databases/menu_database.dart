@@ -15,7 +15,7 @@ class MenuDatabase {
 
   final Box _box;
   final List<String> excludedKeys = [
-    DatabaseKeys.sync_timestamp,
+    DatabaseKeys.syncTimestamp,
   ];
 
   List<Menu> all() {
@@ -34,10 +34,10 @@ class MenuDatabase {
   }
 
   int getSyncTimestamp() => _box.get(
-        DatabaseKeys.sync_timestamp,
+        DatabaseKeys.syncTimestamp,
         defaultValue: 0,
       );
 
   Future<void> setSyncTimestamp(int timestamp) async =>
-      await _box.put(DatabaseKeys.sync_timestamp, timestamp);
+      await _box.put(DatabaseKeys.syncTimestamp, timestamp);
 }
