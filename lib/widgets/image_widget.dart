@@ -48,6 +48,7 @@ class StorageImage extends ConsumerWidget {
           placeholder: (context, url) => defaultImage,
           errorWidget: (context, url, error) => defaultImage,
           fadeInDuration: Durations.fadeDuration,
+          fadeOutDuration: Durations.fadeDuration,
         ),
       ),
       loading: () => defaultImage,

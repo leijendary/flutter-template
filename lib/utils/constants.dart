@@ -48,7 +48,7 @@ class Shapes {
 class Durations {
   Durations._();
 
-  static const fadeDuration = Duration(milliseconds: 200);
+  static const fadeDuration = Duration(milliseconds: 100);
 }
 
 class Boxes {
