@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_sample/providers/menu_provider.dart';
+import 'package:flutter_sample/providers/image_provider.dart';
 import 'package:flutter_sample/utils/constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -34,7 +34,7 @@ class StorageImage extends ConsumerWidget {
       return defaultImage;
     }
 
-    final urlWatch = ref.watch(menuUrlProvider(uri!));
+    final urlWatch = ref.watch(imageUrlProvider(uri!));
 
     return urlWatch.when(
       data: (data) => ClipRRect(

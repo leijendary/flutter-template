@@ -35,7 +35,6 @@ class Sizes {
   static const listTileHeight = 110.0;
   static const labelSmallIcon = 18.0;
   static const inputHeight = 40.0;
-  static const inputIconHeight = 26.0;
   static const promotionHeight = 180.0;
 }
 

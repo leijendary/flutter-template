@@ -25,15 +25,13 @@ class AppTextField extends HookConsumerWidget {
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(
-            Shapes.borderRadius,
-          ),
+          borderRadius: BorderRadius.circular(Shapes.borderRadius),
         ),
         contentPadding: const EdgeInsets.symmetric(
+          vertical: Spacings.fieldPadding,
           horizontal: Spacings.regularPadding,
         ),
         filled: true,
-        isCollapsed: true,
         hintText: hintText,
         hintStyle: context.theme.textTheme.labelSmall,
         suffixIcon: suffixIcon,

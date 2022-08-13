@@ -1,4 +1,3 @@
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_sample/repositories/menu_repository.dart';
 import 'package:flutter_sample/states/menu_state.dart';
@@ -10,9 +9,6 @@ final menuProvider = StateNotifierProvider.autoDispose<MenuProvider, MenuState>(
 
     return MenuProvider(menuRepository);
   },
-);
-final menuUrlProvider = FutureProvider.family.autoDispose<String, String>(
-  (ref, key) async => ref.read(menuProvider.notifier).getStorageUrl(key),
 );
 
 class MenuProvider extends StateNotifier<MenuState> {
@@ -47,17 +43,5 @@ class MenuProvider extends StateNotifier<MenuState> {
         error: "Could not load menu",
       );
     }
-  }
-
-  Future<String> getStorageUrl(String key) async {
-    final result = await Amplify.Storage.getUrl(
-      key: key,
-      options: GetUrlOptions(
-        // Set expiration to 7 days
-        expires: 604800,
-      ),
-    );
-
-    return result.url;
   }
 }

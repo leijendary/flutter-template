@@ -153,11 +153,9 @@ class _SearchRow extends HookWidget {
             controller: controller,
             focusNode: focusNode,
             hintText: context.localizations.enterDishOrDrink,
-            suffixIcon: IconButton(
-              iconSize: Sizes.inputIconHeight,
-              color: context.theme.hintColor,
-              icon: const Icon(Icons.mic),
-              onPressed: () => print("pressed"),
+            suffixIcon: GestureDetector(
+              child: const Icon(Icons.mic),
+              onTap: () => print("Microphone is on"),
             ),
           ),
         ),
