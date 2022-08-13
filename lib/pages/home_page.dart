@@ -4,20 +4,21 @@ import 'package:flutter_sample/providers/menu_provider.dart';
 import 'package:flutter_sample/providers/session_provider.dart';
 import 'package:flutter_sample/utils/constants.dart';
 import 'package:flutter_sample/utils/extensions.dart';
+import 'package:flutter_sample/widgets/button_widget.dart';
 import 'package:flutter_sample/widgets/drawer_widget.dart';
 import 'package:flutter_sample/widgets/image_widget.dart';
 import 'package:flutter_sample/widgets/input_widget.dart';
 import 'package:flutter_sample/widgets/menu_widget.dart';
+import 'package:flutter_sample/widgets/tag_widget.dart';
 import 'package:flutter_sample/widgets/top_bar_widget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 
-class HomePage extends HookConsumerWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final menuState = ref.watch(menuProvider);
-
+  Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => context.focusScope.unfocus(),
       child: Scaffold(
@@ -28,7 +29,6 @@ class HomePage extends HookConsumerWidget {
           center: true,
         ),
         body: CustomScrollView(
-          semanticChildCount: menuState.count,
           slivers: [
             SliverToBoxAdapter(
               child: _Greeting(),
@@ -48,11 +48,13 @@ class HomePage extends HookConsumerWidget {
                 ),
               ),
             ),
-            for (var menu in menuState.menus)
-              MenuGroup(
-                key: Key(menu.id),
-                menu: menu,
+            const SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.all(Spacings.regularPadding),
+                child: TagHorizontalScroll(),
               ),
+            ),
+            _MenuGroupSliver(),
           ],
         ),
       ),
@@ -171,19 +173,28 @@ class _SearchRow extends HookWidget {
         ),
         Flexible(
           flex: 0,
-          child: AspectRatio(
-            aspectRatio: 1 / 1,
-            child: Material(
-              color: context.theme.colorScheme.primary,
-              borderRadius: BorderRadius.circular(Shapes.borderRadius),
-              child: IconButton(
-                color: context.theme.colorScheme.onPrimary,
-                icon: const Icon(Icons.tune),
-                onPressed: () => print("Pressed equalizer"),
-              ),
-            ),
+          child: AspectRatioIconButton(
+            icon: const Icon(Icons.tune),
+            onPressed: () => print("Pressed equalizer"),
           ),
         ),
+      ],
+    );
+  }
+}
+
+class _MenuGroupSliver extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final menuState = ref.watch(menuProvider);
+
+    return MultiSliver(
+      children: [
+        for (var menu in menuState.menus)
+          MenuGroup(
+            key: Key(menu.id),
+            menu: menu,
+          ),
       ],
     );
   }

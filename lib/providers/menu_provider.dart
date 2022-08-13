@@ -18,9 +18,10 @@ class MenuProvider extends StateNotifier<MenuState> {
 
   final MenuRepository _menuRepository;
 
-  Future<void> list() async {
-    state = MenuState(
+  Future<void> list({String? tag}) async {
+    state = state.copyWith(
       count: state.count,
+      tag: tag,
       isLoading: true,
       error: null,
     );
@@ -28,16 +29,17 @@ class MenuProvider extends StateNotifier<MenuState> {
     try {
       final menus = await _menuRepository.synced();
 
-      state = MenuState(
+      state = state.copyWith(
         menus: menus,
         count: menus.length,
+        tag: tag,
         isLoading: false,
         error: null,
       );
     } catch (exception, stacktrace) {
       FirebaseCrashlytics.instance.recordError(exception, stacktrace);
 
-      state = MenuState(
+      state = state.copyWith(
         count: 0,
         isLoading: false,
         error: "Could not load menu",

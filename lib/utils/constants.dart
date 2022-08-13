@@ -17,6 +17,7 @@ class AwsAttributes {
 class Spacings {
   Spacings._();
 
+  static const extraSmallPadding = 8.0;
   static const smallPadding = 12.0;
   static const regularPadding = 16.0;
   static const mediumPadding = 20.0;
@@ -38,6 +39,7 @@ class Sizes {
   static const labelSmallIcon = 18.0;
   static const inputHeight = 40.0;
   static const promotionHeight = 180.0;
+  static const tagButtonHeight = 30.0;
 }
 
 class Shapes {
