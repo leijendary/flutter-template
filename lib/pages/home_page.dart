@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_sample/providers/menu_provider.dart';
 import 'package:flutter_sample/providers/session_provider.dart';
 import 'package:flutter_sample/utils/constants.dart';
 import 'package:flutter_sample/utils/extensions.dart';
-import 'package:flutter_sample/widgets/button_widget.dart';
 import 'package:flutter_sample/widgets/drawer_widget.dart';
 import 'package:flutter_sample/widgets/image_widget.dart';
 import 'package:flutter_sample/widgets/input_widget.dart';
@@ -12,7 +9,6 @@ import 'package:flutter_sample/widgets/menu_widget.dart';
 import 'package:flutter_sample/widgets/tag_widget.dart';
 import 'package:flutter_sample/widgets/top_bar_widget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sliver_tools/sliver_tools.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -54,7 +50,7 @@ class HomePage extends StatelessWidget {
                 child: TagHorizontalScroll(),
               ),
             ),
-            _MenuGroupSliver(),
+            const MenuGroupSliver(),
           ],
         ),
       ),
@@ -133,69 +129,14 @@ class _PersistentSearchHeader extends SliverPersistentHeaderDelegate {
   ) {
     return Container(
       color: context.theme.colorScheme.background,
-      child: Padding(
-        padding: const EdgeInsets.only(
+      child: const Padding(
+        padding: EdgeInsets.only(
           left: Spacings.regularPadding,
           top: Spacings.regularPadding,
           right: Spacings.regularPadding,
         ),
-        child: _SearchRow(),
+        child: SearchRow(),
       ),
-    );
-  }
-}
-
-class _SearchRow extends HookWidget {
-  @override
-  Widget build(BuildContext context) {
-    final controller = useTextEditingController();
-    final focusNode = useFocusNode();
-
-    return Row(
-      children: [
-        Flexible(
-          flex: 1,
-          child: AppTextField(
-            controller: controller,
-            focusNode: focusNode,
-            hintText: context.localizations.enterDishOrDrink,
-            suffixIcon: GestureDetector(
-              child: const Icon(Icons.mic),
-              onTap: () => print("Microphone is on"),
-            ),
-          ),
-        ),
-        const Flexible(
-          flex: 0,
-          child: SizedBox(
-            width: Spacings.smallPadding,
-          ),
-        ),
-        Flexible(
-          flex: 0,
-          child: AspectRatioIconButton(
-            icon: const Icon(Icons.tune),
-            onPressed: () => print("Pressed equalizer"),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _MenuGroupSliver extends ConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final menuState = ref.watch(menuProvider);
-
-    return MultiSliver(
-      children: [
-        for (var menu in menuState.menus)
-          MenuGroup(
-            key: Key(menu.id),
-            menu: menu,
-          ),
-      ],
     );
   }
 }
