@@ -71,6 +71,21 @@ final _textTheme = TextTheme(
     fontFamily: "Montserrat",
     fontSize: 15.0,
   ),
+  bodyMedium: TextStyle(
+    inherit: false,
+    color: _colorScheme.onSurface,
+    fontFamily: "Montserrat",
+    fontSize: 16.0,
+    fontWeight: FontWeight.bold,
+    textBaseline: TextBaseline.alphabetic,
+  ),
+  bodySmall: const TextStyle(
+    inherit: false,
+    color: Color(0xff000000),
+    fontFamily: "Montserrat",
+    fontSize: 12.0,
+    textBaseline: TextBaseline.alphabetic,
+  ),
 );
 final _theme = ThemeData(
   colorScheme: _colorScheme,

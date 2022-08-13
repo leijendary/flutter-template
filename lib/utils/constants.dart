@@ -23,7 +23,9 @@ class Spacings {
   static const largePadding = 24.0;
   static const tileOuterPadding = regularPadding / 2;
   static const tileInnerPadding = 24.0;
-  static const textPadding = 4.0;
+  static const paragraphPadding = 2.0;
+  static const iconSmallPadding = 4.0;
+  static const iconMediumPadding = 8.0;
   static const fieldPadding = mediumPadding - 2;
 }
 

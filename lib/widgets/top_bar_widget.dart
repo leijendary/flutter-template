@@ -58,12 +58,13 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
                 const Flexible(
                   flex: 0,
                   child: SizedBox(
-                    width: Spacings.textPadding,
+                    width: Spacings.iconSmallPadding,
                   ),
                 ),
                 Text(
                   "Hilltop Batangas City, Philippines",
                   style: context.theme.textTheme.labelSmall,
+                  overflow: TextOverflow.ellipsis,
                 )
               ],
             ),

@@ -38,7 +38,7 @@ class ProductListTile extends HookConsumerWidget {
                 children: [
                   Flexible(
                     flex: 0,
-                    child: ProductThumbnail(product: product),
+                    child: _ProductThumbnail(product: product),
                   ),
                   const Flexible(
                     flex: 0,
@@ -48,7 +48,7 @@ class ProductListTile extends HookConsumerWidget {
                   ),
                   Flexible(
                     flex: 1,
-                    child: ProductDetail(product: product),
+                    child: _ProductDetail(product: product),
                   )
                 ],
               ),
@@ -61,11 +61,8 @@ class ProductListTile extends HookConsumerWidget {
   }
 }
 
-class ProductThumbnail extends HookConsumerWidget {
-  const ProductThumbnail({
-    super.key,
-    required this.product,
-  });
+class _ProductThumbnail extends HookConsumerWidget {
+  const _ProductThumbnail({required this.product});
 
   final Product product;
 
@@ -84,11 +81,8 @@ class ProductThumbnail extends HookConsumerWidget {
   }
 }
 
-class ProductDetail extends HookWidget {
-  const ProductDetail({
-    super.key,
-    required this.product,
-  });
+class _ProductDetail extends HookWidget {
+  const _ProductDetail({required this.product});
 
   final Product product;
 
@@ -114,22 +108,18 @@ class ProductDetail extends HookWidget {
             children: [
               Text(
                 product.name,
-                style: context.theme.textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: context.theme.textTheme.bodyMedium,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  bottom: Spacings.textPadding,
-                ),
-                child: Text(
-                  "Double espresso, steamed milk with white chocolate mocha, caramel macchiato, pomegranate pearls",
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: context.theme.textTheme.bodySmall,
-                ),
+              const SizedBox(
+                height: Spacings.paragraphPadding,
+              ),
+              Text(
+                "Double espresso, steamed milk",
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: context.theme.textTheme.bodySmall,
               ),
             ],
           ),
@@ -142,13 +132,22 @@ class ProductDetail extends HookWidget {
                 Icon(
                   Icons.star,
                   color: context.theme.colorScheme.secondary,
+                  size: Sizes.labelSmallIcon,
                 ),
-                const Text("5.0")
+                const SizedBox(
+                  width: Spacings.iconMediumPadding,
+                ),
+                Text(
+                  "5.0",
+                  style: context.theme.textTheme.bodySmall,
+                ),
               ],
             ),
             Text(
               price,
-              style: context.theme.textTheme.labelMedium,
+              style: context.theme.textTheme.labelMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         )
