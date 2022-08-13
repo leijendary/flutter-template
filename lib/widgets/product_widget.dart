@@ -53,7 +53,7 @@ class ProductListTile extends HookConsumerWidget {
                 ],
               ),
             ),
-            onTap: () {},
+            onTap: () => print("${product.name} tapped!"),
           ),
         ),
       ),

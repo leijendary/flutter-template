@@ -48,7 +48,11 @@ class HomePage extends HookConsumerWidget {
                 ),
               ),
             ),
-            for (var menu in menuState.menus) MenuGroup(menu: menu),
+            for (var menu in menuState.menus)
+              MenuGroup(
+                key: Key(menu.id),
+                menu: menu,
+              ),
           ],
         ),
       ),

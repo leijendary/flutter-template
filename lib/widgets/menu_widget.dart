@@ -27,7 +27,10 @@ class MenuGroup extends StatelessWidget {
           (context, i) {
             final product = menu.products[i];
 
-            return ProductListTile(product: product);
+            return ProductListTile(
+              key: Key(product.id),
+              product: product,
+            );
           },
           childCount: menu.products.length,
         ),

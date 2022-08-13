@@ -40,7 +40,7 @@ final _textTheme = TextTheme(
     inherit: false,
     color: _colorScheme.onSurface,
     fontFamily: "Montserrat",
-    fontSize: 16.0,
+    fontSize: 14.0,
     fontWeight: FontWeight.bold,
     textBaseline: TextBaseline.alphabetic,
   ),
