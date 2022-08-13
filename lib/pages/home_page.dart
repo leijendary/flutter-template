@@ -161,20 +161,23 @@ class _SearchRow extends HookWidget {
             ),
           ),
         ),
+        const Flexible(
+          flex: 0,
+          child: SizedBox(
+            width: Spacings.smallPadding,
+          ),
+        ),
         Flexible(
           flex: 0,
-          child: Padding(
-            padding: const EdgeInsets.only(left: Spacings.smallPadding),
-            child: AspectRatio(
-              aspectRatio: 1 / 1,
-              child: Material(
-                color: context.theme.colorScheme.primary,
-                borderRadius: BorderRadius.circular(Shapes.borderRadius),
-                child: IconButton(
-                  color: context.theme.colorScheme.onPrimary,
-                  icon: const Icon(Icons.tune),
-                  onPressed: () => print("Pressed equalizer"),
-                ),
+          child: AspectRatio(
+            aspectRatio: 1 / 1,
+            child: Material(
+              color: context.theme.colorScheme.primary,
+              borderRadius: BorderRadius.circular(Shapes.borderRadius),
+              child: IconButton(
+                color: context.theme.colorScheme.onPrimary,
+                icon: const Icon(Icons.tune),
+                onPressed: () => print("Pressed equalizer"),
               ),
             ),
           ),
