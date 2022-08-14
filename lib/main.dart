@@ -62,14 +62,14 @@ final _textTheme = TextTheme(
     inherit: false,
     color: _colorScheme.primary,
     fontFamily: "Montserrat",
-    fontSize: 18.0,
+    fontSize: 20.0,
     fontWeight: FontWeight.bold,
   ),
   headlineMedium: TextStyle(
     inherit: false,
     color: _colorScheme.primary,
     fontFamily: "Montserrat",
-    fontSize: 15.0,
+    fontSize: 16.0,
   ),
   bodyMedium: TextStyle(
     inherit: false,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_sample/pages/cart_page.dart';
 import 'package:flutter_sample/pages/home_page.dart';
 import 'package:flutter_sample/widgets/bottom_bar_widget.dart';
 
@@ -18,6 +19,7 @@ class MainPage extends HookWidget {
         index: index.value,
         children: const [
           HomePage(),
+          CartPage(),
         ],
       ),
       bottomNavigationBar: AppBottomBar(

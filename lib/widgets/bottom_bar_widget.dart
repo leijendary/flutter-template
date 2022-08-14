@@ -16,7 +16,7 @@ class AppBottomBar extends StatelessWidget {
     return BottomNavigationBar(
       showSelectedLabels: false,
       showUnselectedLabels: false,
-      selectedItemColor: context.theme.colorScheme.onPrimary,
+      selectedItemColor: context.theme.colorScheme.secondary,
       currentIndex: index,
       items: const [
         BottomNavigationBarItem(
