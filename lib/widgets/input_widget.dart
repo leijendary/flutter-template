@@ -13,34 +13,41 @@ class SearchRow extends HookWidget {
     final controller = useTextEditingController();
     final focusNode = useFocusNode();
 
-    return Row(
-      children: [
-        Flexible(
-          flex: 1,
-          child: AppTextField(
-            controller: controller,
-            focusNode: focusNode,
-            hintText: context.localizations.enterDishOrDrink,
-            suffixIcon: GestureDetector(
-              child: const Icon(Icons.mic),
-              onTap: () => print("Microphone is on"),
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: Spacings.regularPadding,
+        top: Spacings.regularPadding,
+        right: Spacings.regularPadding,
+      ),
+      child: Row(
+        children: [
+          Flexible(
+            flex: 1,
+            child: AppTextField(
+              controller: controller,
+              focusNode: focusNode,
+              hintText: context.localizations.enterDishOrDrink,
+              suffixIcon: GestureDetector(
+                child: const Icon(Icons.mic),
+                onTap: () => print("Microphone is on"),
+              ),
             ),
           ),
-        ),
-        const Flexible(
-          flex: 0,
-          child: SizedBox(
-            width: Spacings.smallPadding,
+          const Flexible(
+            flex: 0,
+            child: SizedBox(
+              width: Spacings.smallPadding,
+            ),
           ),
-        ),
-        Flexible(
-          flex: 0,
-          child: AspectRatioIconButton(
-            icon: const Icon(Icons.tune),
-            onPressed: () => print("Pressed equalizer"),
+          Flexible(
+            flex: 0,
+            child: AspectRatioIconButton(
+              icon: const Icon(Icons.tune),
+              onPressed: () => print("Pressed equalizer"),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

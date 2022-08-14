@@ -13,27 +13,30 @@ class TagHorizontalScroll extends HookConsumerWidget {
     final menuState = ref.watch(menuProvider);
     final tag = useState(menuState.tags[0]);
 
-    return SizedBox(
-      height: Sizes.tagButtonHeight,
-      child: ListView.separated(
-        itemCount: menuState.tags.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return TagButton(
-            tag: menuState.tags[index],
-            isSelected: tag.value == menuState.tags[index],
-            onPressed: () {
-              tag.value = menuState.tags[index];
+    return Padding(
+      padding: const EdgeInsets.all(Spacings.regularPadding),
+      child: SizedBox(
+        height: Sizes.tagButtonHeight,
+        child: ListView.separated(
+          itemCount: menuState.tags.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            return TagButton(
+              tag: menuState.tags[index],
+              isSelected: tag.value == menuState.tags[index],
+              onPressed: () {
+                tag.value = menuState.tags[index];
 
-              ref.read(menuProvider.notifier).list(tag: tag.value);
-            },
-          );
-        },
-        separatorBuilder: (context, index) {
-          return const SizedBox(
-            width: Spacings.smallPadding,
-          );
-        },
+                ref.read(menuProvider.notifier).list(tag: tag.value);
+              },
+            );
+          },
+          separatorBuilder: (context, index) {
+            return const SizedBox(
+              width: Spacings.smallPadding,
+            );
+          },
+        ),
       ),
     );
   }

@@ -6,6 +6,7 @@ import 'package:flutter_sample/widgets/drawer_widget.dart';
 import 'package:flutter_sample/widgets/image_widget.dart';
 import 'package:flutter_sample/widgets/input_widget.dart';
 import 'package:flutter_sample/widgets/menu_widget.dart';
+import 'package:flutter_sample/widgets/sliver_widget.dart';
 import 'package:flutter_sample/widgets/tag_widget.dart';
 import 'package:flutter_sample/widgets/top_bar_widget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -31,7 +32,11 @@ class HomePage extends StatelessWidget {
             ),
             SliverPersistentHeader(
               floating: true,
-              delegate: _PersistentSearchHeader(),
+              delegate: SliverPersistentDelegate(
+                minHeight: Sizes.searchRowHeight,
+                maxHeight: Sizes.searchRowHeight,
+                child: const SearchRow(),
+              ),
             ),
             const SliverToBoxAdapter(
               child: Padding(
@@ -45,10 +50,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             const SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.all(Spacings.regularPadding),
-                child: TagHorizontalScroll(),
-              ),
+              child: TagHorizontalScroll(),
             ),
             const MenuGroupSliver(),
           ],
@@ -104,38 +106,6 @@ class _Greeting extends StatelessWidget {
             style: context.theme.textTheme.headlineMedium,
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _PersistentSearchHeader extends SliverPersistentHeaderDelegate {
-  @override
-  double get maxExtent => 64;
-
-  @override
-  double get minExtent => 64;
-
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
-    return false;
-  }
-
-  @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
-    return Container(
-      color: context.theme.colorScheme.background,
-      child: const Padding(
-        padding: EdgeInsets.only(
-          left: Spacings.regularPadding,
-          top: Spacings.regularPadding,
-          right: Spacings.regularPadding,
-        ),
-        child: SearchRow(),
       ),
     );
   }
