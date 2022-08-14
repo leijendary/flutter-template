@@ -27,6 +27,12 @@ class MenuDatabase {
         .toList();
   }
 
+  Menu get(String id) {
+    final json = _box.get(id);
+
+    return MenuHelper.fromJson(json);
+  }
+
   Future<void> put(Menu menu) async {
     final json = menu.toJson();
 

@@ -8,6 +8,7 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_sample/apis/file_api.dart';
 import 'package:flutter_sample/apis/menu_api.dart';
 import 'package:flutter_sample/databases/menu_database.dart';
+import 'package:flutter_sample/databases/product_database.dart';
 import 'package:flutter_sample/errors/graphql_exception.dart';
 import 'package:flutter_sample/models/ModelProvider.dart';
 import 'package:flutter_sample/utils/files.dart';
@@ -19,8 +20,9 @@ final menuRepositoryProvider = Provider((ref) {
   final menuApi = ref.read(menuApiProvider);
   final fileApi = ref.read(fileApiProvider);
   final menuDatabase = ref.read(menuDatabaseProvider);
+  final productDatabase = ref.read(productDatabaseProvider);
 
-  return MenuRepository(menuApi, fileApi, menuDatabase);
+  return MenuRepository(menuApi, fileApi, menuDatabase, productDatabase);
 });
 
 class MenuRepository {
@@ -28,11 +30,13 @@ class MenuRepository {
     this._menuApi,
     this._fileApi,
     this._menuDatabase,
+    this._productDatabase,
   );
 
   final MenuApi _menuApi;
   final FileApi _fileApi;
   final MenuDatabase _menuDatabase;
+  final ProductDatabase _productDatabase;
   final _dateTimeFormat = DateFormat("yyyyMMddHms");
 
   Future<List<Menu>> synced() async {
@@ -47,6 +51,10 @@ class MenuRepository {
 
       await Future.forEach<Menu>(menusToSync, (menu) async {
         await _menuDatabase.put(menu);
+
+        await Future.forEach<Product>(menu.products, (product) async {
+          await _productDatabase.put(product);
+        });
       });
 
       await _menuDatabase.setSyncTimestamp(timestamp);

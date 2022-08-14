@@ -28,6 +28,7 @@ class Spacings {
   static const iconSmallPadding = 4.0;
   static const iconMediumPadding = 8.0;
   static const fieldPadding = mediumPadding - 2;
+  static const regularIsolation = 48.0;
 }
 
 class Sizes {
@@ -41,6 +42,10 @@ class Sizes {
   static const promotionHeight = 180.0;
   static const tagButtonHeight = 30.0;
   static const searchRowHeight = 80.0;
+  static const iconBox = 40.0;
+  static const detailImageMinHeight = 220.0;
+  static const detailImageMaxHeight = 360.0;
+  static const cornerHeight = 30.0;
 }
 
 class Shapes {
@@ -48,6 +53,8 @@ class Shapes {
 
   static const borderRadius = 8.0;
   static const imageRadius = 32.0;
+  static const buttonRadius = 24.0;
+  static const containerRadius = 28.0;
 }
 
 class Durations {
@@ -59,9 +66,10 @@ class Durations {
 class Boxes {
   Boxes._();
 
-  static const all = {session, menu};
+  static const all = {session, menu, product};
   static const session = "session";
   static const menu = "menu";
+  static const product = "product";
 }
 
 class DatabaseKeys {
@@ -75,4 +83,16 @@ class Assets {
   Assets._();
 
   static const thumbnailDefault = "assets/images/thumbnail_default.png";
+}
+
+class Shadows {
+  Shadows._();
+
+  static const standardText = [
+    Shadow(
+      offset: Offset(0.5, 0.5),
+      blurRadius: 10.0,
+      color: Color.fromARGB(255, 0, 0, 0),
+    ),
+  ];
 }

@@ -36,6 +36,55 @@ final _textTheme = TextTheme(
     fontSize: 18.0,
     fontWeight: FontWeight.bold,
   ),
+  headlineLarge: TextStyle(
+    inherit: false,
+    color: _colorScheme.primary,
+    fontFamily: "Montserrat",
+    fontSize: 20.0,
+    fontWeight: FontWeight.bold,
+  ),
+  displayLarge: TextStyle(
+    inherit: false,
+    color: _colorScheme.primary,
+    fontFamily: "Montserrat",
+    fontSize: 30.0,
+    fontWeight: FontWeight.w600,
+  ),
+  displayMedium: TextStyle(
+    inherit: false,
+    color: _colorScheme.primary,
+    fontFamily: "Montserrat",
+    fontSize: 24.0,
+    fontWeight: FontWeight.w600,
+  ),
+  displaySmall: TextStyle(
+    inherit: false,
+    color: _colorScheme.primary,
+    fontFamily: "Montserrat",
+    fontSize: 16.0,
+    fontWeight: FontWeight.w600,
+  ),
+  headlineMedium: TextStyle(
+    inherit: false,
+    color: _colorScheme.primary,
+    fontFamily: "Montserrat",
+    fontSize: 16.0,
+  ),
+  bodyMedium: TextStyle(
+    inherit: false,
+    color: _colorScheme.onSurface,
+    fontFamily: "Montserrat",
+    fontSize: 14.0,
+    fontWeight: FontWeight.bold,
+    textBaseline: TextBaseline.alphabetic,
+  ),
+  bodySmall: const TextStyle(
+    inherit: false,
+    color: Color(0xff000000),
+    fontFamily: "Montserrat",
+    fontSize: 12.0,
+    textBaseline: TextBaseline.alphabetic,
+  ),
   labelLarge: TextStyle(
     inherit: false,
     color: _colorScheme.onSurface,
@@ -58,34 +107,9 @@ final _textTheme = TextTheme(
     fontSize: 12.0,
     textBaseline: TextBaseline.alphabetic,
   ),
-  headlineLarge: TextStyle(
-    inherit: false,
-    color: _colorScheme.primary,
-    fontFamily: "Montserrat",
-    fontSize: 20.0,
-    fontWeight: FontWeight.bold,
-  ),
-  headlineMedium: TextStyle(
-    inherit: false,
-    color: _colorScheme.primary,
-    fontFamily: "Montserrat",
-    fontSize: 16.0,
-  ),
-  bodyMedium: TextStyle(
-    inherit: false,
-    color: _colorScheme.onSurface,
-    fontFamily: "Montserrat",
-    fontSize: 16.0,
-    fontWeight: FontWeight.bold,
-    textBaseline: TextBaseline.alphabetic,
-  ),
-  bodySmall: const TextStyle(
-    inherit: false,
-    color: Color(0xff000000),
-    fontFamily: "Montserrat",
-    fontSize: 12.0,
-    textBaseline: TextBaseline.alphabetic,
-  ),
+);
+final _iconTheme = IconThemeData(
+  color: _colorScheme.primary,
 );
 final _theme = ThemeData(
   colorScheme: _colorScheme,
@@ -96,10 +120,10 @@ final _theme = ThemeData(
     color: _colorScheme.onPrimary,
     foregroundColor: _colorScheme.onSurface,
     elevation: 0,
-    iconTheme: IconThemeData(
-      color: _colorScheme.primary,
-    ),
+    iconTheme: _iconTheme,
+    titleTextStyle: _textTheme.titleMedium,
   ),
+  iconTheme: _iconTheme,
   fontFamily: "Montserrat",
   hintColor: const Color(0xff515151),
 );

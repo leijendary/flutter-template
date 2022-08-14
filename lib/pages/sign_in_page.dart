@@ -9,6 +9,7 @@ import 'package:flutter_sample/states/session_state.dart';
 import 'package:flutter_sample/utils/constants.dart';
 import 'package:flutter_sample/utils/extensions.dart';
 import 'package:flutter_sample/utils/validators.dart';
+import 'package:flutter_sample/widgets/button_widget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SignInPage extends HookConsumerWidget {
@@ -34,10 +35,7 @@ class SignInPage extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.chevron_left),
-          onPressed: () => context.router.pop(),
-        ),
+        leading: const AppBackButton(),
         title: const Text("Sign in"),
       ),
       body: Form(

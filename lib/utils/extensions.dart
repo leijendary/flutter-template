@@ -22,6 +22,8 @@ extension BuildContextHelper on BuildContext {
   GoRouter get router => GoRouter.of(this);
 
   FocusScopeNode get focusScope => FocusScope.of(this);
+
+  MediaQueryData get mediaQuery => MediaQuery.of(this);
 }
 
 extension MenuHelper on Menu {
@@ -35,9 +37,13 @@ extension MenuHelper on Menu {
       typeName: Menu.schema.name,
     );
     final products = json["products"] != null
-        ? (json["products"] as List)
-            .map((e) => ProductHelper.fromJson(menu, e))
-            .toList()
+        ? (json["products"] as List).map(
+            (e) {
+              e["menu"] = menu;
+
+              return ProductHelper.fromJson(e);
+            },
+          ).toList()
         : List<Product>.empty();
 
     menu = menu.copyWith(products: products);
@@ -47,13 +53,15 @@ extension MenuHelper on Menu {
 }
 
 extension ProductHelper on Product {
-  static Product fromJson(Menu menu, dynamic json) {
+  static Product fromJson(dynamic json) {
     return Product(
       id: json["id"],
       name: json["name"],
       code: 0,
       ordinal: json["ordinal"],
-      menu: menu,
+      menu: json["menu"] is Menu
+          ? json["menu"]
+          : Menu.fromJson(Map.from(json["menu"])),
       availability: enumFromString<ProductAvailability>(
         json['availability'],
         ProductAvailability.values,

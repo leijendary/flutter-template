@@ -2,21 +2,20 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_sample/providers/image_provider.dart';
 import 'package:flutter_sample/utils/constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class StorageImage extends ConsumerWidget {
+class StorageImage extends HookConsumerWidget {
   const StorageImage({
     super.key,
-    this.cacheKey,
     required this.uri,
     this.height,
     this.width = double.infinity,
     this.radius = 0,
   });
 
-  final String? cacheKey;
   final String? uri;
   final double? height;
   final double? width;
@@ -24,11 +23,13 @@ class StorageImage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final defaultImage = Image.asset(
-      Assets.thumbnailDefault,
-      height: height,
-      width: width,
-    );
+    final defaultImage = useMemoized(() {
+      return Image.asset(
+        Assets.thumbnailDefault,
+        height: height,
+        width: width,
+      );
+    });
 
     if (uri == null) {
       return defaultImage;
@@ -40,7 +41,7 @@ class StorageImage extends ConsumerWidget {
       data: (data) => ClipRRect(
         borderRadius: BorderRadius.circular(radius),
         child: CachedNetworkImage(
-          cacheKey: cacheKey,
+          cacheKey: uri,
           height: height,
           width: width,
           imageUrl: data,

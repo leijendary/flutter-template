@@ -1,22 +1,27 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter_sample/models/Product.dart';
 import 'package:flutter_sample/repositories/menu_repository.dart';
+import 'package:flutter_sample/repositories/product_repository.dart';
 import 'package:flutter_sample/states/menu_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final menuProvider = StateNotifierProvider.autoDispose<MenuProvider, MenuState>(
   (ref) {
     final menuRepository = ref.read(menuRepositoryProvider);
+    final productRepository = ref.read(productRepositoryProvider);
 
-    return MenuProvider(menuRepository);
+    return MenuProvider(menuRepository, productRepository);
   },
 );
 
 class MenuProvider extends StateNotifier<MenuState> {
-  MenuProvider(this._menuRepository) : super(MenuState()) {
+  MenuProvider(this._menuRepository, this._productRepository)
+      : super(MenuState()) {
     list();
   }
 
   final MenuRepository _menuRepository;
+  final ProductRepository _productRepository;
 
   Future<void> list({String? tag}) async {
     state = state.copyWith(
@@ -28,6 +33,12 @@ class MenuProvider extends StateNotifier<MenuState> {
 
     try {
       final menus = await _menuRepository.synced();
+
+      for (var menu in menus) {
+        await Future.forEach<Product>(menu.products, (product) async {
+          _productRepository.put(product);
+        });
+      }
 
       state = state.copyWith(
         menus: menus,
