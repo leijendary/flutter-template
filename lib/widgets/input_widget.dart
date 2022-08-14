@@ -5,45 +5,6 @@ import 'package:flutter_sample/utils/extensions.dart';
 import 'package:flutter_sample/widgets/button_widget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AppTextField extends HookConsumerWidget {
-  const AppTextField({
-    super.key,
-    this.controller,
-    this.focusNode,
-    this.hintText,
-    this.suffixIcon,
-  });
-
-  final TextEditingController? controller;
-  final FocusNode? focusNode;
-  final String? hintText;
-  final Widget? suffixIcon;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return TextField(
-      controller: controller,
-      focusNode: focusNode,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(Shapes.borderRadius),
-        ),
-        contentPadding: const EdgeInsets.symmetric(
-          vertical: Spacings.fieldPadding,
-          horizontal: Spacings.regularPadding,
-        ),
-        filled: true,
-        hintText: hintText,
-        hintStyle: context.theme.textTheme.labelSmall,
-        suffixIcon: suffixIcon,
-      ),
-      style: context.theme.textTheme.labelMedium,
-      textAlignVertical: TextAlignVertical.center,
-    );
-  }
-}
-
 class SearchRow extends HookWidget {
   const SearchRow({super.key});
 
@@ -80,6 +41,45 @@ class SearchRow extends HookWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class AppTextField extends HookConsumerWidget {
+  const AppTextField({
+    super.key,
+    this.controller,
+    this.focusNode,
+    this.hintText,
+    this.suffixIcon,
+  });
+
+  final TextEditingController? controller;
+  final FocusNode? focusNode;
+  final String? hintText;
+  final Widget? suffixIcon;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return TextField(
+      controller: controller,
+      focusNode: focusNode,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(Shapes.borderRadius),
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: Spacings.fieldPadding,
+          horizontal: Spacings.regularPadding,
+        ),
+        filled: true,
+        hintText: hintText,
+        hintStyle: context.theme.textTheme.labelSmall,
+        suffixIcon: suffixIcon,
+      ),
+      style: context.theme.textTheme.labelMedium,
+      textAlignVertical: TextAlignVertical.center,
     );
   }
 }
