@@ -40,7 +40,7 @@ class Sizes {
   static const inputHeight = 40.0;
   static const promotionHeight = 180.0;
   static const tagButtonHeight = 30.0;
-  static const searchRowHeight = 64.0;
+  static const searchRowHeight = 80.0;
 }
 
 class Shapes {

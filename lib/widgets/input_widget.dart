@@ -14,11 +14,7 @@ class SearchRow extends HookWidget {
     final focusNode = useFocusNode();
 
     return Padding(
-      padding: const EdgeInsets.only(
-        left: Spacings.regularPadding,
-        top: Spacings.regularPadding,
-        right: Spacings.regularPadding,
-      ),
+      padding: const EdgeInsets.all(Spacings.regularPadding),
       child: Row(
         children: [
           Flexible(

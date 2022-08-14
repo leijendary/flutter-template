@@ -40,7 +40,11 @@ class HomePage extends StatelessWidget {
             ),
             const SliverToBoxAdapter(
               child: Padding(
-                padding: EdgeInsets.all(Spacings.regularPadding),
+                padding: EdgeInsets.only(
+                  left: Spacings.regularPadding,
+                  right: Spacings.regularPadding,
+                  bottom: Spacings.regularPadding,
+                ),
                 child: StorageImage(
                   uri: "promotion.png",
                   radius: Shapes.imageRadius,
