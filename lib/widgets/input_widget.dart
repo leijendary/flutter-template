@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_sample/utils/constants.dart';
-import 'package:flutter_sample/utils/extensions.dart';
 import 'package:flutter_sample/widgets/button_widget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -22,7 +22,7 @@ class SearchRow extends HookWidget {
             child: AppTextField(
               controller: controller,
               focusNode: focusNode,
-              hintText: context.localizations.enterDishOrDrink,
+              hintText: AppLocalizations.of(context)!.enterDishOrDrink,
               suffixIcon: GestureDetector(
                 child: const Icon(Icons.mic),
                 onTap: () => print("Microphone is on"),
@@ -64,6 +64,8 @@ class AppTextField extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+
     return TextField(
       controller: controller,
       focusNode: focusNode,
@@ -78,10 +80,10 @@ class AppTextField extends HookConsumerWidget {
         ),
         filled: true,
         hintText: hintText,
-        hintStyle: context.theme.textTheme.labelSmall,
+        hintStyle: theme.textTheme.labelSmall,
         suffixIcon: suffixIcon,
       ),
-      style: context.theme.textTheme.labelMedium,
+      style: theme.textTheme.labelMedium,
       textAlignVertical: TextAlignVertical.center,
     );
   }

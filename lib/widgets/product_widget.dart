@@ -3,9 +3,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_sample/models/Product.dart';
 import 'package:flutter_sample/pages/product_detail_page.dart';
 import 'package:flutter_sample/utils/constants.dart';
-import 'package:flutter_sample/utils/extensions.dart';
 import 'package:flutter_sample/widgets/image_widget.dart';
 import 'package:flutter_sample/widgets/text_widget.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ProductListTile extends HookConsumerWidget {
@@ -18,6 +18,9 @@ class ProductListTile extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: Spacings.tileOuterPadding,
@@ -25,7 +28,7 @@ class ProductListTile extends HookConsumerWidget {
       ),
       child: Container(
         decoration: BoxDecoration(
-          color: context.theme.colorScheme.surface,
+          color: colorScheme.surface,
           borderRadius: BorderRadius.circular(Shapes.borderRadius),
         ),
         height: Sizes.listTileHeight,
@@ -61,7 +64,7 @@ class ProductListTile extends HookConsumerWidget {
           ],
         ),
       ),
-      onTap: () => context.router.pushNamed(
+      onTap: () => GoRouter.of(context).pushNamed(
         ProductDetailPage.name,
         params: {
           "id": product.id,
@@ -106,24 +109,28 @@ class ProductDetail extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildTopDetail(context),
-        _buildBottomDetail(context),
+        _buildTopDetail(textTheme),
+        _buildBottomDetail(colorScheme, textTheme),
       ],
     );
   }
 
-  Widget _buildTopDetail(BuildContext context) {
+  Widget _buildTopDetail(TextTheme textTheme) {
     return Flexible(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             product.name,
-            style: context.theme.textTheme.bodyMedium,
+            style: textTheme.bodyMedium,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
@@ -134,14 +141,14 @@ class ProductDetail extends HookWidget {
             "A cappuccino is an Italian coffee drink that is traditionally prepared with equal parts double espresso, steamed milk, and steamed milk foam.",
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: context.theme.textTheme.bodySmall,
+            style: textTheme.bodySmall,
           ),
         ],
       ),
     );
   }
 
-  Widget _buildBottomDetail(BuildContext context) {
+  Widget _buildBottomDetail(ColorScheme colorScheme, TextTheme textTheme) {
     // TODO: Replace with actual price
     const originalPrice = 5.95;
 
@@ -152,7 +159,7 @@ class ProductDetail extends HookWidget {
           children: [
             Icon(
               Icons.star,
-              color: context.theme.colorScheme.secondary,
+              color: colorScheme.secondary,
               size: Sizes.labelSmallIcon,
             ),
             const SizedBox(
@@ -160,13 +167,13 @@ class ProductDetail extends HookWidget {
             ),
             Text(
               "5.0",
-              style: context.theme.textTheme.bodySmall,
+              style: textTheme.bodySmall,
             ),
           ],
         ),
         FormattedPrice(
           originalPrice: originalPrice,
-          style: context.theme.textTheme.labelMedium?.copyWith(
+          style: textTheme.labelMedium?.copyWith(
             fontWeight: FontWeight.bold,
           ),
         ),

@@ -9,7 +9,7 @@ final sessionProvider = StateNotifierProvider<SessionProvider, SessionState>(
   (ref) {
     final authRepository = ref.read(authRepositoryProvider);
     final sessionRepository = ref.read(sessionRepositoryProvider);
-    final user = sessionRepository.getUser() ?? GuestUser();
+    final user = sessionRepository.getUser() ?? SessionUser.guest();
     final sessionState = SessionState(user: user);
 
     return SessionProvider(
@@ -35,7 +35,8 @@ class SessionProvider extends StateNotifier<SessionState> {
   Future<void> initialize() async {
     final session = await _authRepository.session();
     final isSignedIn = session.isSignedIn;
-    final user = isSignedIn ? await _authRepository.user() : GuestUser();
+    final user =
+        isSignedIn ? await _authRepository.user() : SessionUser.guest();
 
     await _sessionRepository.saveUser(user);
 
@@ -53,7 +54,7 @@ class SessionProvider extends StateNotifier<SessionState> {
       case "USER_DELETED":
         await _sessionRepository.removeUser();
 
-        state = SessionState(user: GuestUser());
+        state = SessionState(user: SessionUser.guest());
 
         break;
     }

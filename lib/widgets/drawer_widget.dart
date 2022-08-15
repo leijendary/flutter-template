@@ -4,7 +4,6 @@ import 'package:flutter_sample/pages/sign_in_page.dart';
 import 'package:flutter_sample/providers/auth_provider.dart';
 import 'package:flutter_sample/providers/session_provider.dart';
 import 'package:flutter_sample/states/auth_state.dart';
-import 'package:flutter_sample/utils/extensions.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -13,6 +12,9 @@ class AppDrawer extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
     final user = ref.watch(sessionProvider).user;
     final isLoading = useState(false);
 
@@ -26,18 +28,20 @@ class AppDrawer extends HookConsumerWidget {
         children: [
           DrawerHeader(
             decoration: BoxDecoration(
-              color: context.theme.colorScheme.primary,
+              color: colorScheme.primary,
             ),
             child: Text(
               user.fullName,
-              style: context.theme.textTheme.titleLarge,
+              style: textTheme.titleLarge?.copyWith(
+                color: colorScheme.onPrimary,
+              ),
             ),
           ),
           if (user.isGuest)
             ListTile(
               title: const Text("Sign In"),
               onTap: () {
-                context.navigator.pop();
+                GoRouter.of(context).pop();
                 context.pushNamed(SignInPage.name);
               },
             ),
@@ -52,7 +56,7 @@ class AppDrawer extends HookConsumerWidget {
   }
 
   VoidCallback _onTap(BuildContext context, WidgetRef ref) => () {
-        context.navigator.pop();
+        GoRouter.of(context).pop();
         ref.read(authProvider.notifier).signOut();
       };
 }

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_sample/models/Product.dart';
 import 'package:flutter_sample/repositories/product_repository.dart';
 import 'package:flutter_sample/utils/constants.dart';
-import 'package:flutter_sample/utils/extensions.dart';
 import 'package:flutter_sample/widgets/button_widget.dart';
 import 'package:flutter_sample/widgets/image_widget.dart';
 import 'package:flutter_sample/widgets/sliver_widget.dart';
@@ -28,6 +26,9 @@ class ProductDetailPage extends HookConsumerWidget {
     final uri = product.asset.master.uri ??
         product.asset.full.uri ??
         product.asset.thumbnail.uri;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
 
     return Scaffold(
       body: CustomScrollView(
@@ -44,8 +45,8 @@ class ProductDetailPage extends HookConsumerWidget {
                     child: StorageImage(uri: uri),
                   ),
                   _buildAppBar(product),
-                  _buildDetail(context, product),
-                  _buildCorner(context),
+                  _buildDetail(product, colorScheme, textTheme),
+                  _buildCorner(colorScheme.background),
                 ],
               ),
             ),
@@ -76,7 +77,11 @@ class ProductDetailPage extends HookConsumerWidget {
     );
   }
 
-  Widget _buildDetail(BuildContext context, Product product) {
+  Widget _buildDetail(
+    Product product,
+    ColorScheme colorScheme,
+    TextTheme textTheme,
+  ) {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Padding(
@@ -86,7 +91,7 @@ class ProductDetailPage extends HookConsumerWidget {
           children: [
             Row(
               children: [
-                _buildName(context, product),
+                _buildName(product, colorScheme, textTheme),
                 _buildPrice(product),
               ],
             ),
@@ -97,7 +102,11 @@ class ProductDetailPage extends HookConsumerWidget {
     );
   }
 
-  Widget _buildName(BuildContext context, Product product) {
+  Widget _buildName(
+    Product product,
+    ColorScheme colorScheme,
+    TextTheme textTheme,
+  ) {
     return Flexible(
       flex: 1,
       fit: FlexFit.tight,
@@ -106,15 +115,15 @@ class ProductDetailPage extends HookConsumerWidget {
         children: [
           Text(
             product.name,
-            style: context.theme.textTheme.displayLarge?.copyWith(
-              color: context.theme.colorScheme.onSecondary,
+            style: textTheme.displayLarge?.copyWith(
+              color: colorScheme.onSecondary,
               shadows: Shadows.standardText,
             ),
           ),
           Text(
             "with oat milk",
-            style: context.theme.textTheme.labelMedium?.copyWith(
-              color: context.theme.colorScheme.onSecondary,
+            style: textTheme.labelMedium?.copyWith(
+              color: colorScheme.onSecondary,
               shadows: Shadows.standardText,
             ),
           ),
@@ -133,7 +142,7 @@ class ProductDetailPage extends HookConsumerWidget {
     );
   }
 
-  Widget _buildCorner(BuildContext context) {
+  Widget _buildCorner(Color color) {
     return Positioned(
       bottom: -1,
       left: 0,
@@ -141,7 +150,7 @@ class ProductDetailPage extends HookConsumerWidget {
       child: Container(
         height: Sizes.cornerHeight,
         decoration: BoxDecoration(
-          color: context.theme.colorScheme.background,
+          color: color,
           borderRadius: const BorderRadius.vertical(
             top: Radius.circular(Shapes.containerRadius),
           ),

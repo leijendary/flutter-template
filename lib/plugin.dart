@@ -31,8 +31,9 @@ Future<void> amplify() async {
 Future<void> database() async {
   await Hive.initFlutter();
 
-  for (var box in Boxes.all) {
-    await Hive.openBox(box);
+  for (var name in Boxes.all) {
+    await Hive.deleteBoxFromDisk(name);
+    await Hive.openBox(name);
   }
 }
 

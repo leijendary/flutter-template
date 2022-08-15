@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sample/utils/extensions.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Validators {
   Validators._();
@@ -9,12 +9,14 @@ class Validators {
     String? value,
     String? error,
   }) {
+    final localizations = AppLocalizations.of(context)!;
+
     if (value == null || value.isEmpty) {
-      return context.localizations.requiredField;
+      return localizations.requiredField;
     }
 
     if (value.length < 9) {
-      return context.localizations.phoneNumberMinimum;
+      return localizations.phoneNumberMinimum;
     }
 
     return error;

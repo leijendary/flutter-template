@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sample/providers/menu_provider.dart';
 import 'package:flutter_sample/utils/constants.dart';
-import 'package:flutter_sample/utils/extensions.dart';
 import 'package:flutter_sample/widgets/button_widget.dart';
 import 'package:flutter_sample/widgets/drawer_widget.dart';
 import 'package:flutter_sample/widgets/image_widget.dart';
@@ -20,7 +19,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.focusScope.unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         drawer: const AppDrawer(),
         appBar: const AppTopBar(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_sample/providers/session_provider.dart';
 import 'package:flutter_sample/utils/constants.dart';
-import 'package:flutter_sample/utils/extensions.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -11,6 +11,10 @@ class Greeting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final localizations = AppLocalizations.of(context)!;
+
     return Padding(
       padding: const EdgeInsets.only(
         left: Spacings.regularPadding,
@@ -22,17 +26,20 @@ class Greeting extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          _buildTimeGreeting(),
+          _buildTimeGreeting(textTheme, localizations),
           Text(
-            context.localizations.goodDayForCoffee,
-            style: context.theme.textTheme.headlineMedium,
+            localizations.goodDayForCoffee,
+            style: textTheme.headlineMedium,
           ),
         ],
       ),
     );
   }
 
-  Widget _buildTimeGreeting() {
+  Widget _buildTimeGreeting(
+    TextTheme textTheme,
+    AppLocalizations localizations,
+  ) {
     return Consumer(
       builder: (context, ref, child) {
         final hour = TimeOfDay.now().hour;
@@ -41,11 +48,11 @@ class Greeting extends StatelessWidget {
         final String starting;
 
         if (hour >= 0 && hour < 12) {
-          starting = context.localizations.goodMorning;
+          starting = localizations.goodMorning;
         } else if (hour >= 12 && hour < 18) {
-          starting = context.localizations.goodAfternoon;
+          starting = localizations.goodAfternoon;
         } else {
-          starting = context.localizations.goodEvening;
+          starting = localizations.goodEvening;
         }
 
         if (user.isGuest) {
@@ -56,7 +63,7 @@ class Greeting extends StatelessWidget {
 
         return Text(
           greeting,
-          style: context.theme.textTheme.headlineLarge,
+          style: textTheme.headlineLarge,
         );
       },
     );
@@ -76,7 +83,7 @@ class FormattedPrice extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final price = useMemoized(() {
-      final locale = context.locale.toString();
+      final locale = Localizations.localeOf(context).toString();
       final format = NumberFormat.simpleCurrency(locale: locale);
 
       return format.format(originalPrice);
@@ -99,16 +106,20 @@ class FormattedPriceTag extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(Shapes.buttonRadius),
       child: Container(
-        color: context.theme.colorScheme.primary,
+        color: colorScheme.primary,
         child: Padding(
           padding: const EdgeInsets.all(Spacings.smallPadding),
           child: FormattedPrice(
             originalPrice: originalPrice,
-            style: context.theme.textTheme.displaySmall?.copyWith(
-              color: context.theme.colorScheme.onPrimary,
+            style: textTheme.displaySmall?.copyWith(
+              color: colorScheme.onPrimary,
             ),
           ),
         ),

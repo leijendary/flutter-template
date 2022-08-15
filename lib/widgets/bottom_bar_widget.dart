@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sample/utils/extensions.dart';
 
 class AppBottomBar extends StatelessWidget {
   const AppBottomBar({
@@ -16,7 +15,7 @@ class AppBottomBar extends StatelessWidget {
     return BottomNavigationBar(
       showSelectedLabels: false,
       showUnselectedLabels: false,
-      selectedItemColor: context.theme.colorScheme.secondary,
+      selectedItemColor: Theme.of(context).colorScheme.secondary,
       currentIndex: index,
       items: const [
         BottomNavigationBarItem(

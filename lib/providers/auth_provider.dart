@@ -1,10 +1,10 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sample/models/auth.dart';
 import 'package:flutter_sample/repositories/auth_repository.dart';
 import 'package:flutter_sample/states/auth_state.dart';
 import 'package:flutter_sample/utils/constants.dart';
-import 'package:flutter_sample/utils/extensions.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final authProvider = StateNotifierProvider.autoDispose<AuthProvider, AuthState>(
@@ -23,7 +23,7 @@ class AuthProvider extends StateNotifier<AuthState> {
   void signIn(BuildContext context, SignInForm signInForm) async {
     state = AuthState(isLoading: true);
 
-    final localizations = context.localizations;
+    final localizations = AppLocalizations.of(context)!;
     final SignInResult result;
 
     try {

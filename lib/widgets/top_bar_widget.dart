@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sample/utils/constants.dart';
-import 'package:flutter_sample/utils/extensions.dart';
 import 'package:flutter_sample/widgets/button_widget.dart';
+import 'package:go_router/go_router.dart';
 
 class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
   const AppTopBar({
@@ -26,12 +26,13 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
     final backgroundColor =
-        transparent ? Colors.transparent : context.theme.colorScheme.background;
-    final style = fancy
-        ? context.theme.textTheme.titleLarge
-        : context.theme.textTheme.titleMedium;
-    final leading = !context.router.canPop()
+        transparent ? Colors.transparent : colorScheme.background;
+    final style = fancy ? textTheme.titleLarge : textTheme.titleMedium;
+    final leading = !GoRouter.of(context).canPop()
         ? null
         : AppBackButton(
             circle: transparent,
@@ -48,7 +49,7 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
             title,
             style: style,
           ),
-          _buildLocation(context),
+          _buildLocation(colorScheme, textTheme),
         ],
       ),
       leading: leading,
@@ -56,7 +57,7 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  Widget _buildLocation(BuildContext context) {
+  Widget _buildLocation(ColorScheme colorScheme, TextTheme textTheme) {
     return Visibility(
       visible: location,
       child: Row(
@@ -67,7 +68,7 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
             flex: 0,
             child: Icon(
               Icons.location_on_outlined,
-              color: context.theme.colorScheme.tertiary,
+              color: colorScheme.tertiary,
               size: Sizes.labelSmallIcon,
             ),
           ),
@@ -79,7 +80,7 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           Text(
             "Hilltop Batangas City, Philippines",
-            style: context.theme.textTheme.labelSmall,
+            style: textTheme.labelSmall,
             overflow: TextOverflow.ellipsis,
           )
         ],

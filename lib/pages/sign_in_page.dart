@@ -7,9 +7,9 @@ import 'package:flutter_sample/providers/auth_provider.dart';
 import 'package:flutter_sample/providers/session_provider.dart';
 import 'package:flutter_sample/states/session_state.dart';
 import 'package:flutter_sample/utils/constants.dart';
-import 'package:flutter_sample/utils/extensions.dart';
 import 'package:flutter_sample/utils/validators.dart';
 import 'package:flutter_sample/widgets/button_widget.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SignInPage extends HookConsumerWidget {
@@ -29,7 +29,7 @@ class SignInPage extends HookConsumerWidget {
 
     ref.listen<SessionState>(sessionProvider, (previous, next) {
       if (!next.user.isGuest) {
-        context.router.goNamed(MainPage.name);
+        GoRouter.of(context).goNamed(MainPage.name);
       }
     });
 

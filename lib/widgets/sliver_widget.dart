@@ -1,5 +1,5 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_sample/utils/extensions.dart';
 
 class SliverPersistentDelegate extends SliverPersistentHeaderDelegate {
   SliverPersistentDelegate({
@@ -30,7 +30,7 @@ class SliverPersistentDelegate extends SliverPersistentHeaderDelegate {
     bool overlapsContent,
   ) {
     return Container(
-      color: context.theme.colorScheme.background,
+      color: Theme.of(context).colorScheme.background,
       child: child,
     );
   }
