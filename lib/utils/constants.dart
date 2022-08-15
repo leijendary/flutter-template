@@ -72,7 +72,12 @@ class Durations {
 class Boxes {
   Boxes._();
 
-  static const all = {session, menu, product, cache};
+  static const all = [
+    session,
+    menu,
+    product,
+    cache,
+  ];
   static const session = "session";
   static const menu = "menu";
   static const product = "product";

@@ -31,10 +31,12 @@ Future<void> amplify() async {
 Future<void> database() async {
   await Hive.initFlutter();
 
-  for (var name in Boxes.all) {
+  final opener = Boxes.all.map((name) async {
     await Hive.deleteBoxFromDisk(name);
     await Hive.openBox(name);
-  }
+  });
+
+  await Future.wait(opener);
 }
 
 Future<void> session() async {
