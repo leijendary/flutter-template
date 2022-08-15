@@ -1,6 +1,12 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
 
+class Configs {
+  Configs._();
+
+  static const cacheExpires = 604800;
+}
+
 class Keys {
   Keys._();
 
@@ -66,10 +72,11 @@ class Durations {
 class Boxes {
   Boxes._();
 
-  static const all = {session, menu, product};
+  static const all = {session, menu, product, cache};
   static const session = "session";
   static const menu = "menu";
   static const product = "product";
+  static const cache = "cache";
 }
 
 class DatabaseKeys {
@@ -95,4 +102,10 @@ class Shadows {
       color: Color.fromARGB(255, 0, 0, 0),
     ),
   ];
+}
+
+class Prefixes {
+  Prefixes._();
+
+  static const storage = "storage:";
 }

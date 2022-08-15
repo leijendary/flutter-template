@@ -23,13 +23,16 @@ class StorageImage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final defaultImage = useMemoized(() {
-      return Image.asset(
-        Assets.thumbnailDefault,
-        height: height,
-        width: width,
-      );
-    });
+    final child = _buildChild(ref);
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(radius),
+      child: child,
+    );
+  }
+
+  Widget _buildChild(WidgetRef ref) {
+    final defaultImage = useMemoized(() => _buildDefaultImage());
 
     if (uri == null) {
       return defaultImage;
@@ -38,26 +41,35 @@ class StorageImage extends HookConsumerWidget {
     final urlWatch = ref.watch(imageUrlProvider(uri!));
 
     return urlWatch.when(
-      data: (data) => ClipRRect(
-        borderRadius: BorderRadius.circular(radius),
-        child: CachedNetworkImage(
-          cacheKey: uri,
-          height: height,
-          width: width,
-          imageUrl: data,
-          fit: BoxFit.cover,
-          placeholder: (context, url) => defaultImage,
-          errorWidget: (context, url, error) => defaultImage,
-          fadeInDuration: Durations.fadeDuration,
-          fadeOutDuration: Durations.fadeDuration,
-        ),
-      ),
+      data: (data) => _buildCachedImage(data, defaultImage),
       loading: () => defaultImage,
       error: (error, stackTrace) {
         FirebaseCrashlytics.instance.recordError(error, stackTrace);
 
         return defaultImage;
       },
+    );
+  }
+
+  Widget _buildCachedImage(String url, Widget defaultImage) {
+    return CachedNetworkImage(
+      cacheKey: uri,
+      height: height,
+      width: width,
+      imageUrl: url,
+      fit: BoxFit.cover,
+      placeholder: (context, url) => defaultImage,
+      errorWidget: (context, url, error) => defaultImage,
+      fadeInDuration: Durations.fadeDuration,
+      fadeOutDuration: Durations.fadeDuration,
+    );
+  }
+
+  Widget _buildDefaultImage() {
+    return Image.asset(
+      Assets.thumbnailDefault,
+      height: height,
+      width: width,
     );
   }
 }

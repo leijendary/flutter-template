@@ -4,11 +4,11 @@ import 'package:flutter_sample/utils/extensions.dart';
 class Validators {
   Validators._();
 
-  static String? phoneNumber(
-    BuildContext context,
+  static String? phoneNumber({
+    required BuildContext context,
     String? value,
     String? error,
-  ) {
+  }) {
     if (value == null || value.isEmpty) {
       return context.localizations.requiredField;
     }
