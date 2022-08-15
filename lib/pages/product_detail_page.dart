@@ -95,6 +95,7 @@ class ProductDetailPage extends HookConsumerWidget {
             Row(
               children: [
                 _buildName(product, colorScheme, textTheme),
+                const SizedBox(width: Spacings.largePadding),
                 _buildPrice(product),
               ],
             ),
