@@ -34,9 +34,7 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
     final style = fancy ? textTheme.titleLarge : textTheme.titleMedium;
     final leading = !GoRouter.of(context).canPop()
         ? null
-        : AppBackButton(
-            circle: transparent,
-          );
+        : AppBackButton(circle: transparent);
 
     return AppBar(
       centerTitle: center,

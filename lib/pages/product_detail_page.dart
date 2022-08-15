@@ -38,16 +38,19 @@ class ProductDetailPage extends HookConsumerWidget {
             delegate: SliverPersistentDelegate(
               minHeight: Sizes.detailImageMinHeight,
               maxHeight: Sizes.detailImageMaxHeight,
-              child: Stack(
-                children: [
-                  Hero(
-                    tag: product.id,
-                    child: StorageImage(uri: uri),
-                  ),
-                  _buildAppBar(product),
-                  _buildDetail(product, colorScheme, textTheme),
-                  _buildCorner(colorScheme.background),
-                ],
+              child: Container(
+                color: colorScheme.primary,
+                child: Stack(
+                  children: [
+                    Hero(
+                      tag: product.id,
+                      child: StorageImage(uri: uri),
+                    ),
+                    _buildAppBar(product),
+                    _buildDetail(product, colorScheme, textTheme),
+                    _buildCorner(colorScheme.background),
+                  ],
+                ),
               ),
             ),
           ),
