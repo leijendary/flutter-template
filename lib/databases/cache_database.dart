@@ -18,7 +18,8 @@ class CacheDatabase {
     final expires = json?["expires"];
 
     if (expires != null) {
-      final expiresOn = DateTime.fromMillisecondsSinceEpoch(int.parse(expires));
+      final epoch = int.parse(expires);
+      final expiresOn = DateTime.fromMillisecondsSinceEpoch(epoch);
 
       if (DateTime.now().compareTo(expiresOn) > 0) {
         return await _box.delete(key);
