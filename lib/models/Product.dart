@@ -293,7 +293,7 @@ class Product extends Model {
         ]),
       AuthRule(
         authStrategy: AuthStrategy.PRIVATE,
-        provider: AuthRuleProvider.USERPOOLS,
+        provider: AuthRuleProvider.IAM,
         operations: [
           ModelOperation.READ
         ]),
