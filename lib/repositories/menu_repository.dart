@@ -11,6 +11,7 @@ import 'package:flutter_sample/databases/menu_database.dart';
 import 'package:flutter_sample/databases/product_database.dart';
 import 'package:flutter_sample/errors/graphql_exception.dart';
 import 'package:flutter_sample/models/ModelProvider.dart';
+import 'package:flutter_sample/utils/aws_api_auth.dart';
 import 'package:flutter_sample/utils/files.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -117,7 +118,7 @@ class MenuRepository {
         "lastSync": timestamp,
       },
       decodePath: syncMenus,
-      apiName: "sample",
+      apiName: await AwsApiAuth.apiName(),
     );
     final response = await Amplify.API.query(request: request).response;
 
@@ -156,7 +157,7 @@ class MenuRepository {
       decodePath: mutation.decodePath,
       modelType: mutation.modelType,
       variables: mutation.variables,
-      apiName: "sample_cognito",
+      apiName: await AwsApiAuth.apiName(),
     );
 
     return await Amplify.API.mutate(request: request).response;
@@ -174,7 +175,7 @@ class MenuRepository {
       decodePath: mutation.decodePath,
       modelType: mutation.modelType,
       variables: mutation.variables,
-      apiName: "sample_cognito",
+      apiName: await AwsApiAuth.apiName(),
     );
 
     return await Amplify.API.mutate(request: request).response;

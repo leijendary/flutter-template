@@ -3,7 +3,7 @@ type Menu
   @auth(
     rules: [
       { allow: groups, groups: ["Administrator"] }
-      { allow: private, provider: userPools, operations: [read] }
+      { allow: private, provider: iam, operations: [read] }
       { allow: public, provider: iam, operations: [read] }
     ]
   ) {

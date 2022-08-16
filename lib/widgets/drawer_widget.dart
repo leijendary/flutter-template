@@ -40,23 +40,25 @@ class AppDrawer extends HookConsumerWidget {
           if (user.isGuest)
             ListTile(
               title: const Text("Sign In"),
-              onTap: () {
-                GoRouter.of(context).pop();
-                context.pushNamed(SignInPage.name);
-              },
+              onTap: _onSignIn(context),
             ),
           if (!user.isGuest)
             ListTile(
               title: const Text("Logout"),
-              onTap: isLoading.value ? null : _onTap(context, ref),
+              onTap: isLoading.value ? null : _onLogout(context, ref),
             ),
         ],
       ),
     );
   }
 
-  VoidCallback _onTap(BuildContext context, WidgetRef ref) => () {
-        GoRouter.of(context).pop();
+  VoidCallback _onSignIn(BuildContext context) => () {
+        Navigator.of(context).pop();
+        context.pushNamed(SignInPage.name);
+      };
+
+  VoidCallback _onLogout(BuildContext context, WidgetRef ref) => () {
+        Navigator.of(context).pop();
         ref.read(authProvider.notifier).signOut();
       };
 }

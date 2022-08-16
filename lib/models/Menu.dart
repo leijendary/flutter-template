@@ -231,6 +231,12 @@ class Menu extends Model {
     
     modelSchemaDefinition.authRules = [
       AuthRule(
+        authStrategy: AuthStrategy.PUBLIC,
+        provider: AuthRuleProvider.IAM,
+        operations: [
+          ModelOperation.READ
+        ]),
+      AuthRule(
         authStrategy: AuthStrategy.GROUPS,
         groupClaim: "cognito:groups",
         groups: [ "Administrator" ],
@@ -239,18 +245,6 @@ class Menu extends Model {
           ModelOperation.CREATE,
           ModelOperation.UPDATE,
           ModelOperation.DELETE,
-          ModelOperation.READ
-        ]),
-      AuthRule(
-        authStrategy: AuthStrategy.PRIVATE,
-        provider: AuthRuleProvider.USERPOOLS,
-        operations: [
-          ModelOperation.READ
-        ]),
-      AuthRule(
-        authStrategy: AuthStrategy.PUBLIC,
-        provider: AuthRuleProvider.IAM,
-        operations: [
           ModelOperation.READ
         ])
     ];

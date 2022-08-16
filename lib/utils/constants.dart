@@ -7,6 +7,13 @@ class Configs {
   static const cacheExpires = 604800;
 }
 
+class ApiAuths {
+  ApiAuths._();
+
+  static const iam = "sample_iam";
+  static const cognito = "sample_cognito";
+}
+
 class Keys {
   Keys._();
 

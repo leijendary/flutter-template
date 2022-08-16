@@ -28,6 +28,7 @@ final _textTheme = TextTheme(
     color: _colorScheme.primary,
     fontFamily: "Pacifico",
     fontSize: 24.0,
+    textBaseline: TextBaseline.alphabetic,
   ),
   titleMedium: TextStyle(
     inherit: false,
@@ -35,6 +36,7 @@ final _textTheme = TextTheme(
     fontFamily: "Montserrat",
     fontSize: 18.0,
     fontWeight: FontWeight.bold,
+    textBaseline: TextBaseline.alphabetic,
   ),
   headlineLarge: TextStyle(
     inherit: false,
@@ -42,6 +44,7 @@ final _textTheme = TextTheme(
     fontFamily: "Montserrat",
     fontSize: 20.0,
     fontWeight: FontWeight.bold,
+    textBaseline: TextBaseline.alphabetic,
   ),
   displayLarge: TextStyle(
     inherit: false,
@@ -49,6 +52,7 @@ final _textTheme = TextTheme(
     fontFamily: "Montserrat",
     fontSize: 30.0,
     fontWeight: FontWeight.w600,
+    textBaseline: TextBaseline.alphabetic,
   ),
   displayMedium: TextStyle(
     inherit: false,
@@ -56,6 +60,7 @@ final _textTheme = TextTheme(
     fontFamily: "Montserrat",
     fontSize: 24.0,
     fontWeight: FontWeight.w600,
+    textBaseline: TextBaseline.alphabetic,
   ),
   displaySmall: TextStyle(
     inherit: false,
@@ -63,12 +68,14 @@ final _textTheme = TextTheme(
     fontFamily: "Montserrat",
     fontSize: 16.0,
     fontWeight: FontWeight.w600,
+    textBaseline: TextBaseline.alphabetic,
   ),
   headlineMedium: TextStyle(
     inherit: false,
     color: _colorScheme.primary,
     fontFamily: "Montserrat",
     fontSize: 16.0,
+    textBaseline: TextBaseline.alphabetic,
   ),
   bodyMedium: TextStyle(
     inherit: false,

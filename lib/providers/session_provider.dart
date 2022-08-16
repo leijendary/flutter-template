@@ -9,7 +9,7 @@ final sessionProvider = StateNotifierProvider<SessionProvider, SessionState>(
   (ref) {
     final authRepository = ref.read(authRepositoryProvider);
     final sessionRepository = ref.read(sessionRepositoryProvider);
-    final user = sessionRepository.getUser() ?? SessionUser.guest();
+    final user = sessionRepository.getUser();
     final sessionState = SessionState(user: user);
 
     return SessionProvider(

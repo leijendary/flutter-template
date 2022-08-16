@@ -42,24 +42,27 @@ class SignInPage extends HookConsumerWidget {
         key: _formKey,
         child: Column(
           children: [
-            TextFormField(
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              key: Keys.phoneNumber,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(10),
-              ],
-              keyboardType: TextInputType.number,
-              autofillHints: const [
-                AutofillHints.telephoneNumber,
-              ],
-              validator: (value) => Validators.phoneNumber(
-                context: context,
-                value: value,
-                error: error.value[Keys.phoneNumber],
+            Flexible(
+              flex: 1,
+              child: TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                key: Keys.phoneNumber,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(10),
+                ],
+                keyboardType: TextInputType.number,
+                autofillHints: const [
+                  AutofillHints.telephoneNumber,
+                ],
+                validator: (value) => Validators.phoneNumber(
+                  context: context,
+                  value: value,
+                  error: error.value[Keys.phoneNumber],
+                ),
+                onChanged: (value) {
+                  signInForm.value.phoneNumber = value;
+                },
               ),
-              onChanged: (value) {
-                signInForm.value.phoneNumber = value;
-              },
             ),
             OutlinedButton(
               style: const ButtonStyle(enableFeedback: false),
@@ -67,7 +70,7 @@ class SignInPage extends HookConsumerWidget {
                   ? null
                   : () => _signIn(signInForm, error, context, ref),
               child: const Text("Sign In"),
-            )
+            ),
           ],
         ),
       ),

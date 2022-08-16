@@ -13,7 +13,7 @@ class SessionRepository {
 
   final SessionDatabase _sessionDatabase;
 
-  SessionUser? getUser() => _sessionDatabase.getUser();
+  SessionUser getUser() => _sessionDatabase.getUser() ?? SessionUser.guest();
 
   Future<void> saveUser(SessionUser user) async =>
       _sessionDatabase.saveUser(user);

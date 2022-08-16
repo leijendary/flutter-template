@@ -24,6 +24,7 @@ Future<void> amplify() async {
   final auth = AmplifyAuthCognito();
   final api = AmplifyAPI(modelProvider: ModelProvider.instance);
   final storage = AmplifyStorageS3();
+
   await Amplify.addPlugins([auth, api, storage]);
   await Amplify.configure(amplifyconfig);
 }
