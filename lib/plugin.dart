@@ -33,7 +33,6 @@ Future<void> database() async {
   await Hive.initFlutter();
 
   final opener = Boxes.all.map((name) async {
-    await Hive.deleteBoxFromDisk(name);
     await Hive.openBox(name);
   });
 
