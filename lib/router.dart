@@ -1,8 +1,8 @@
-import 'package:flutter_sample/pages/cart_page.dart';
-import 'package:flutter_sample/pages/main_page.dart';
-import 'package:flutter_sample/pages/product_detail_page.dart';
-import 'package:flutter_sample/pages/sign_in_page.dart';
 import 'package:go_router/go_router.dart';
+import 'package:template/pages/cart_page.dart';
+import 'package:template/pages/main_page.dart';
+import 'package:template/pages/product_detail_page.dart';
+import 'package:template/pages/sign_in_page.dart';
 
 final router = GoRouter(
   debugLogDiagnostics: true,

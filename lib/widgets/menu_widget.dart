@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sample/models/Menu.dart';
-import 'package:flutter_sample/utils/constants.dart';
-import 'package:flutter_sample/widgets/product_widget.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:template/models/Menu.dart';
+import 'package:template/utils/constants.dart';
+import 'package:template/widgets/product_widget.dart';
 
 class MenuGroup extends StatelessWidget {
   const MenuGroup({

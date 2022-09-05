@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_sample/models/Product.dart';
-import 'package:flutter_sample/pages/product_detail_page.dart';
-import 'package:flutter_sample/utils/constants.dart';
-import 'package:flutter_sample/widgets/image_widget.dart';
-import 'package:flutter_sample/widgets/text_widget.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:template/models/Product.dart';
+import 'package:template/pages/product_detail_page.dart';
+import 'package:template/utils/constants.dart';
+import 'package:template/widgets/image_widget.dart';
+import 'package:template/widgets/text_widget.dart';
 
 class ProductListTile extends HookConsumerWidget {
   const ProductListTile({

@@ -1,7 +1,7 @@
-import 'package:flutter_sample/models/session.dart';
-import 'package:flutter_sample/utils/constants.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:template/models/session.dart';
+import 'package:template/utils/constants.dart';
 
 final sessionDatabaseProvider = Provider((_) {
   final box = Hive.box(Boxes.session);

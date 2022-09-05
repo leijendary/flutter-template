@@ -1,11 +1,11 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_sample/models/auth.dart';
-import 'package:flutter_sample/repositories/auth_repository.dart';
-import 'package:flutter_sample/states/auth_state.dart';
-import 'package:flutter_sample/utils/constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:template/models/auth.dart';
+import 'package:template/repositories/auth_repository.dart';
+import 'package:template/states/auth_state.dart';
+import 'package:template/utils/constants.dart';
 
 final authProvider = StateNotifierProvider.autoDispose<AuthProvider, AuthState>(
   (ref) {

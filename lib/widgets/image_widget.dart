@@ -3,9 +3,9 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_sample/providers/image_provider.dart';
-import 'package:flutter_sample/utils/constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:template/providers/image_provider.dart';
+import 'package:template/utils/constants.dart';
 
 class StorageImage extends HookConsumerWidget {
   const StorageImage({

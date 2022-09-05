@@ -1,9 +1,9 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:flutter_sample/models/session.dart';
-import 'package:flutter_sample/repositories/auth_repository.dart';
-import 'package:flutter_sample/repositories/session_repository.dart';
-import 'package:flutter_sample/states/session_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:template/models/session.dart';
+import 'package:template/repositories/auth_repository.dart';
+import 'package:template/repositories/session_repository.dart';
+import 'package:template/states/session_state.dart';
 
 final sessionProvider = StateNotifierProvider<SessionProvider, SessionState>(
   (ref) {

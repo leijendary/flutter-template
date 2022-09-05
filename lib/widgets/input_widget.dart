@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_sample/utils/constants.dart';
-import 'package:flutter_sample/widgets/button_widget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:template/utils/constants.dart';
+import 'package:template/widgets/button_widget.dart';
 
 class SearchRow extends HookWidget {
   const SearchRow({super.key});

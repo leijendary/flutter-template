@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_sample/models/auth.dart';
-import 'package:flutter_sample/pages/main_page.dart';
-import 'package:flutter_sample/providers/auth_provider.dart';
-import 'package:flutter_sample/providers/session_provider.dart';
-import 'package:flutter_sample/states/session_state.dart';
-import 'package:flutter_sample/utils/constants.dart';
-import 'package:flutter_sample/utils/validators.dart';
-import 'package:flutter_sample/widgets/button_widget.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:template/models/auth.dart';
+import 'package:template/pages/main_page.dart';
+import 'package:template/providers/auth_provider.dart';
+import 'package:template/providers/session_provider.dart';
+import 'package:template/states/session_state.dart';
+import 'package:template/utils/constants.dart';
+import 'package:template/utils/validators.dart';
+import 'package:template/widgets/button_widget.dart';
 
 class SignInPage extends HookConsumerWidget {
   SignInPage({super.key});

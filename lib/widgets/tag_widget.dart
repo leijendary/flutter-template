@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_sample/providers/menu_provider.dart';
-import 'package:flutter_sample/utils/constants.dart';
-import 'package:flutter_sample/widgets/button_widget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:template/providers/menu_provider.dart';
+import 'package:template/utils/constants.dart';
+import 'package:template/widgets/button_widget.dart';
 
 class TagHorizontalScroll extends HookConsumerWidget {
   const TagHorizontalScroll({super.key});

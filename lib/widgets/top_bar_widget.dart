@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sample/utils/constants.dart';
-import 'package:flutter_sample/widgets/button_widget.dart';
 import 'package:go_router/go_router.dart';
+import 'package:template/utils/constants.dart';
+import 'package:template/widgets/button_widget.dart';
 
 class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
   const AppTopBar({

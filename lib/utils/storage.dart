@@ -1,7 +1,7 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:flutter_sample/databases/cache_database.dart';
-import 'package:flutter_sample/utils/constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:template/databases/cache_database.dart';
+import 'package:template/utils/constants.dart';
 
 final storageProvider = Provider((ref) {
   final cacheDatabase = ref.read(cacheDatabaseProvider);

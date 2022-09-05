@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_sample/pages/cart_page.dart';
-import 'package:flutter_sample/pages/home_page.dart';
-import 'package:flutter_sample/widgets/bottom_bar_widget.dart';
+import 'package:template/pages/cart_page.dart';
+import 'package:template/pages/home_page.dart';
+import 'package:template/widgets/bottom_bar_widget.dart';
 
 class MainPage extends HookWidget {
   const MainPage({super.key});

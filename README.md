@@ -1,4 +1,4 @@
-# flutter_sample
+# Flutter Template
 
 A new Flutter project.
 

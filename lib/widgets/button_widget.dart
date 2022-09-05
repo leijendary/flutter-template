@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sample/models/Product.dart';
-import 'package:flutter_sample/pages/cart_page.dart';
-import 'package:flutter_sample/utils/constants.dart';
 import 'package:go_router/go_router.dart';
+import 'package:template/models/Product.dart';
+import 'package:template/pages/cart_page.dart';
+import 'package:template/utils/constants.dart';
 
 class AppIconButton extends StatelessWidget {
   const AppIconButton({

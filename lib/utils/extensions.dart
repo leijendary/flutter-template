@@ -1,9 +1,9 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:flutter_sample/models/Menu.dart';
-import 'package:flutter_sample/models/Product.dart';
-import 'package:flutter_sample/models/ProductAsset.dart';
-import 'package:flutter_sample/models/ProductAssetUri.dart';
-import 'package:flutter_sample/models/ProductAvailability.dart';
+import 'package:template/models/Menu.dart';
+import 'package:template/models/Product.dart';
+import 'package:template/models/ProductAsset.dart';
+import 'package:template/models/ProductAssetUri.dart';
+import 'package:template/models/ProductAvailability.dart';
 
 extension MenuHelper on Menu {
   static Menu fromJson(dynamic json) {

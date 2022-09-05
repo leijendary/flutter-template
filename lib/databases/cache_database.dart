@@ -1,6 +1,6 @@
-import 'package:flutter_sample/utils/constants.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:template/utils/constants.dart';
 
 final cacheDatabaseProvider = Provider((_) {
   final box = Hive.box(Boxes.cache);

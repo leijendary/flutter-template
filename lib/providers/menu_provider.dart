@@ -1,9 +1,9 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter_sample/models/Product.dart';
-import 'package:flutter_sample/repositories/menu_repository.dart';
-import 'package:flutter_sample/repositories/product_repository.dart';
-import 'package:flutter_sample/states/menu_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:template/models/Product.dart';
+import 'package:template/repositories/menu_repository.dart';
+import 'package:template/repositories/product_repository.dart';
+import 'package:template/states/menu_state.dart';
 
 final menuProvider = StateNotifierProvider.autoDispose<MenuProvider, MenuState>(
   (ref) {

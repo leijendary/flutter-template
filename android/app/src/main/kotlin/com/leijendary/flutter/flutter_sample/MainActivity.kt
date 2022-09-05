@@ -1,4 +1,4 @@
-package com.leijendary.flutter.flutter_sample
+package com.leijendary.flutter.template
 
 import io.flutter.embedding.android.FlutterActivity
 

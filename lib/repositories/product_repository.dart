@@ -1,6 +1,6 @@
-import 'package:flutter_sample/databases/product_database.dart';
-import 'package:flutter_sample/models/Product.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:template/databases/product_database.dart';
+import 'package:template/models/Product.dart';
 
 final productRepositoryProvider = Provider((ref) {
   final productDatabase = ref.read(productDatabaseProvider);

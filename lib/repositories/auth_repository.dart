@@ -1,9 +1,9 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:flutter_sample/models/auth.dart';
-import 'package:flutter_sample/models/session.dart';
-import 'package:flutter_sample/utils/constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:template/models/auth.dart';
+import 'package:template/models/session.dart';
+import 'package:template/utils/constants.dart';
 
 final authRepositoryProvider = Provider((_) => AuthRepository());
 

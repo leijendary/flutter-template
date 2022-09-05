@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sample/widgets/top_bar_widget.dart';
+import 'package:template/widgets/top_bar_widget.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sample/providers/menu_provider.dart';
-import 'package:flutter_sample/utils/constants.dart';
-import 'package:flutter_sample/widgets/button_widget.dart';
-import 'package:flutter_sample/widgets/drawer_widget.dart';
-import 'package:flutter_sample/widgets/image_widget.dart';
-import 'package:flutter_sample/widgets/input_widget.dart';
-import 'package:flutter_sample/widgets/menu_widget.dart';
-import 'package:flutter_sample/widgets/sliver_widget.dart';
-import 'package:flutter_sample/widgets/tag_widget.dart';
-import 'package:flutter_sample/widgets/text_widget.dart';
-import 'package:flutter_sample/widgets/top_bar_widget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sliver_tools/sliver_tools.dart';
+import 'package:template/providers/menu_provider.dart';
+import 'package:template/utils/constants.dart';
+import 'package:template/widgets/button_widget.dart';
+import 'package:template/widgets/drawer_widget.dart';
+import 'package:template/widgets/image_widget.dart';
+import 'package:template/widgets/input_widget.dart';
+import 'package:template/widgets/menu_widget.dart';
+import 'package:template/widgets/sliver_widget.dart';
+import 'package:template/widgets/tag_widget.dart';
+import 'package:template/widgets/text_widget.dart';
+import 'package:template/widgets/top_bar_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

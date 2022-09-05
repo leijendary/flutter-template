@@ -5,13 +5,13 @@ import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sample/amplifyconfiguration.dart';
-import 'package:flutter_sample/firebase_options.dart';
-import 'package:flutter_sample/models/ModelProvider.dart';
-import 'package:flutter_sample/providers/session_provider.dart';
-import 'package:flutter_sample/utils/constants.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:template/amplifyconfiguration.dart';
+import 'package:template/firebase_options.dart';
+import 'package:template/models/ModelProvider.dart';
+import 'package:template/providers/session_provider.dart';
+import 'package:template/utils/constants.dart';
 
 Future<void> firebase() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);

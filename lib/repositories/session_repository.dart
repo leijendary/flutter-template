@@ -1,6 +1,6 @@
-import 'package:flutter_sample/databases/session_database.dart';
-import 'package:flutter_sample/models/session.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:template/databases/session_database.dart';
+import 'package:template/models/session.dart';
 
 final sessionRepositoryProvider = Provider((ref) {
   final sessionDatabase = ref.read(sessionDatabaseProvider);

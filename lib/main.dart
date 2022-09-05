@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_sample/plugin.dart';
-import 'package:flutter_sample/providers/session_provider.dart';
-import 'package:flutter_sample/router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:template/plugin.dart';
+import 'package:template/providers/session_provider.dart';
+import 'package:template/router.dart';
 
 const _colorScheme = ColorScheme(
   brightness: Brightness.light,

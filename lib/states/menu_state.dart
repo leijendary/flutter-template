@@ -1,4 +1,4 @@
-import 'package:flutter_sample/models/Menu.dart';
+import 'package:template/models/Menu.dart';
 
 class MenuState {
   MenuState({

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_sample/pages/sign_in_page.dart';
-import 'package:flutter_sample/providers/auth_provider.dart';
-import 'package:flutter_sample/providers/session_provider.dart';
-import 'package:flutter_sample/states/auth_state.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:template/pages/sign_in_page.dart';
+import 'package:template/providers/auth_provider.dart';
+import 'package:template/providers/session_provider.dart';
+import 'package:template/states/auth_state.dart';
 
 class AppDrawer extends HookConsumerWidget {
   const AppDrawer({super.key});

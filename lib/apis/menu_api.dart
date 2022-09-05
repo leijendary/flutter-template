@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_sample/models/ModelProvider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
+import 'package:template/models/ModelProvider.dart';
 
 final menuApiProvider = Provider((_) => MenuApi());
 

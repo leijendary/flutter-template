@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.leijendary.flutter.flutter_sample">
+    package="com.leijendary.flutter.template">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 

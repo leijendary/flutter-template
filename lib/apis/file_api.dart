@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:flutter_sample/utils/files.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as path;
+import 'package:template/utils/files.dart';
 
 final fileApiProvider = Provider((_) => FileApi());
 

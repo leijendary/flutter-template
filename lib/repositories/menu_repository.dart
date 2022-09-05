@@ -5,17 +5,17 @@ import 'package:amplify_api/model_mutations.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:flutter_sample/apis/file_api.dart';
-import 'package:flutter_sample/apis/menu_api.dart';
-import 'package:flutter_sample/databases/menu_database.dart';
-import 'package:flutter_sample/databases/product_database.dart';
-import 'package:flutter_sample/errors/graphql_exception.dart';
-import 'package:flutter_sample/models/ModelProvider.dart';
-import 'package:flutter_sample/utils/aws_api_auth.dart';
-import 'package:flutter_sample/utils/files.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:path/path.dart' as path;
+import 'package:template/apis/file_api.dart';
+import 'package:template/apis/menu_api.dart';
+import 'package:template/databases/menu_database.dart';
+import 'package:template/databases/product_database.dart';
+import 'package:template/errors/graphql_exception.dart';
+import 'package:template/models/ModelProvider.dart';
+import 'package:template/utils/aws_api_auth.dart';
+import 'package:template/utils/files.dart';
 
 final menuRepositoryProvider = Provider((ref) {
   final menuApi = ref.read(menuApiProvider);

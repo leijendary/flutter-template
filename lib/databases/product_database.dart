@@ -1,8 +1,8 @@
-import 'package:flutter_sample/models/Product.dart';
-import 'package:flutter_sample/utils/constants.dart';
-import 'package:flutter_sample/utils/extensions.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:template/models/Product.dart';
+import 'package:template/utils/constants.dart';
+import 'package:template/utils/extensions.dart';
 
 final productDatabaseProvider = Provider((_) {
   final box = Hive.box(Boxes.product);

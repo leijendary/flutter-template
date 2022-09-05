@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:293600011807:android:cd09e6deebbf6b3c9b172a",
         "android_client_info": {
-          "package_name": "com.leijendary.flutter.flutter_sample"
+          "package_name": "com.leijendary.flutter.template"
         }
       },
       "oauth_client": [

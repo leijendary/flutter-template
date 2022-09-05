@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sample/models/Product.dart';
-import 'package:flutter_sample/repositories/product_repository.dart';
-import 'package:flutter_sample/utils/constants.dart';
-import 'package:flutter_sample/widgets/button_widget.dart';
-import 'package:flutter_sample/widgets/image_widget.dart';
-import 'package:flutter_sample/widgets/sliver_widget.dart';
-import 'package:flutter_sample/widgets/text_widget.dart';
-import 'package:flutter_sample/widgets/top_bar_widget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:template/models/Product.dart';
+import 'package:template/repositories/product_repository.dart';
+import 'package:template/utils/constants.dart';
+import 'package:template/widgets/button_widget.dart';
+import 'package:template/widgets/image_widget.dart';
+import 'package:template/widgets/sliver_widget.dart';
+import 'package:template/widgets/text_widget.dart';
+import 'package:template/widgets/top_bar_widget.dart';
 
 class ProductDetailPage extends HookConsumerWidget {
   const ProductDetailPage({
